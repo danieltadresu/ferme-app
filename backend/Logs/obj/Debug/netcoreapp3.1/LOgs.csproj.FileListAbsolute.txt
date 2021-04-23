@@ -1,0 +1,12 @@
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/LOgs.deps.json
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/LOgs.runtimeconfig.json
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/LOgs.runtimeconfig.dev.json
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/LOgs.dll
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/LOgs.pdb
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.csprojAssemblyReference.cache
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.AssemblyInfoInputs.cache
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.AssemblyInfo.cs
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.csproj.CoreCompileInputs.cache
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.dll
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.pdb
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.genruntimeconfig.cache
