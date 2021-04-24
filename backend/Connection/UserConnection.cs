@@ -34,9 +34,11 @@ namespace Connection
     public static Boolean create (User user) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"INSERT INTO USERS (NAME) VALUES ('{user.Name}')";
+        //String query = $"INSERT INTO USERS (NAME) VALUES ('{user.Name}')";
+        String query = $"INSERT INTO USERS (NAME) VALUES (:pName)";
         oracleConnection.Open();
         OracleCommand command = oracleConnection.CreateCommand();  
+        command.Parameters.Add("pName", user.Name);
         command.CommandText = query;
         int data = command.ExecuteNonQuery();
         return data is 1 ? true : false;
