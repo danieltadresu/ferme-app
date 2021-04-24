@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Connection;
 using Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Services.Controllers
@@ -16,6 +17,7 @@ namespace Services.Controllers
   public class UserController : ControllerBase
   {
     // GET: api/user/all
+    [EnableCors("Policy")]
     [HttpGet("all")]
     public JsonResult GetUsers()
     {
@@ -29,6 +31,7 @@ namespace Services.Controllers
     [HttpPost]
     public void AddUser([FromBody]User user)
     {
+      Console.WriteLine(user);
       Connection.UserConnection.AddEntity(user);
     }
 

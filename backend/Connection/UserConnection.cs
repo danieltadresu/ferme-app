@@ -24,6 +24,7 @@ namespace Connection
         foreach (DataRow dr in dt.Rows)
         {
             User user = new User();
+            user.UserId = int.Parse(dr["USER_ID"].ToString());
             user.Name = dr["NAME"].ToString();
             users.Add(user);
         }
