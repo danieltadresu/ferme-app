@@ -23,12 +23,12 @@ namespace Logs
 
 
         
-        List<User> users = Connection.UserConnection.GetEntities();
+/*         List<User> users = Connection.UserConnection.GetEntities();
         Console.WriteLine($"Cantidad de registros en la tabla USERS >>> {users.Count}");
         if (Connection.UserConnection.AddEntity(user))
         {
             Console.WriteLine("Its true");
-        }
+        } */
         
       }
     }
