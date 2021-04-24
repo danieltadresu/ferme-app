@@ -10,3 +10,6 @@
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.dll
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.pdb
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.genruntimeconfig.cache
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/Models.dll
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/bin/Debug/netcoreapp3.1/Models.pdb
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/Debug/netcoreapp3.1/LOgs.csproj.CopyComplete

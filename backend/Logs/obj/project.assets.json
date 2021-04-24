@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Models.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Models/1.0.0": {
+      "type": "project",
+      "path": "../Models/Models.csproj",
+      "msbuildProject": "../Models/Models.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "Models >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/Users/daniel/.nuget/packages/": {}
@@ -13,9 +32,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
-      "projectName": "Logs",
-      "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
+      "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj",
+      "projectName": "LOgs",
+      "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj",
       "packagesPath": "/Users/daniel/.nuget/packages/",
       "outputPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/",
       "projectStyle": "PackageReference",
@@ -30,7 +49,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "/Users/daniel/Desktop/portafolio-duoc/app/backend/Models/Models.csproj": {
+              "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Models/Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
