@@ -880,11 +880,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
+      "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Logs/Logs.csproj",
       "projectName": "Logs",
-      "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
+      "projectPath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Logs/Logs.csproj",
       "packagesPath": "/Users/daniel/.nuget/packages/",
-      "outputPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/",
+      "outputPath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Logs/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/daniel/.nuget/NuGet/NuGet.Config"
@@ -898,11 +898,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/Connection.csproj": {
-              "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/Connection.csproj"
+            "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/Connection.csproj": {
+              "projectPath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/Connection.csproj"
             },
-            "/Users/daniel/Desktop/portafolio-duoc/app/backend/Models/Models.csproj": {
-              "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Models/Models.csproj"
+            "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Models/Models.csproj": {
+              "projectPath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Models/Models.csproj"
             }
           }
         }

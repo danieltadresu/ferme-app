@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6OZ0jIUFE/I6affyQ3hRY+j2M4Obg+vf/wUwCtGU164qpobDlEb2y4oZxTyFhVygy8576QCXFVw1t7pgmyPzVQ==",
+  "dgSpecHash": "Yf6a2DHQUDcO2gJOwcyE6InuMZLzSj1z5zMt0UAQL+HOnH0qnNrwdsvUi3VvRJrjindVvWkw9knV5ruOCk35qQ==",
   "success": true,
-  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/Connection.csproj",
+  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/Connection.csproj",
   "expectedPackageFiles": [
     "/Users/daniel/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/daniel/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",

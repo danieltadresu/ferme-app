@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jzO7OS9jAwGK5Xm7qzRM0uczmZkNXJlMN6r35N9RDAL+ili5gpKpzwrlYLrMCBNdrUb+9wWjV+wo4CNc5KqjUA==",
+  "dgSpecHash": "XI7DBnxZQ84SaTLyxR0YU9YxfHZT/0cRwTn5dKOFRA6eLzUN1WUnKpVMQSPXcoKuUxZZlYqPW+OJWkDvIL0Hyg==",
   "success": true,
-  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Models/Models.csproj",
+  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Models/Models.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
