@@ -60,8 +60,17 @@ namespace Connection
       }
     }
 
-    
-
-
+  public static Boolean DeleteEntity (User user) {
+    using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"DELETE FROM USERS WHERE USER_ID  = (:pUserId)";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();  
+        command.Parameters.Add("pUserId", user.UserId);
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
   }
 }
