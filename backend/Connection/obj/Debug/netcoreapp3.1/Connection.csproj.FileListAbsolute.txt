@@ -7,3 +7,6 @@
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csproj.CoreCompileInputs.cache
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.dll
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.pdb
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/bin/Debug/netcoreapp3.1/Models.dll
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/bin/Debug/netcoreapp3.1/Models.pdb
+/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csproj.CopyComplete

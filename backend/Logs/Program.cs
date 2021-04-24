@@ -1,5 +1,8 @@
 ﻿using System;
 using Models;
+using Connection;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 namespace Logs
 {
   class Program
@@ -9,6 +12,8 @@ namespace Logs
         User user = new User();
         Console.WriteLine("Hello World!");
         Console.WriteLine(user.GetData());
+        List<User> users = Connection.UserConnection.getAll();
+        Console.WriteLine($"Cantidad de registros en la tabla USERS >>> {users.Count}");
       }
     }
 }
