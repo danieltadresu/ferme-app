@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Card } from 'antd';
 
 const App = () => {
 
@@ -53,12 +54,22 @@ const App = () => {
           {allUsers.length > 0 && allUsers.map((item) => (
             <div
               style={
-                {maxWidth: '900px', 
-                margin: '2rem 0',
-              }}
+                {
+                  minWidth: '300px',
+                  margin: '1rem 0',
+                  padding: '1rem 1rem',
+                  border: '1px solid white',
+                  textAlign: 'left',
+                  borderRadius: '3px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
             >
-              <p style={{margin: '0px', padding: '0px'}}>
-                {item.userId} {item.name}
+              <p style={{margin: '0px', padding: '0px', fontSize: '.9rem', display: 'inline-block'}}>
+                {item.name}
+              </p>
+              <p style={{margin: '0px', padding: '0px', fontSize: '.9rem', display: 'inline-block'}}>
+                ID {item.userId}
               </p>
             </div>
           ))}
