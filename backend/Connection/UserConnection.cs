@@ -9,7 +9,7 @@ namespace Connection
   public class UserConnection
   {
     static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=database-1.cu6ntgmtazbg.us-east-2.rds.amazonaws.com:1521/DATABASE";
-    public static List<User> getAll () {
+    public static List<User> GetEntities () {
       List<User> users = new List<User>();
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
@@ -31,19 +31,36 @@ namespace Connection
       }
     }
 
-    public static Boolean create (User user) {
+    public static Boolean AddEntity (User user) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
         //String query = $"INSERT INTO USERS (NAME) VALUES ('{user.Name}')";
-        String query = $"INSERT INTO USERS (NAME) VALUES (:pName)";
+        String query = $"INSERT INTO USERS (USER_ID, NAME) VALUES (:pUserId, :pName)";
         oracleConnection.Open();
         OracleCommand command = oracleConnection.CreateCommand();  
+        command.Parameters.Add("pUserId", user.UserId);
         command.Parameters.Add("pName", user.Name);
         command.CommandText = query;
         int data = command.ExecuteNonQuery();
         return data is 1 ? true : false;
       }
     }
+
+    public static Boolean UpdateEntity (User user) {
+    using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"UPDATE USERS SET NAME = (:pName) WHERE USER_ID  = (:pUserId)";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();  
+        command.Parameters.Add("pName", user.Name);
+        command.Parameters.Add("pUserId", user.UserId);
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
+
+    
 
 
   }

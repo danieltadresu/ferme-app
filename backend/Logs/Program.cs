@@ -10,15 +10,23 @@ namespace Logs
     static void Main(string[] args)
       {
         User user = new User();
-        Console.WriteLine("Hello World!");
+        user.UserId = 0;
+        user.Name = "NICOLAS";
+
+        // Output del valor de retorno metodo GetData() del objeto User
         Console.WriteLine(user.GetData());
-        List<User> users = Connection.UserConnection.getAll();
+
+        // Output del valor de retorno metodo UpdateEntity() del objeto UserConnection
+        Console.WriteLine(Connection.UserConnection.UpdateEntity(user));
+
+        /*
+        List<User> users = Connection.UserConnection.GetEntities();
         Console.WriteLine($"Cantidad de registros en la tabla USERS >>> {users.Count}");
-        Console.WriteLine(Connection.UserConnection.create(user));
-        if (Connection.UserConnection.create(user))
+        if (Connection.UserConnection.AddEntity(user))
         {
             Console.WriteLine("Its true");
         }
+        */
       }
     }
 }
