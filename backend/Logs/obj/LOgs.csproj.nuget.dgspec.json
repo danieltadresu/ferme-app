@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj": {}
+    "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj": {}
   },
   "projects": {
     "/Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/Connection.csproj": {
@@ -64,12 +64,12 @@
         }
       }
     },
-    "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj": {
+    "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj",
-        "projectName": "LOgs",
-        "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj",
+        "projectUniqueName": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
+        "projectName": "Logs",
+        "projectPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
         "packagesPath": "/Users/daniel/.nuget/packages/",
         "outputPath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/obj/",
         "projectStyle": "PackageReference",

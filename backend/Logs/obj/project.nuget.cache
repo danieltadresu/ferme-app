@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ROy0UvAv44JSvmM7e449MRJhS6QiAbH7xqh8wyUkgK5tue8kVmtKFMS8TCchITnMEUc6kp4hpwixJ/qH48+vRA==",
+  "dgSpecHash": "bAVVOjLhQXPwLjwmNSn7FCDiDj9OqsB6tPYL+O2CCfyUShKyErQRP78n3MlbBpX90Y9AAdz81lxu4Wi5THQkXA==",
   "success": true,
-  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/LOgs.csproj",
+  "projectFilePath": "/Users/daniel/Desktop/portafolio-duoc/app/backend/Logs/Logs.csproj",
   "expectedPackageFiles": [
     "/Users/daniel/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/daniel/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",

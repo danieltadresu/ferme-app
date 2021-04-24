@@ -6,14 +6,14 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "LOgs/1.0.0": {
+      "Logs/1.0.0": {
         "dependencies": {
           "Connection": "1.0.0",
           "Models": "1.0.0",
           "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
-          "LOgs.dll": {}
+          "Logs.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/3.1.0": {},
@@ -252,7 +252,7 @@
     }
   },
   "libraries": {
-    "LOgs/1.0.0": {
+    "Logs/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -13,8 +13,8 @@ namespace Connection
       List<User> users = new List<User>();
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        oracleConnection.Open();
         String query = "SELECT * FROM USERS";
+        oracleConnection.Open();
         OracleDataAdapter adapter = new OracleDataAdapter(
           query, 
           oracleConnection
@@ -30,5 +30,19 @@ namespace Connection
         return users;
       }
     }
+
+    public static Boolean create (User user) {
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"INSERT INTO USERS (NAME) VALUES ('{user.Name}')";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();  
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
+
+
   }
 }
