@@ -10,19 +10,27 @@ using Newtonsoft.Json;
 
 namespace Services.Controllers
 {
-    //localhost:44386/api/planta
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+  //localhost:5001/api/user
+  [Route("api/[controller]")]
+  [ApiController]
+  public class UserController : ControllerBase
+  {
+    // GET: api/user/all
+    [HttpGet("all")]
+    public JsonResult GetUsers()
     {
-        // GET: api/planta/all
-        [HttpGet("all")]
-        public JsonResult GetUsers()
-        {
-          List<User> users = Connection.UserConnection.GetEntities();
-          var json = JsonConvert.SerializeObject(users);
-          Console.WriteLine(json);
-          return new JsonResult(users);
-        }
+      List<User> users = Connection.UserConnection.GetEntities();
+      var json = JsonConvert.SerializeObject(users);
+      Console.WriteLine(json);
+      return new JsonResult(users);
     }
+
+    //POST: api/user
+    [HttpPost]
+    public void AddUser([FromBody]User user)
+    {
+      Connection.UserConnection.AddEntity(user);
+    }
+  }
 }
+
