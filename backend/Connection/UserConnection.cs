@@ -24,6 +24,7 @@ namespace Connection
         foreach (DataRow dr in dt.Rows)
         {
             User user = new User();
+            user.UserId = int.Parse(dr["USER_ID"].ToString());
             user.Name = dr["NAME"].ToString();
             users.Add(user);
         }
@@ -60,13 +61,13 @@ namespace Connection
       }
     }
 
-  public static Boolean DeleteEntity (User user) {
+  public static Boolean DeleteEntity (int userId) {
     using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
         String query = $"DELETE FROM USERS WHERE USER_ID  = (:pUserId)";
         oracleConnection.Open();
         OracleCommand command = oracleConnection.CreateCommand();  
-        command.Parameters.Add("pUserId", user.UserId);
+        command.Parameters.Add("pUserId", userId);
         command.CommandText = query;
         int data = command.ExecuteNonQuery();
         return data is 1 ? true : false;

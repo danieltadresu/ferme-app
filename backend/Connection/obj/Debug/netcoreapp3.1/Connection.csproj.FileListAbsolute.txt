@@ -10,3 +10,15 @@
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/bin/Debug/netcoreapp3.1/Models.dll
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/bin/Debug/netcoreapp3.1/Models.pdb
 /Users/daniel/Desktop/portafolio-duoc/app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csproj.CopyComplete
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/bin/Debug/netcoreapp3.1/Connection.deps.json
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/bin/Debug/netcoreapp3.1/Connection.dll
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/bin/Debug/netcoreapp3.1/Connection.pdb
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/bin/Debug/netcoreapp3.1/Models.dll
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/bin/Debug/netcoreapp3.1/Models.pdb
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csprojAssemblyReference.cache
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.AssemblyInfoInputs.cache
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.AssemblyInfo.cs
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csproj.CoreCompileInputs.cache
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.csproj.CopyComplete
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.dll
+/Users/daniel/Desktop/portafolio-duoc/portafolio-app/backend/Connection/obj/Debug/netcoreapp3.1/Connection.pdb

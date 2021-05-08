@@ -10,10 +10,10 @@ namespace Logs
     static void Main(string[] args)
       {
         User user = new User();
-        user.UserId = 0;
+        user.UserId = 1;
         user.Name = "NICOLAS";
-
-        Console.WriteLine(Connection.UserConnection.DeleteEntity(user));
+/* 
+        Console.WriteLine(Connection.UserConnection.DeleteEntity(user)); */
         // Output del valor de retorno metodo GetData() del objeto User
         //Console.WriteLine(user.GetData());
 
@@ -22,14 +22,14 @@ namespace Logs
 
 
 
-        /*
-        List<User> users = Connection.UserConnection.GetEntities();
+        
+/*         List<User> users = Connection.UserConnection.GetEntities();
         Console.WriteLine($"Cantidad de registros en la tabla USERS >>> {users.Count}");
         if (Connection.UserConnection.AddEntity(user))
         {
             Console.WriteLine("Its true");
-        }
-        */
+        } */
+        
       }
     }
 }
