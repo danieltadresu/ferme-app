@@ -30,7 +30,7 @@ namespace ferme_api
                     options.AddPolicy("Policy",
                         builder =>
                         {
-                            builder.WithOrigins("http://localhost:3000");
+                            builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
                         });
                 });
             services.AddControllers();
