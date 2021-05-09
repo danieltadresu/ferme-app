@@ -55,8 +55,6 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const loginHandler = (token, expirationTime) => {
-    console.log('token :>> ', token);
-    console.log('expirationTime :>> ', expirationTime);
     setToken(token);
     localStorage.setItem('token', token);
     localStorage.setItem('expirationTime', expirationTime);
@@ -66,7 +64,6 @@ export const AuthContextProvider = (props) => {
 
   useEffect(() => {
     if (tokenData) {
-      console.log('tokenData.duration :>> ', tokenData.duration);
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
   }, [tokenData, logoutHandler]);
