@@ -1,61 +1,33 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { Button } from 'antd';
+import React from 'react';
+import { useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import Auth from './pages/Auth';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import AuthContext from './store/auth-context';
 
 const App = () => {
-
-  const [isVisible, setIsVisible] = useState(false);
-  const [allUsers, setAllUsers] = useState([]);
-
-  const orderHandler = (value) => {
-    setIsVisible(value);
-    const fetchUsers = new Promise((resolve) => {
-      fetch('https://localhost:5001/api/user/all')
-        .then(response => response.json())
-        .then((data) => {
-          resolve(data)
-        });
-    });
-
-    fetchUsers.then((responseData) => {
-      setAllUsers(responseData);
-      console.log('responseData :>> ', responseData);
-    })
-  };
-
-  const submitHandler = () => {
-    const userData = {
-      userId: 100,
-      name: 'Daniel'
-    };
-    const response = new Promise((resolve) => {
-      fetch('https://localhost:5001/api/auth/signin', {
-        method: 'POST',
-        body: JSON.stringify(userData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      .then((responseData) => {
-        resolve(responseData);
-      })
-    })
-    response.then((data) => {
-      console.log(data);
-    })
-  };
-
+  const authCtx = useContext(AuthContext);
 
   return (
     <div className="App">
-      <Button onClick={orderHandler}>
-        Click me
-      </Button>
-
-      <Button onClick={submitHandler}>
-        Click me
-      </Button>
+      <Switch>
+        <Route path="/" exact>
+          <Home />
+        </Route>
+        {!authCtx.isLoggedIn && (
+          <Route path="/acceso">
+            <Auth />
+          </Route>
+        )}
+        <Route path="/profile">
+          {authCtx.isLoggedIn && <Profile />}
+          {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
+        </Route>
+        <Route path='*'>
+          <Redirect to="/" />
+        </Route>
+      </Switch>
     </div>
   );
 }
