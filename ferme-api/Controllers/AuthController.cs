@@ -23,13 +23,10 @@ namespace Services.Controllers
     //POST: api/auth/login
     [EnableCors("Policy")]
     [HttpPost("login")]
-    public IActionResult SignIn([FromBody]Object user)
+    public JsonResult SignIn([FromBody]Object user)
     {
       String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
       String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
-      Console.WriteLine(email);
-      Console.WriteLine(password);
-
       Boolean foundUser = false;
       foreach (var item in Connection.UserConnection.GetEntities())
       {
@@ -42,12 +39,15 @@ namespace Services.Controllers
             }
         }
       }
-
       if (foundUser)
       {
-        return Ok();
+        User loggedUser = new User();
+        return new JsonResult(loggedUser);
       } else {
-        return Problem();
+        Error404 error = new Error404();
+        error.Status = 404;
+        error.Message = "Recurso no encontrado";
+        return new JsonResult(error);
       }
     }
   }

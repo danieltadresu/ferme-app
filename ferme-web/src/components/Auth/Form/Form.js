@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classes from './Form.module.css';
+import axios from 'axios';
 
 const Form = (props) => {
 
@@ -31,6 +32,17 @@ const Form = (props) => {
         props.login(event);
       }
     })
+
+    axios.post('https://localhost:5001/api/auth/login', dataUser)
+    .then(function (response) {
+      console.log(response);
+      if (response.data.status === 404) {
+        
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   return (
