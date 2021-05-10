@@ -1,10 +1,36 @@
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import classes from './Form.module.css';
 
 const Form = (props) => {
 
+  const email = useRef();
+  const password = useRef();
+
   const loginHandler = (event) => {
-    props.login(event);
+    event.preventDefault();
+    const dataUser = {
+      email: email.current.value,
+      password: password.current.value
+    };
+    console.log(dataUser);
+    const response = new Promise((resolve) => {
+      fetch('https://localhost:5001/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataUser)
+      })
+      .then((responseData) => {
+        resolve(responseData);
+      })
+    })
+    response.then((data) => {
+      if (data.status === 200) {
+        props.login(event);
+      }
+    })
   }
 
   return (
@@ -16,13 +42,13 @@ const Form = (props) => {
               <label>
                 Email
               </label>
-              <input type="email" />
+              <input type="email" ref={email} />
             </div>
             <div className={classes.form_item}>
               <label>
                 Contraseña
               </label>
-              <input type="password" />
+              <input type="password" ref={password} />
             </div>
             <div className={classes.form_item}>
               <button className={classes.button}>

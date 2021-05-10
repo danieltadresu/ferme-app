@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0Tf/SXGTeg942yf1kXARF3dBXFUTb1/N6efwK+9Q+T6nUA+EYsyqfZo/0tiGSbDKgMs0/0Jp/y9kWlBof+HUpQ==",
+  "dgSpecHash": "5AvE0mfiZPlnt/wUi8AxNGWRuK0pcyQWp8zQBBg1ETjTwT+N/BGdI5I2DEiG0/yXL8xxCvXTy1gpia1Oxjy4+Q==",
   "success": true,
-  "projectFilePath": "/Users/daniel/Desktop/ferme-app/ferme-api/ferme-api.csproj",
+  "projectFilePath": "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/ferme-api.csproj",
   "expectedPackageFiles": [
     "/Users/daniel/.nuget/packages/microsoft.netcore.platforms/3.1.0/microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "/Users/daniel/.nuget/packages/microsoft.win32.registry/4.7.0/microsoft.win32.registry.4.7.0.nupkg.sha512",
