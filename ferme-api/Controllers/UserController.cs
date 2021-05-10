@@ -7,6 +7,7 @@ using Connection;
 using Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Services.Controllers
@@ -27,26 +28,22 @@ namespace Services.Controllers
       return new JsonResult(users);
     }
 
+    // GET: api/user/
+    [EnableCors("Policy")]
+    [HttpGet("{id}")]
+    public JsonResult GetUser(int id)
+    {
+      User user = Connection.UserConnection.GetEntity(id);
+      Console.WriteLine(user.Email);
+      return new JsonResult(user);
+    }
+
     //POST: api/user
     [HttpPost]
-    public void AddUser([FromBody]User user)
+    public JsonResult AddUser([FromBody]User user)
     {
-      Console.WriteLine(user);
       Connection.UserConnection.AddEntity(user);
-    }
-
-    // PUT api/user/{id}
-    [HttpPut("{id}")]
-    public void UpdateUser(int id, [FromBody]User user)
-    {
-      Connection.UserConnection.UpdateEntity(user);
-    }
-
-    // PUT api/user/{id}
-    [HttpDelete("{id}")]
-    public void DeleteUser(int id)
-    {
-      Console.WriteLine(Connection.UserConnection.DeleteEntity(id));
+      return new JsonResult(user);
     }
   }
 }

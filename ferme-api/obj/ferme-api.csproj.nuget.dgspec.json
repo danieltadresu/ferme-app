@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/daniel/Desktop/ferme-app/ferme-api/ferme-api.csproj": {}
+    "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/ferme-api.csproj": {}
   },
   "projects": {
-    "/Users/daniel/Desktop/ferme-app/ferme-api/ferme-api.csproj": {
+    "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/ferme-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/daniel/Desktop/ferme-app/ferme-api/ferme-api.csproj",
+        "projectUniqueName": "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/ferme-api.csproj",
         "projectName": "ferme-api",
-        "projectPath": "/Users/daniel/Desktop/ferme-app/ferme-api/ferme-api.csproj",
+        "projectPath": "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/ferme-api.csproj",
         "packagesPath": "/Users/daniel/.nuget/packages/",
-        "outputPath": "/Users/daniel/Desktop/ferme-app/ferme-api/obj/",
+        "outputPath": "/Users/daniel/Desktop/dev-portafolio/ferme-app/ferme-api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/daniel/.nuget/NuGet/NuGet.Config"

@@ -4,26 +4,41 @@ namespace Models
 {
   public class User
   {
-    private Double userId;
-    public Double UserId
+    private Double id;
+    public Double Id
     {
-      get { return userId; }
-      set { userId = value; }
+      get { return id; }
+      set { id = value; }
     }
-    private String name;
-    public String Name
+    private Double personId;
+    public Double PersonId
     {
-      get { return name; }
-      set { name = value; }
+      get { return personId; }
+      set { personId = value; }
     }
 
+    private String email;
+    public String Email
+    {
+      get { return email; }
+      set { email = value; }
+    }
+
+    private String password;
+    public String Password
+    {
+      get { return password; }
+      set { password = value; }
+    }
     public User () {
       Init();
     }
 
     private void Init() {
-      UserId = 0;
-      Name = "John Doe";
+      Id = 0;
+      PersonId = 0;
+      Email = "example@example.com";
+      Password = "randompassword";
     }
   };
 };

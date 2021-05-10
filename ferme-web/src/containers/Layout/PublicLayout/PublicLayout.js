@@ -1,11 +1,10 @@
 import { useContext } from 'react';
 import React from 'react';
-import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
+import classes from './PublicLayout.module.css';
 const PublicLayout = () => {
   const authCtx = useContext(AuthContext)
-  const { Header, Content } = Layout;
   const isLoggedIn = authCtx.isLoggedIn;
 
   const logoutHandler = () => {
@@ -14,35 +13,39 @@ const PublicLayout = () => {
 
   return (
     <>
-      <Layout>
-        <Header>
-          <ul>
-            <li>
+      <div className={classes.container_public_layout}>
+        <header className={classes.header}>
+          <ul className={classes.menu}>
+            <li className={classes.menu_item}>
               <Link to="/">Home</Link>
             </li>
             {!isLoggedIn && (
-              <li>
+              <li className={classes.menu_item}>
                 <Link to="/acceso">Login</Link>
               </li>
             )}
             {isLoggedIn && (
-              <li>
+              <li className={classes.menu_item}>
                 <Link to="/profile">Profile</Link>
               </li>
             )}
             {isLoggedIn && (
-              <li>
+              <li className={classes.menu_item}>
                 <button onClick={logoutHandler}>
                   Logout
                 </button>
               </li>
             )}
           </ul>
-        </Header>
-        <Content>
-          <p>Content</p>
-        </Content>
-      </Layout>
+        </header>
+        <section>
+          <p>1. LANDING PAGE</p>
+          <p>2. LISTA DE CATEGORÍAS</p>
+          <p>3. LISTA DE PRODUCTOS MAS VENDIDOS</p>
+          <p>4. CONTACTO</p>
+          <p>5. FOOTER</p>
+        </section>
+      </div>
     </>
   )
 };
