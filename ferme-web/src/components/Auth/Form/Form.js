@@ -16,7 +16,10 @@ const Form = (props) => {
     };
     axios.post('https://localhost:5001/api/auth/login', dataUser)
     .then((response) => {
-      console.log(response);
+      const isLogin = [202].includes(response.data.status) && true;
+      if (isLogin) {
+        props.login(event);
+      }
     })
     .catch((error) => {
       console.log(error);

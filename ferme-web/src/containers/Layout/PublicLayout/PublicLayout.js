@@ -20,9 +20,14 @@ const PublicLayout = () => {
               <Link to="/">Home</Link>
             </li>
             {!isLoggedIn && (
-              <li className={classes.menu_item}>
-                <Link to="/acceso">Login</Link>
-              </li>
+              <>
+                <li className={classes.menu_item}>
+                  <Link to="/acceso">Sign in</Link>
+                </li>
+                <li>
+                  <Link to="/">Sign up</Link>
+                </li>
+              </>
             )}
             {isLoggedIn && (
               <li className={classes.menu_item}>
@@ -32,7 +37,7 @@ const PublicLayout = () => {
             {isLoggedIn && (
               <li className={classes.menu_item}>
                 <button onClick={logoutHandler}>
-                  Logout
+                  Sign out
                 </button>
               </li>
             )}
