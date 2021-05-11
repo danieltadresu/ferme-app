@@ -14,33 +14,11 @@ const Form = (props) => {
       email: email.current.value,
       password: password.current.value
     };
-    console.log(dataUser);
-    const response = new Promise((resolve) => {
-      fetch('https://localhost:5001/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataUser)
-      })
-      .then((responseData) => {
-        resolve(responseData);
-      })
-    })
-    response.then((data) => {
-      if (data.status === 200) {
-        props.login(event);
-      }
-    })
-
     axios.post('https://localhost:5001/api/auth/login', dataUser)
-    .then(function (response) {
+    .then((response) => {
       console.log(response);
-      if (response.data.status === 404) {
-        
-      }
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(error);
     });
   }

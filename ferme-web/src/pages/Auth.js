@@ -9,7 +9,6 @@ const Auth = () => {
 
   const login = (event) => {
     console.log('test');
-    
     event.preventDefault();
     const expirationTime = new Date(new Date().getTime() + 10000);
     authCtx.login('token-id-1', expirationTime.toISOString());

@@ -24,12 +24,12 @@ namespace Connection
         adapter.Fill(dt);
         foreach (DataRow dr in dt.Rows)
         {
-            User user = new User();
-            user.Id = int.Parse(dr["ID"].ToString());
-            user.PersonId = int.Parse(dr["PERSON_ID"].ToString());
-            user.Email = dr["EMAIL"].ToString();
-            user.Password = dr["PASSWORD"].ToString();
-            users.Add(user);
+          User user = new User();
+          user.Id = int.Parse(dr["ID"].ToString());
+          user.PersonId = int.Parse(dr["PERSON_ID"].ToString());
+          user.Email = dr["EMAIL"].ToString();
+          user.Password = dr["PASSWORD"].ToString();
+          users.Add(user);
         }
         return users;
       }
@@ -49,12 +49,12 @@ namespace Connection
         adapter.Fill(dt);
         foreach (DataRow dr in dt.Rows)
         {
-            User user = new User();
-            user.Id = int.Parse(dr["ID"].ToString());
-            user.PersonId = int.Parse(dr["PERSON_ID"].ToString());
-            user.Email = dr["EMAIL"].ToString();
-            user.Password = dr["PASSWORD"].ToString();
-            users.Add(user);
+          User user = new User();
+          user.Id = int.Parse(dr["ID"].ToString());
+          user.PersonId = int.Parse(dr["PERSON_ID"].ToString());
+          user.Email = dr["EMAIL"].ToString();
+          user.Password = dr["PASSWORD"].ToString();
+          users.Add(user);
         }
         return users[0];
       }

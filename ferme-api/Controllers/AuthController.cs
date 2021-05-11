@@ -27,26 +27,44 @@ namespace Services.Controllers
     {
       String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
       String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
+      //Console.WriteLine(email);
+      //Console.WriteLine(password);
       Boolean foundUser = false;
+      User selectedUser = new User();
       foreach (var item in Connection.UserConnection.GetEntities())
       {
         if (item.Email == email)
         {
-            if (item.Password == password)
-            {
-              foundUser = true;
-              break;
-            }
+          if (item.Password == password)
+          {
+            selectedUser.Id = item.Id;
+            selectedUser.PersonId = item.PersonId;
+            selectedUser.Email = item.Email;
+            selectedUser.Password = item.Password;
+            foundUser = true;
+            break;
+          }
         }
       }
       if (foundUser)
       {
-        User loggedUser = new User();
-        return new JsonResult(loggedUser);
+        UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(selectedUser.Id);
+        Role role = Connection.RoleConnection.GetEntity(userRole.Id);
+        Person person = Connection.PersonConnection.GetEntity(selectedUser.PersonId);
+        Console.WriteLine(person.LastName);
+        Authenticate authenticate = new Authenticate() {
+          Status = 202,
+          Message = "Found",
+          Token = "DummyToken",
+          RoleName = role.Name,
+          RoleId = role.Id,
+          PersonName = $"{person.FirstName} {person.LastName}"
+        };
+        return new JsonResult(authenticate);
       } else {
         Error404 error = new Error404();
         error.Status = 404;
-        error.Message = "Recurso no encontrado";
+        error.Message = "Not Found";
         return new JsonResult(error);
       }
     }

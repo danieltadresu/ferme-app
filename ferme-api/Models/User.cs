@@ -4,14 +4,14 @@ namespace Models
 {
   public class User
   {
-    private Double id;
-    public Double Id
+    private int id;
+    public int Id
     {
       get { return id; }
       set { id = value; }
     }
-    private Double personId;
-    public Double PersonId
+    private int personId;
+    public int PersonId
     {
       get { return personId; }
       set { personId = value; }
