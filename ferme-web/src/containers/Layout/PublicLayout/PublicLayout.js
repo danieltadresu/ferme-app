@@ -11,6 +11,13 @@ const PublicLayout = () => {
     authCtx.logout();
   };
 
+  const localStorageHandler = () => {
+    console.log('localStorageHandler runs :>>');
+    console.log('authCtx.isLoggedIn :>> ', authCtx.isLoggedIn);
+    console.log('authCtx.token :>> ', authCtx.token);
+    console.log('authCtx.roleAccess :>> ', authCtx.roleAccess);
+  };
+
   return (
     <>
       <div className={classes.container_public_layout}>
@@ -32,28 +39,17 @@ const PublicLayout = () => {
                 </li>
               </>
             )}
-            {isLoggedIn && authCtx.token === 'token-id-1' && (
+            {isLoggedIn && (
               <>
                 <li className={classes.menu_item}>
                   <Link to="/profile">Orders</Link>
                 </li>
                 <li className={classes.menu_item}>
-                  <Link to="/profile">Add Product</Link>
-                </li>
-                <li className={classes.menu_item}>
                   <Link to="/profile">Admin Products</Link>
                 </li>
-              </>
-            )}
-            {isLoggedIn && authCtx.token === 'token-id-2' && (
-              <>
                 <li className={classes.menu_item}>
                   <Link to="/profile">Add Product</Link>
                 </li>
-              </>
-            )}
-            {isLoggedIn && (
-              <>
                 <li className={classes.menu_item}>
                   <Link to="/profile">Cart</Link>
                 </li>
@@ -75,6 +71,9 @@ const PublicLayout = () => {
           <p>3. LISTA DE PRODUCTOS MAS VENDIDOS</p>
           <p>4. CONTACTO</p>
           <p>5. FOOTER</p>
+          <button onClick={localStorageHandler}>
+            localStorage
+          </button>
         </section>
       </div>
     </>
