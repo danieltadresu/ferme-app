@@ -19,27 +19,53 @@ const PublicLayout = () => {
             <li className={classes.menu_item}>
               <Link to="/">Home</Link>
             </li>
+            <li className={classes.menu_item}>
+              <Link to="/">Shop</Link>
+            </li>
             {!isLoggedIn && (
               <>
                 <li className={classes.menu_item}>
                   <Link to="/acceso">Sign in</Link>
                 </li>
-                <li>
+                <li className={classes.menu_item}>
                   <Link to="/">Sign up</Link>
                 </li>
               </>
             )}
-            {isLoggedIn && (
-              <li className={classes.menu_item}>
-                <Link to="/profile">Profile</Link>
-              </li>
+            {isLoggedIn && authCtx.token === 'token-id-1' && (
+              <>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Orders</Link>
+                </li>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Add Product</Link>
+                </li>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Admin Products</Link>
+                </li>
+              </>
+            )}
+            {isLoggedIn && authCtx.token === 'token-id-2' && (
+              <>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Add Product</Link>
+                </li>
+              </>
             )}
             {isLoggedIn && (
-              <li className={classes.menu_item}>
-                <button onClick={logoutHandler}>
-                  Sign out
-                </button>
-              </li>
+              <>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Cart</Link>
+                </li>
+                <li className={classes.menu_item}>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li className={classes.menu_item}>
+                  <button onClick={logoutHandler}>
+                    Sign out
+                  </button>
+                </li>
+              </>
             )}
           </ul>
         </header>
