@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
 import classes from './PublicLayout.module.css';
+import Header from '../../../components/PublicLayout/Header/Header';
 const PublicLayout = () => {
   const authCtx = useContext(AuthContext)
   const isLoggedIn = authCtx.isLoggedIn;
@@ -20,7 +21,8 @@ const PublicLayout = () => {
 
   return (
     <>
-      <div className={classes.container_public_layout}>
+      <Header />
+      {/* <div className={classes.container_public_layout}>
         <header className={classes.header}>
           <ul className={classes.menu}>
             <li className={classes.menu_item}>
@@ -75,7 +77,7 @@ const PublicLayout = () => {
             localStorage
           </button>
         </section>
-      </div>
+      </div> */}
     </>
   )
 };
