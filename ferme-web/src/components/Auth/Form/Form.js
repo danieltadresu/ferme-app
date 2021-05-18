@@ -18,7 +18,11 @@ const Form = (props) => {
     .then((response) => {
       const isLogin = [202].includes(response.data.status) && true;
       if (isLogin) {
-        props.login(event, response.data.roleId);
+        props.login(
+          event, 
+          response.data.roleName,
+          response.data.personName,
+        );
       }
     })
     .catch((error) => {
