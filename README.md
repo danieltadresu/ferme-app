@@ -25,6 +25,7 @@ Desarrollamos una aplicación web orientada como una solución a un caso fictici
 * Facturas y boletas
 * Stock de productos
 * Categorización de productos
+* Generación de reportería
 
 La solución fue desarrollada con React en el frontend, .Net Core como backend (API RESTful) y Oracle en base de datos.
 
