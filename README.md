@@ -31,7 +31,18 @@ La solución fue desarrollada con React en el frontend, .Net Core como backend (
 
 ## Requisitos para la instalación
 
-* Tener instalado el SDK de .NET Core. Puedes revisar las instruccines acá
+1. Tener instalado el SDK de .NET Core. Puedes revisar las instruccines [acá](https://dotnet.microsoft.com/download)
+2. Tener instalado Node.js (y el administrador de paquetes NPM). Puedes ver las instrucciones [acá](https://nodejs.org/es/download/)
+
+## Instrucciones para instalación y uso
+
+1. Clonar este proyecto en una ubicación local.
+2. Dentro de la raíz del proyecto, acceder al directorio ./ferme-web y ejecutar el comando npm install (dentro del mismo directorio) para instalar paquetes asociados a Node.js y React.
+3. Luego de haber realizado el paso 2, ejecutar el comando npm start
+4. Dentro de la raíz del proyecto, acceder al directorio ./ferme-api y ejecutar el comando dotnet run
+5. Para acceder al sistema, se creó un usuario con rol de Administrador con los siguientes datos:
+* Email de usuario: danieldev1999@gmail.com
+* Password: 123
 
 ## ¿Dudas o comentarios?
 
