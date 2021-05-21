@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
   background-color: white;
-  margin: 10rem 0;
+  margin: 8rem 0;
 }
 
 .form {
@@ -12,10 +12,34 @@
 .form_item {
   width: 50%;
   min-width: 250px;
-  max-width: 450px;
-  margin: 1rem auto;
+  max-width: 350px;
+  margin: .5rem auto;
   display: flex;
   flex-direction: column;
+}
+
+.form_item_botton {
+  width: 50%;
+  min-width: 250px;
+  max-width: 350px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form_item_account {
+  width: 50%;
+  min-width: 250px;
+  max-width: 350px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.create_account {
+  color: #111827;
+  cursor: pointer;
 }
 
 label {
@@ -23,9 +47,10 @@ label {
   padding: .5rem 0;
 }
 
-input {
+.form_input {
   display: block;
-  padding: .3rem .3rem;
+  padding: .6rem .6rem;
+  height: .7rem;
 }
 
 .button {

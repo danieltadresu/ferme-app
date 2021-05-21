@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import classes from './Header.module.css';
 import windowSize from '../../../utils/hooks/useWindowSize';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
 
 const Header = () => {
@@ -9,17 +9,18 @@ const Header = () => {
   const isLoggedIn = authCtx.isLoggedIn;
   const { width } = windowSize();
   const [ mobileNavigation, setMobileNavigation ] = useState(false);
+  console.log('authCtx. :>> ', authCtx.roleAccess);
 
   useEffect(() => {
-    setMobileNavigation(width <= 600);
-  }, [width])
+    setMobileNavigation(width <= 1070);
+  }, [width]);
 
 
   return <React.Fragment>
     <header className={classes.header}>
       <nav className={classes.navigation}>
         <div className={classes['logo-container']}>
-          <h2 href="/" className={classes.item}>Ferme Store</h2>
+          <p href="/" className={classes.item} style={{margin: '0', fontSize: '1rem'}}>Ferme Store</p>
         </div>
         {!mobileNavigation ? (
           <div className={classes['items-container']}>
@@ -41,25 +42,46 @@ const Header = () => {
               </li>
                */}
               <li className={classes['li-item']}>
-                <Link to="/" className={classes['item-list']}>
+                <NavLink activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }} to="/" className={classes['item-list']} exact>
                   Catalogo
-                </Link>
+                </NavLink>
               </li>
               {!isLoggedIn && (
                 <>
                 <li className={classes['li-item']}>
-                  <Link to="/acceso" className={classes['item-list']}>
+                  <NavLink activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }} to="/acceso" className={classes['item-list']} exact>
                     Acceso
-                  </Link>
+                  </NavLink>
                 </li>
                 </>
               )}
               {isLoggedIn  && (
                 <>
                   <li className={classes['li-item']}>
-                    <Link to="/" className={classes['item-list']}>
+                    <NavLink
+                      to="/orders"
+                      className={classes['item-list']}
+                      activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }}
+                    >
+                      Ordenes
+                    </NavLink>
+                  </li>
+                  {(authCtx.roleAccess === 'ADMIN' || authCtx.roleAccess === 'PROVIDER') && (
+                    <li className={classes['li-item']}>
+                      <NavLink
+                        activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }}
+                        to="/operations"
+                        className={classes['item-list']}
+                        exact
+                      >
+                        Operaciones
+                      </NavLink>
+                    </li>
+                  )}
+                  <li className={classes['li-item']}>
+                    <NavLink to="/" className={classes['item-list']}>
                       Carrito
-                    </Link>
+                    </NavLink>
                   </li>
                   <li className={classes['li-item']}>
                     <span className={classes.item}>

@@ -9,7 +9,7 @@ const Auth = () => {
 
   const login = (event, roleAccess, userName) => {
     event.preventDefault();
-    const expirationTime = new Date(new Date().getTime() + 10000);
+    const expirationTime = new Date(new Date().getTime() + 60000);
     authCtx.login(
       `token-id-${roleAccess}`,
       expirationTime.toISOString(),

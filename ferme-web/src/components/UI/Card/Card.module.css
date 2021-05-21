@@ -24,3 +24,7 @@
 .filter-option.active label {
   font-weight: bold;
 }
+
+.card-md {
+  width: 200px;
+}
