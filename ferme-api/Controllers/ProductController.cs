@@ -53,7 +53,8 @@ namespace Services.Controllers
         CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
         ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId
       };
-      return new JsonResult(Connection.ProductConnection.GetEntity(newProduct.Id));
+      Console.WriteLine(Connection.ProductConnection.AddEntity(newProduct));
+      return new JsonResult(newProduct);
     }
 
     // GET: api/product/all
@@ -79,31 +80,45 @@ namespace Services.Controllers
     }
 
     // POST: api/product/all/{id}
-    /// <summary>
-    ///    This method returns 
-    ///    the given products by id 
-    /// <example>ID value:
-    /// <code>
-    ///   1 = best Selling Products
-    ///   2 = the Cheapest Products
-    ///   3 = by category id
-    /// </code>
-    /// </example>
-    /// </summary>
     [EnableCors("Policy")]
     [HttpPost("all/{id}")]
-    public JsonResult FetchProductsFilteredAll(int id, [FromBody]Object payload)
+    public JsonResult FetchProductsFiltered(int id, [FromBody]Object filterType)
     {
-      // Product p = JsonSerializer.Deserialize<Product>(payload);
-      // Console.WriteLine(payload);
-      // Console.WriteLine(id);
+      Models.Product productFilterType = new Models.Product() {
+        FilterType = JsonConvert.DeserializeObject<Models.Product>(filterType.ToString()).FilterType
+      };
+      List<Models.Product> filteredProducts = null;
+      int filterCheapestProducts = 2;
+      int filterSellingProducts = 1;
 
-      // int filterParameter = id;
-      // List<Models.Product> filteredProducts = Connection.ProductConnection
-      //   .GetEntities()
-      //   .Where(c => c.CategoryId.Equals(filterParameter))
-      //   .ToList();
-      return new JsonResult(1);
+      if (productFilterType.FilterType)
+      {
+        filteredProducts = Connection.ProductConnection
+          .GetEntities()
+          .Where(c => c.CategoryId.Equals(id))
+          .ToList();        
+      }
+      else if (!productFilterType.FilterType && (id.Equals(filterCheapestProducts))) 
+      {
+        List<Models.Product> allProducts = Connection.ProductConnection.GetEntities();
+        filteredProducts = (
+          from product in allProducts
+          orderby product.Price
+          ascending
+          select product
+        ).ToList();
+      }
+      else if (!productFilterType.FilterType && (id.Equals(filterSellingProducts)))
+      {
+        List<Models.Product> allProducts = Connection.ProductConnection.GetEntities();
+        filteredProducts = (
+          from product in allProducts
+          orderby product.Stock
+          ascending
+          select product
+        ).ToList();
+      };
+      return new JsonResult(filteredProducts);
     }
 
     // GET: api/product/
@@ -112,7 +127,6 @@ namespace Services.Controllers
     public JsonResult GetUser(int id)
     {
       Models.Product product = Connection.ProductConnection.GetEntity(id);
-      Console.WriteLine(product.Id);
       return new JsonResult(product);
     }
   }

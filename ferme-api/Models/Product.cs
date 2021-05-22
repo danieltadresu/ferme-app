@@ -82,6 +82,13 @@ namespace Models
       set { providerId = value; }
     }
 
+    private Boolean filterType;
+    public Boolean FilterType
+    {
+      get { return filterType; }
+      set{ filterType = value; }
+    }
+
     public Product () {
       Init();
     }
@@ -97,6 +104,7 @@ namespace Models
       ImageUrl = null;
       CategoryId = 0;
       ProviderId = 0;
+      FilterType = false;
     }
 
     public String GetData() {
