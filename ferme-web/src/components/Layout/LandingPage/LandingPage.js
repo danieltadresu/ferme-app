@@ -53,12 +53,12 @@ const App = () => {
                   <div className={classes['steps-action']}>
                     {current > 0 && (
                       <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                        Previous
+                        Anterior
                       </Button>
                     )}
                     {current < steps.length - 1 && (
                       <Button type="primary" onClick={() => next()}>
-                        Next
+                        Siguiente
                       </Button>
                     )}
                   </div>
