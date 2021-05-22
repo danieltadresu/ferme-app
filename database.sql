@@ -78,18 +78,28 @@ INSERT INTO Person (id, last_name, first_name, commune_id) VALUES (2, 'PEDRO', '
 INSERT INTO Person (id, last_name, first_name, commune_id) VALUES (3, 'MARIA', 'VENTO', 1);
 INSERT INTO Roles (id, name) VALUES (1, 'ADMIN');
 INSERT INTO Roles (id, name) VALUES (2, 'PROVIDER');
+INSERT INTO Roles (id, name) VALUES (3, 'CUSTOMER');
 
 INSERT INTO USERS (id, email, password, person_id) VALUES(1, 'danieldev1999@gmail.com', '123', 1);
+INSERT INTO USERS (id, email, password, person_id) VALUES(2, 'da.pizarrot@duocuc.cl', '123', 2);
+INSERT INTO USERS (id, email, password, person_id) VALUES(3, 'dpizarro@moveapps.cl', '123', 3);
+
+
 INSERT INTO users_roles (id, user_id, role_id) VALUES (1, 1, 1);
+INSERT INTO users_roles (id, user_id, role_id) VALUES (2, 2, 2);
+
+INSERT INTO users_roles (id, user_id, role_id) VALUES (3, 3, 3);
 
 DROP TABLE commune;
 DROP TABLE USERS_ROLES ;
 DROP TABLE roles;
 DROP TABLE users;
+DROP TABLE CUSTOMER_PURCHASE 
 DROP TABLE person;
 DROP TABLE product;
 DROP TABLE PRODUCT_CATEGORY ;
 DROP TABLE provider;
+
 
 
 
@@ -169,8 +179,6 @@ CREATE TABLE customer_purchase (
 	FOREIGN KEY (customer_id) REFERENCES person(id),
 	FOREIGN KEY (product_id) REFERENCES product(id)
 );
-
-
 
 
 
