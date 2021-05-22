@@ -66,6 +66,18 @@ namespace Services.Controllers
       return new JsonResult(products);
     }
 
+    // GET: api/product/category/{id}
+    [EnableCors("Policy")]
+    [HttpGet("category/{id}")]
+    public JsonResult GetProductsByCategory(int id)
+    {
+      List<Models.Product> filteredProducts = Connection.ProductConnection
+        .GetEntities()
+        .Where(c => c.CategoryId.Equals(id))
+        .ToList();
+      return new JsonResult(filteredProducts);
+    }
+
     // GET: api/product/
     [EnableCors("Policy")]
     [HttpGet("{id}")]
