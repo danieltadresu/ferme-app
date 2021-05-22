@@ -30,15 +30,6 @@ const AddProduct = (props) => {
     //   categoryId: 2,
     //   providerI: 1
     // }
-    axios.get('https://localhost:5001/api/product/1')
-    .then((response) => {
-      console.log('response :>> ', response);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-
     console.log('dataProduct :>> ', dataProduct);
     axios.post('https://localhost:5001/api/product', dataProduct)
     .then((response) => {
