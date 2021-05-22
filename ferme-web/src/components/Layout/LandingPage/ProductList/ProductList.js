@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import AuthContext from '../../../../store/auth-context';
 import {
   Row,
   List,
@@ -11,27 +13,47 @@ import {
   Divider,
   BackTop,
   Badge,
-  Tooltip
+  Tooltip,
+  Skeleton,
+  Button,
 } from 'antd';
 import 'antd/dist/antd.css';
 import classes from './ProductList.module.css';
+import { PoweroffOutlined } from '@ant-design/icons';
+
 const ProductList = (props) => {
+  const history = useHistory();
+  const authCtx = useContext(AuthContext);
   const [recoveredProducts, setRecoveredProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingCart, setLoadingCart] = useState(false);
 
   const fetchProducts = (filterValue) => {
-    console.log('filterValue :>> ', filterValue);
+    const filterByCategory = true;
     const products = [];
-    axios.get('https://localhost:5001/api/product/all')
+    const filterData = [1, 2].includes(filterValue)
+      ? { filterType: !filterByCategory } 
+      : { filterType: filterByCategory };
+    axios
+    .post(`https://localhost:5001/api/product/all/${filterValue}`, filterData)
     .then((response) => {
-      console.log('response :>> ', response);
-      for(const product of response.data) {
+      setIsLoading(false);
+      for (const product of response.data) {
         products.push(product);
-      };
+      }
       setRecoveredProducts(products);
     });
   };
 
+  const paymentHandler = () => {
+    if (!authCtx.isLoggedIn) {
+      history.replace('/acceso');
+    };
+    
+  };
+
   useEffect(() => {
+    setIsLoading(true);
     fetchProducts(props.selectedItem);
   }, [props.selectedItem])
 
@@ -52,66 +74,76 @@ const ProductList = (props) => {
 
   return (
     <div className={classes.container}>
-      <List
-        grid={{
-          gutter: 16,
-          xs: 1,
-          sm: 2,
-          md: 4,
-          lg: 4,
-          xl: 6,
-          xxl: 3,
-        }}
-        dataSource={recoveredProducts}
-        renderItem={item => (
-          <List.Item>
-            <Card
-              title={item.name}
-              cover={
-                <>
-                  <Space style={{width: '100%'}}>
-                    <Image 
-                      width={'100%'}
-                      src={item.imageUrl}
-                      placeholder={
-                        <Image
-                          preview={false}
-                          src={item.imageUrl}
-                        />
-                      }
-                    />
-                  </Space>
-                </>
-              }
-            >
-              <Card.Meta
-                title={
+      <Skeleton loading={isLoading} active avatar>
+        <List
+          grid={{
+            gutter: 16,
+            xs: 1,
+            sm: 2,
+            md: 4,
+            lg: 4,
+            xl: 6,
+            xxl: 3,
+          }}
+          dataSource={recoveredProducts}
+          renderItem={item => (
+            <List.Item>
+              <Card
+                title={item.name}
+                cover={
                   <>
-                    <Divider orientation="left">
-                      <Tag color="geekblue">
-                        <p style={{margin: 0}}>
-                          ${item.price}
-                        </p>
-                      </Tag>
-                    </Divider>
+                    <Space style={{width: '100%'}}>
+                      <Image 
+                        width={'100%'}
+                        height={'250px'}
+                        src={item.imageUrl}
+                        placeholder={
+                          <Image
+                            preview={false}
+                            src={item.imageUrl}
+                          />
+                        }
+                      />
+                    </Space>
                   </>
                 }
-                description={item.description}
-              />
-              <Row className={classes['product-info']}>
-                <Tooltip title={`Existen ${item.stock} unidades disponibles`}>
-                  <Badge count={item.stock}>
-                      <span className="head-example" />
-                    </Badge>
-                </Tooltip>
-              </Row>
-            </Card>
-          </List.Item>
-        )}
-      />
-      <BackTop>
-        <div style={style}>UP</div>
-      </BackTop>
+              >
+                <Card.Meta
+                  title={
+                    <>
+                      <Divider orientation="left">
+                        <Tag color="geekblue">
+                          <p style={{margin: 0}}>
+                            ${item.price}
+                          </p>
+                        </Tag>
+                      </Divider>
+                    </>
+                  }
+                  description={item.description}
+                />
+                <Row className={classes['product-info']}>
+                  {/* <Tooltip title={`Existen ${item.stock} unidades disponibles`}>
+                    <Badge count={item.stock}>
+                        <span className="head-example" />
+                      </Badge>
+                  </Tooltip> */}
+                  <Button
+                    type="primary"
+                    loading={loadingCart}
+                    onClick={paymentHandler}
+                  >
+                    Agregar al carrito
+                  </Button>
+                </Row>
+              </Card>
+            </List.Item>
+          )}
+        />
+        <BackTop>
+          <div style={style}>UP</div>
+        </BackTop>
+      </Skeleton>
     </div>
   );
 };

@@ -3,19 +3,24 @@ import classes from './Header.module.css';
 import windowSize from '../../../utils/hooks/useWindowSize';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
+import { Badge } from 'antd';
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   const { width } = windowSize();
   const [ mobileNavigation, setMobileNavigation ] = useState(false);
+
   console.log('authCtx. :>> ', authCtx.roleAccess);
+
+
 
   useEffect(() => {
     setMobileNavigation(width <= 1070);
   }, [width]);
 
-
+  
   return <React.Fragment>
     <header className={classes.header}>
       <nav className={classes.navigation}>
@@ -42,14 +47,14 @@ const Header = () => {
               </li>
                */}
               <li className={classes['li-item']}>
-                <NavLink activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }} to="/" className={classes['item-list']} exact>
+                <NavLink activeStyle={{ fontWeight: 'bold', color: '#1890FF' }} to="/" className={classes['item-list']} exact>
                   Catalogo
                 </NavLink>
               </li>
               {!isLoggedIn && (
                 <>
                 <li className={classes['li-item']}>
-                  <NavLink activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }} to="/acceso" className={classes['item-list']} exact>
+                  <NavLink activeStyle={{ fontWeight: 'bold', color: '#1890FF' }} to="/acceso" className={classes['item-list']} exact>
                     Acceso
                   </NavLink>
                 </li>
@@ -61,7 +66,7 @@ const Header = () => {
                     <NavLink
                       to="/orders"
                       className={classes['item-list']}
-                      activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }}
+                      activeStyle={{ fontWeight: 'bold', color: '#1890FF' }}
                     >
                       Ordenes
                     </NavLink>
@@ -69,7 +74,7 @@ const Header = () => {
                   {(authCtx.roleAccess === 'ADMIN' || authCtx.roleAccess === 'PROVIDER') && (
                     <li className={classes['li-item']}>
                       <NavLink
-                        activeStyle={{ fontWeight: 'bold', color: 'white', borderBottom: '1px solid white' }}
+                        activeStyle={{ fontWeight: 'bold', color: '#1890FF' }}
                         to="/operations"
                         className={classes['item-list']}
                         exact
@@ -79,11 +84,21 @@ const Header = () => {
                     </li>
                   )}
                   <li className={classes['li-item']}>
-                    <NavLink to="/" className={classes['item-list']}>
-                      Carrito
+                    <NavLink
+                      activeStyle={{ fontWeight: 'bold', color: '#1890FF' }}
+                      to="/cart"
+                      className={classes['item-list']}
+                      exact
+                    >
+                      {/* <Badge count={1000} dot>
+                        <ShoppingCartOutlined style={{color: 'white'}} />
+                      </Badge> */}
+                      <Badge count={5} size="large" offset={[15, 9]}>
+                        <ShoppingCartOutlined style={{color: 'white', fontSize: '1.2rem'}} />
+                      </Badge>
                     </NavLink>
                   </li>
-                  <li className={classes['li-item']}>
+                  <li className={classes['li-item-user']}>
                     <span className={classes.item}>
                       {authCtx.roleAccess} {authCtx.userName}
                     </span>

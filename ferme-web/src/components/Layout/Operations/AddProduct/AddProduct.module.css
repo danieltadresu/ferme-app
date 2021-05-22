@@ -1,5 +1,7 @@
 .add-product {
-  margin: 3rem 0 0 0;
+  /* margin: 8rem 0 0 0; */
+  position: absolute;
+  top: 8rem;
   width: 100%;
 }
 
