@@ -78,6 +78,34 @@ namespace Services.Controllers
       return new JsonResult(filteredProducts);
     }
 
+    // POST: api/product/all/{id}
+    /// <summary>
+    ///    This method returns 
+    ///    the given products by id 
+    /// <example>ID value:
+    /// <code>
+    ///   1 = best Selling Products
+    ///   2 = the Cheapest Products
+    ///   3 = by category id
+    /// </code>
+    /// </example>
+    /// </summary>
+    [EnableCors("Policy")]
+    [HttpPost("all/{id}")]
+    public JsonResult FetchProductsFilteredAll(int id, [FromBody]Object payload)
+    {
+      // Product p = JsonSerializer.Deserialize<Product>(payload);
+      // Console.WriteLine(payload);
+      // Console.WriteLine(id);
+
+      // int filterParameter = id;
+      // List<Models.Product> filteredProducts = Connection.ProductConnection
+      //   .GetEntities()
+      //   .Where(c => c.CategoryId.Equals(filterParameter))
+      //   .ToList();
+      return new JsonResult(1);
+    }
+
     // GET: api/product/
     [EnableCors("Policy")]
     [HttpGet("{id}")]
