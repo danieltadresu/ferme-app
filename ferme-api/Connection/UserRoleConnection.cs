@@ -22,7 +22,6 @@ namespace Connection
         );
         DataTable dt = new DataTable();
         adapter.Fill(dt);
-        Console.WriteLine(dt.Rows.Count);
         foreach (DataRow dr in dt.Rows)
         {
           UserRole userRole = new UserRole();
@@ -32,7 +31,6 @@ namespace Connection
           userRoles.Add(userRole);
         }
       }
-      Console.WriteLine(userRoles.Count);
       return userRoles[0];
     }
   }

@@ -27,8 +27,6 @@ namespace Services.Controllers
     {
       String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
       String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
-      //Console.WriteLine(email);
-      //Console.WriteLine(password);
       Boolean foundUser = false;
       User selectedUser = new User();
       foreach (var item in Connection.UserConnection.GetEntities())
@@ -51,7 +49,6 @@ namespace Services.Controllers
         UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(selectedUser.Id);
         Role role = Connection.RoleConnection.GetEntity(userRole.Id);
         Person person = Connection.PersonConnection.GetEntity(selectedUser.PersonId);
-        Console.WriteLine(person.LastName);
         Authenticate authenticate = new Authenticate() {
           Status = 202,
           Message = "Found",

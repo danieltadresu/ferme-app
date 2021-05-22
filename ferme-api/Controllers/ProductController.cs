@@ -21,13 +21,39 @@ namespace Services.Controllers
   public class Product : ControllerBase
   {
     //POST: api/product/
+    // [EnableCors("Policy")]
+    // [HttpPost]
+    // public JsonResult AddProduct([FromBody]Models.Product product) {
+    //   Console.WriteLine("Add Product RUNS!");
+    //   Console.WriteLine(product);
+    //   Models.Product p = product;
+    //   Console.WriteLine(p.Id);
+    //   Console.WriteLine(p.CategoryId);
+    //   Console.WriteLine(p.ProviderId);
+    //   Console.WriteLine(Connection.ProductConnection.AddEntity(p));
+    //   var json = JsonConvert.SerializeObject(Connection.ProductConnection.GetEntity(p.Id));
+    //   return new JsonResult(Connection.ProductConnection.GetEntity(p.Id));
+    // }
+
     [EnableCors("Policy")]
     [HttpPost]
-    public JsonResult AddProduct([FromBody]Models.Product product) {
-      Models.Product p = product;
-      Console.WriteLine(Connection.ProductConnection.AddEntity(p));
-      var json = JsonConvert.SerializeObject(Connection.ProductConnection.GetEntity(p.Id));
-      return new JsonResult(Connection.ProductConnection.GetEntity(p.Id));
+    public JsonResult AddProduct([FromBody]Object product) {
+      
+      // Al ser un Lenguaje tipado, este no acepta el envio de [FromBody]Models.Product product
+      // en el parametro ya que si bien el json de JS envia los propiedades correctamente, los tipos de datos no hacen un match
+      Models.Product newProduct = new Models.Product() {
+        Id = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Id,
+        Name = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Name,
+        Description = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Description,
+        Createdat = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Createdat,
+        Updatedat = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Updatedat,
+        Price = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Price,
+        Stock = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Stock,
+        ImageUrl = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ImageUrl,
+        CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
+        ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId
+      };
+      return new JsonResult(Connection.ProductConnection.GetEntity(newProduct.Id));
     }
 
     // GET: api/product/all
