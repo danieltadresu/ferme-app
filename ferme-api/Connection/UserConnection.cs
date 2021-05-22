@@ -61,7 +61,6 @@ namespace Connection
     }
   
     public static Boolean AddEntity (User user) {
-      Console.WriteLine("HEYY!");
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
         //String query = $"INSERT INTO USERS (NAME) VALUES ('{user.Name}')";
