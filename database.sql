@@ -154,17 +154,21 @@ DROP TABLE PROVIDER ;
 
 
 
+
 CREATE TABLE payment_method (
 	id int NOT NULL,
 	description varchar(255) NOT NULL,
 	CONSTRAINT PK_Payment_method PRIMARY KEY (ID)
 );
+INSERT INTO PAYMENT_METHOD (id, description) VALUES (1, 'CREDIT CARD');
 
 CREATE TABLE delivery_type (
 	id int NOT NULL,
 	description varchar(255) NOT NULL,
 	CONSTRAINT PK_Delivery_type PRIMARY KEY (ID)
 );
+
+INSERT INTO delivery_type (id, description) VALUES (1, 'HOME DELIVERY');
 
 CREATE TABLE customer_purchase (
 	id int NOT NULL,
