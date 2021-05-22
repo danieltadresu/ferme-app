@@ -1,0 +1,51 @@
+.header {
+  width: 100%;
+  /* position: fixed;
+  top: 0; */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  /*background-color: #1D4ED8;*/
+  background-color: #111827;
+}
+
+.navigation { 
+  width: 90%;
+  height: 5rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo-container {
+  width: 20%;
+}
+
+.items-container {
+  width: 80%;
+  text-align: right;
+}
+
+.ul-items {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.li-item {
+  display: inline-block;
+  padding: 1rem;
+}
+
+.item {
+  /*color: #111827;*/
+  color: white;
+}
+
+.item-list {
+  /*color: #111827;*/
+  color: white;
+  text-decoration: none;
+}
+
+.active {
+  color: red;
+}
