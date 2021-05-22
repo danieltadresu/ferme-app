@@ -1,14 +1,75 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Input, Button, Card } from 'antd';
+import { Form, Row, Col, Input, Button, Card, Select } from 'antd';
 import 'antd/dist/antd.css';
 import classes from './AddProduct.module.css'
+import axios from 'axios';
 const AddProduct = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
+    let dataProduct = values;
+    console.log('product :>> ', dataProduct);
+
+    console.log('dataProduct.id :>> ', dataProduct.id);
+    console.log('dataProduct.id :>> ', dataProduct.name);
+    console.log('dataProduct.id :>> ', dataProduct.description);
+    console.log('dataProduct.id :>> ', dataProduct.categoryId);
+    console.log('dataProduct.id :>> ', dataProduct.providerId);
+
+    // dataProduct = {
+    //   id: 6,
+    //   name: "HAMMER RED AND BIG",
+    //   description: "A BIG AND RED HAMMER",
+    //   createdat: 1621642759,
+    //   updatedat: 1621642759,
+    //   price: 10000,
+    //   stock: 2,
+    //   imageUrl: "https://m.media-amazon.com/images/I/51Z-pyj1qjL._AC_SX522_.jpg",
+    //   categoryId: 2,
+    //   providerI: 1
+    // }
+    axios.get('https://localhost:5001/api/product/1')
+    .then((response) => {
+      console.log('response :>> ', response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+    console.log('dataProduct :>> ', dataProduct);
+    axios.post('https://localhost:5001/api/product', dataProduct)
+    .then((response) => {
+      console.log('response :>> ', response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   };
+
+  // const loginHandler = (event) => {
+  //   event.preventDefault();
+  //   const dataUser = {
+  //     email: email.current.value,
+  //     password: password.current.value
+  //   };
+  //   axios.post('https://localhost:5001/api/auth/login', dataUser)
+  //   .then((response) => {
+  //     const isLogin = [202].includes(response.data.status) && true;
+  //     if (isLogin) {
+  //       props.login(
+  //         event, 
+  //         response.data.roleName,
+  //         response.data.personName,
+  //       );
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   const selectedItemHandler = (val) => {
     props.selectedItem(val);
@@ -43,6 +104,19 @@ const AddProduct = (props) => {
             className="ant-advanced-search-form"
             onFinish={onFinish}
           >
+            <Form.Item
+              {...formItemLayout}
+              name="id"
+              label="ID"
+              rules={[
+                {
+                  required: true,
+                  message: 'Ingrese ID',
+                }
+              ]}
+            >
+              <Input placeholder="1" />
+            </Form.Item>
             <Form.Item
               {...formItemLayout}
               name="code"
@@ -84,7 +158,20 @@ const AddProduct = (props) => {
             </Form.Item>
             <Form.Item
               {...formItemLayout}
-              name="creation"
+              name="imageUrl"
+              label="Imagen"
+              rules={[
+                {
+                  required: true,
+                  message: 'Ingrese una imagen',
+                }
+              ]}
+            >
+              <Input placeholder="https://m.media-amazon.com/images/I/51Z-pyj1qjL._AC_SX522_.jpg" />
+            </Form.Item>
+            <Form.Item
+              {...formItemLayout}
+              name="createdat"
               label="Fecha de registro"
               rules={[
                 {
@@ -123,7 +210,7 @@ const AddProduct = (props) => {
             </Form.Item>
             <Form.Item
               {...formItemLayout} 
-              name="category"
+              name="categoryId"
               label="Categoría"
               rules={[
                 {
@@ -132,11 +219,14 @@ const AddProduct = (props) => {
                 }
               ]}
             >
-              <Input placeholder="Herramientas manuales" />
+              <Select style={{ width: 120 }}>
+                <Select.Option value="1">Martillos</Select.Option>
+                <Select.Option value="2">Clavos</Select.Option>
+              </Select>
             </Form.Item>
             <Form.Item
-              {...formItemLayout}
-              name="provider"
+              {...formItemLayout} 
+              name="providerId"
               label="Proveedor"
               rules={[
                 {
@@ -145,7 +235,9 @@ const AddProduct = (props) => {
                 }
               ]}
             >
-              <Input placeholder="Santo Tomas Las Esquilas S.A" />
+              <Select style={{ width: 120 }}>
+                <Select.Option value="1">Grandioso</Select.Option>
+              </Select>
             </Form.Item>
             <Row>
               <Col
