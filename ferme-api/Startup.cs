@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-
+using Stripe;
 namespace ferme_api
 {
     public class Startup
@@ -39,6 +39,7 @@ namespace ferme_api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            StripeConfiguration.ApiKey = "sk_test_51IrBoLEskkhmHZqbdj3FiYeCxdokyZDdqS4ApAp7kyB0mEDgaDDMPYPm3xYcxXOXFGZcA8qNMGlh589qFmz6iGNO0065Wqj6TP";
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

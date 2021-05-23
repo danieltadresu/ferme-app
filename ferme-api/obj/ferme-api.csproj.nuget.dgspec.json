@@ -43,6 +43,10 @@
             "Oracle.ManagedDataAccess.Core": {
               "target": "Package",
               "version": "[3.21.1, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[39.49.0, )"
             }
           },
           "imports": [
