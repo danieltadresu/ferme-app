@@ -7,13 +7,14 @@ const Auth = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
 
-  const login = (event, roleAccess, userName) => {
+  const login = (event, roleAccess, userName, personId) => {
     event.preventDefault();
     const expirationTime = new Date(new Date().getTime() + 60000);
     authCtx.login(
       `token-id-${roleAccess}`,
       expirationTime.toISOString(),
       roleAccess,
+      personId,
       userName
     );
     history.replace('/');

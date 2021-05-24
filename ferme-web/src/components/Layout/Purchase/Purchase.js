@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 import { Row, Col, Tag, Card, Steps, Button, } from "antd";
 import "antd/dist/antd.css";
 import classes from './Purchase.module.css'
@@ -10,10 +12,31 @@ import PurchaseStripeIntegration from './PurchaseStripeIntegration/PurchaseStrip
 const Purchase = () => {
   const [current, setCurrent] = React.useState(0);
 
+  const { id } = useParams();
+  const [ productId, setProductId ] = useState(id);
+  const [ fakeCart, setFakeCart ] = useState();
+
+  const fetchProduct = async (value) => {
+    axios
+    .get(`https://localhost:5001/api/product/${value}`)
+    .then((response) => {
+      setFakeCart(response.data);
+    })
+  };
+
+  /**
+   * TO DO:
+   * Eliminar este useEffect, manejar data de carrito en localStorage
+   * También elimina la logica en PurchaseProducts.js
+   */
+  useEffect(() => {
+    fetchProduct(productId);
+  }, [productId]);
+
   const steps = [
     {
       title: 'Resumen de Productos',
-      content: <PurchaseProducts />,
+      content: <PurchaseProducts  />,
     },
     {
       title: 'Datos de Compra',
@@ -25,7 +48,7 @@ const Purchase = () => {
     },
     {
       title: 'Ir a pagar',
-      content: <PurchaseStripeIntegration />,
+      content: <PurchaseStripeIntegration cartProducts={fakeCart} />,
     },
   ];
 

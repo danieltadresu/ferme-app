@@ -55,6 +55,7 @@ namespace Services.Controllers
           Token = "DummyToken",
           RoleName = role.Name,
           RoleId = role.Id,
+          PersonId = person.Id,
           PersonName = $"{person.FirstName} {person.LastName}"
         };
         return new JsonResult(authenticate);

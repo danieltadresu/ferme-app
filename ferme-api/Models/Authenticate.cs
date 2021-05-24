@@ -49,6 +49,15 @@ namespace Models
       set { roleId = value; }
     }
 
+    // PERSON ID
+
+    private int personId;
+    public int PersonId
+    {
+      get { return personId; }
+      set { personId = value; }
+    }
+
     // PERSON NAME
 
     private String personName;
@@ -65,6 +74,7 @@ namespace Models
       Status = 0;
       Message = null;
       Token = null;
+      PersonId = 0;
       RoleName = null;
       RoleId = 0;
       PersonName = null;

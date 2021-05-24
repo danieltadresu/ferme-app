@@ -96,3 +96,4 @@
 /Users/daniel/Desktop/dev-fermeapp/ferme-app/ferme-api/obj/Debug/netcoreapp3.1/ferme-api.genruntimeconfig.cache
 /Users/daniel/Desktop/dev-fermeapp/ferme-app/ferme-api/bin/Debug/netcoreapp3.1/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/daniel/Desktop/dev-fermeapp/ferme-app/ferme-api/bin/Debug/netcoreapp3.1/Stripe.net.dll
+/Users/daniel/Desktop/dev-fermeapp/ferme-app/ferme-api/bin/Debug/netcoreapp3.1/DinkToPdf.dll

@@ -22,9 +22,13 @@ namespace Services.Controllers
   {
     //POST: api/customerpurchase/session
     [EnableCors("Policy")]
-    [HttpPost("session")]
-    public JsonResult GetCustomerPurchaseToken([FromBody]Object customerPurchase)
+    [HttpPost("session/{id}")]
+    public JsonResult GetCustomerPurchaseToken(int id, [FromBody]Object customerPurchase)
     {
+      Console.WriteLine(id);
+      int productId = id;
+      Models.Product product = ProductConnection.GetEntity(id);
+      Console.WriteLine(product);
       Models.CustomerPurchase newCustomerPurchase = new Models.CustomerPurchase() {
         Id = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id,
         ProductQuantity = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).ProductQuantity,
@@ -45,39 +49,55 @@ namespace Services.Controllers
       // Console.WriteLine(newCustomerPurchase.ProductId);
       // Console.WriteLine(newCustomerPurchase.Createdat);
       // Console.WriteLine(newCustomerPurchase.Updatedat);
-
-      var domain = "http://localhost:3000";
-      var options = new SessionCreateOptions
+      Boolean addCustomerPurchase = Connection
+        .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
+      if (addCustomerPurchase)
       {
-        PaymentMethodTypes = new List<String>
+        var domain = "http://localhost:3000";
+        var options = new SessionCreateOptions
         {
-          "card",
-        },
-        LineItems = new List<SessionLineItemOptions>
-        {
-          new SessionLineItemOptions
+          PaymentMethodTypes = new List<String>
           {
-            PriceData = new SessionLineItemPriceDataOptions
+            "card",
+          },
+          LineItems = new List<SessionLineItemOptions>
+          {
+            new SessionLineItemOptions
             {
-              UnitAmount = newCustomerPurchase.TotalPurchase,
-              Currency = "usd",
-              ProductData = new SessionLineItemPriceDataProductDataOptions
+              PriceData = new SessionLineItemPriceDataOptions
               {
-                Name = "Product title"
+                UnitAmount = newCustomerPurchase.TotalPurchase,
+                Currency = "usd",
+                ProductData = new SessionLineItemPriceDataProductDataOptions
+                {
+                  Name = product.Name
+                },
               },
-            },
-            Quantity = 1,
-          }
-        },
-        Mode = "payment",
-        SuccessUrl = domain,
-        CancelUrl = domain
-      };
-      var service = new SessionService();
-      Session session = service.Create(options);
-      return new JsonResult(session.Id);
-      //Console.WriteLine(Connection.CustomerPurchaseConnection.AddEntity(newCustomerPurchase));
+              Quantity = 1,
+            }
+          },
+          Mode = "payment",
+          SuccessUrl = "http://localhost:3000/success-purchase",
+          CancelUrl = "http://localhost:3000/rejected-purchase"
+        };
+        var service = new SessionService();
+        Session session = service.Create(options);
+        return new JsonResult(session.Id);
+      } else {
+        Error404 response = new Error404() {
+          Message = "Problemas al insertar registro de CustomerPurchase"
+        };
+        return new JsonResult(response);
+      }
     }
+
+    // //POST: api/customerpurchase
+    // [EnableCors("Policy")]
+    // [HttpPost("session")]
+    // public JsonResult AddPurchase([FromBody]Object customerPurchase)
+    // {
+    //   return new JsonResult(1);
+    // }
   }
 }
 
