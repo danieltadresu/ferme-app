@@ -28,7 +28,7 @@ const ProductList = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingCart, setLoadingCart] = useState(false);
 
-  const fetchProducts = (filterValue) => {
+  const fetchProducts = async (filterValue) => {
     const filterByCategory = true;
     const products = [];
     const filterData = [1, 2].includes(filterValue)
@@ -45,11 +45,11 @@ const ProductList = (props) => {
     });
   };
 
-  const paymentHandler = () => {
-    if (!authCtx.isLoggedIn) {
-      history.replace('/acceso');
-    };
-    
+  const paymentHandler = (id) => {
+    // if (!authCtx.isLoggedIn) {
+    //   history.replace('/acceso');
+    // };
+    history.replace(`/checkout/${id}`);
   };
 
   useEffect(() => {
@@ -131,7 +131,7 @@ const ProductList = (props) => {
                   <Button
                     type="primary"
                     loading={loadingCart}
-                    onClick={paymentHandler}
+                    onClick={() => paymentHandler(item.id)}
                   >
                     Agregar al carrito
                   </Button>

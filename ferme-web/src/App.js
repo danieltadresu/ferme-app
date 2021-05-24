@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Operations from './pages/Operations';
 import Orders from './pages/Orders';
+import Checkout from './pages/Checkout';
 import AuthContext from './store/auth-context';
 
 const App = () => {
@@ -42,6 +43,18 @@ const App = () => {
         {/* ORDERS */}
         <Route path="/orders">
           {authCtx.isLoggedIn && <Orders />}
+          {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
+        </Route>
+
+        {/* 
+          PURCHASE. 
+          TO DO: Validar que en localStorage existan productos 
+          seleccionados, si no existen, renderizar hacia otra
+          Pagina la cual muestre un determinado mensaje
+        */}
+        
+        <Route path="/checkout/:id">
+          {authCtx.isLoggedIn && <Checkout />}
           {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
         </Route>
 

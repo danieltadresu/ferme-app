@@ -1,36 +1,31 @@
 import React, { useState } from "react";
-import { Row, Col, Tag, Card, Steps, Button } from "antd";
-import classes from "./LandingPage.module.css";
+import { Row, Col, Tag, Card, Steps, Button, } from "antd";
 import "antd/dist/antd.css";
-import ProductList from './ProductList/ProductList';
+import classes from './Purchase.module.css'
+import PurchaseProducts from './PurchaseProducts/PurchaseProducts';
+import PurchaseForm from './PurchaseForm/PurchaseForm';
+import PurchaseSummary from './PurchaseSummary/PurchaseSummary';
+import PurchaseStripeIntegration from './PurchaseStripeIntegration/PurchaseStripeIntegration';
 
-const catalogFilter = {
-  bestSellingProducts: 1,
-  theCheapestProducts: 2,
-  byCategories: 3,
-};
-
-const App = () => {
+const Purchase = () => {
   const [current, setCurrent] = React.useState(0);
 
   const steps = [
     {
-      title: 'Los más vendidos',
-      content: <ProductList
-        selectedItem={catalogFilter.bestSellingProducts}
-      />,
+      title: 'Resumen de Productos',
+      content: <PurchaseProducts />,
     },
     {
-      title: 'Los más económicos',
-      content: <ProductList
-        selectedItem={catalogFilter.theCheapestProducts}
-      />,
+      title: 'Datos de Compra',
+      content: <PurchaseForm />,
     },
     {
-      title: 'Según categoría',
-      content: <ProductList 
-        selectedItem={catalogFilter.byCategories}
-      />,
+      title: 'Detalle de Compra',
+      content: <PurchaseSummary />,
+    },
+    {
+      title: 'Ir a pagar',
+      content: <PurchaseStripeIntegration />,
     },
   ];
 
@@ -47,7 +42,7 @@ const App = () => {
       <section className={classes.box}>
         <Row>
           <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-            <Card title="Filtra tus productos" style={{width: '100%'}} 
+            <Card title="Proceso de Pago" style={{width: '100%'}} 
               extra={
                 <>
                   <div className={classes['steps-action']}>
@@ -78,4 +73,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Purchase;
