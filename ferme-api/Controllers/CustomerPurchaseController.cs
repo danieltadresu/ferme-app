@@ -70,8 +70,8 @@ namespace Services.Controllers
           }
         },
         Mode = "payment",
-        SuccessUrl = domain,
-        CancelUrl = domain
+        SuccessUrl = "http://localhost:3000/success-purchase",
+        CancelUrl = "http://localhost:3000/rejected-purchase"
       };
       var service = new SessionService();
       Session session = service.Create(options);
