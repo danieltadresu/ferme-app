@@ -1,0 +1,65 @@
+.container_login {
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  top: 8rem;
+  /* margin: 8rem 0 0 0; */
+}
+
+.form {
+  width: 100%;
+}
+
+.form_item {
+  width: 50%;
+  min-width: 250px;
+  max-width: 350px;
+  margin: .5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form_item_botton {
+  width: 50%;
+  min-width: 250px;
+  max-width: 350px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.form_item_account {
+  width: 50%;
+  min-width: 250px;
+  max-width: 350px;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.create_account {
+  color: #111827;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  padding: .5rem 0;
+}
+
+.form_input {
+  display: block;
+  padding: .6rem .6rem;
+  height: .7rem;
+}
+
+.button {
+  padding: .5rem;
+  margin: .5rem 0;
+}
+
+input, label, button {
+  font-size: 18px;
+  font-family: 'Nunito Sans', sans-serif;
+}

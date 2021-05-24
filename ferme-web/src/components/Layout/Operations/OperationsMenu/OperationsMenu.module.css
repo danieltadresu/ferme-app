@@ -1,0 +1,11 @@
+.operations-menu {
+  /* margin: 8rem 0 0 0; */
+  width: 100%;
+  position: absolute;
+  top: 8rem;
+}
+
+.container { 
+  width: 90%;
+  margin: 0 auto;
+}
