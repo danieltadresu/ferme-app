@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Stripe;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+
 namespace ferme_api
 {
     public class Startup
@@ -25,6 +28,7 @@ namespace ferme_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddCors(options =>
                 {
                     options.AddPolicy("Policy",
