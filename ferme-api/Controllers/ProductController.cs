@@ -124,7 +124,7 @@ namespace Services.Controllers
     // GET: api/product/
     [EnableCors("Policy")]
     [HttpGet("{id}")]
-    public JsonResult GetUser(int id)
+    public JsonResult GetProduct(int id)
     {
       Models.Product product = Connection.ProductConnection.GetEntity(id);
       return new JsonResult(product);
