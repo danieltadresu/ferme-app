@@ -13,6 +13,7 @@ const Header = () => {
   const [ mobileNavigation, setMobileNavigation ] = useState(false);
 
   console.log('authCtx. :>> ', authCtx.roleAccess);
+  console.log('authCtx.personId :>> ', authCtx.personId);
 
 
 
