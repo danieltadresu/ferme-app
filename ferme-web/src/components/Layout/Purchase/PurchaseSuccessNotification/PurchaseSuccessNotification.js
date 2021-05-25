@@ -3,6 +3,9 @@ import { Button, Result } from "antd";
 import classes from './PurchaseSuccessNotification.module.css'
 
 const PurchaseSuccessNotification = () => {
+
+  const billDocument = `https://localhost:5001/api/file/bill/1`;
+
   return (
     <div className={classes.container}>
       <section className={classes.box}>
@@ -22,6 +25,7 @@ const PurchaseSuccessNotification = () => {
                   type="primary"
                   key="console"
                   style={{marginTop: '1rem'}}
+                  href={billDocument}
                 >
                   Descargar Boleta
                 </Button>,
