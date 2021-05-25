@@ -70,7 +70,7 @@ namespace Services.Controllers
     public IActionResult GetBill(int id)
     {
       Console.WriteLine(id);
-      Models.CustomerPurchase customerPurchase = new Models.CustomerPurchase();
+      Models.CustomerPurchase customerPurchase = CustomerPurchaseConnection.GetEntity(id);
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,

@@ -1,22 +1,30 @@
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
 .header {
   text-align: center;
-  color: green;
-  padding-bottom: 35px;
+  color: black;
+  padding: 5rem;
 }
 
-table {
-  width: 80%;
-  border-collapse: collapse;
+.header-title {
+  font-size: 10rem;
+  padding: 0;
+  margin: 0;
 }
 
-td, th {
-  border: 1px solid gray;
-  padding: 15px;
-  font-size: 22px;
-  text-align: center;
+.header-subtitle {
+  font-size: 5rem;
+  padding: 0;
+  margin: 0;
 }
 
-table th {
-  background-color: green;
-  color: white;
+.header-bill-nro {
+  font-size: 3rem;
+  padding: 0;
+  margin: 0;
 }

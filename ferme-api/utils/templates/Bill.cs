@@ -14,19 +14,23 @@ namespace utils.templates
           </head>
           <body>
             <div class='header'>
-              <h1>This is the generated PDF report!!!</h1>
-            </div>
-            <table align='center'>
-              <tr>
-                <th>Name</th>
-                <th>LastName</th>
-                <th>Age</th>
-                <th>Gender</th>
-              </tr>");
-      sb.Append(customerPurchase.CustomerId);
+              <h1 class='header-title'>Ferme Store</h1>
+              <h5 class='header-subtitle'>RUT: 77.261.280-K</h5>
+              <hr/>");
+      sb.Append(@"
+              <h5 class='header-bill-nro'>Boleta Electrónica Nro.");
+      sb.Append(customerPurchase.Id);
+      sb.Append(@"</h5> </div>");
+      sb.Append(@"<div class='total-purchase'>
+        <h1>Total Purchase:");
+      sb.Append(customerPurchase.TotalPurchase);
+      sb.Append(@"</div>");
+      // sb.Append(customerPurchase.CustomerId);
+      // sb.Append(customerPurchase.ProductQuantity);
+      // sb.Append(customerPurchase.ProductId);
+      // sb.Append(customerPurchase.TotalPurchase);
 
       sb.Append(@"
-            </table>
           </body>
         </html>");
 
