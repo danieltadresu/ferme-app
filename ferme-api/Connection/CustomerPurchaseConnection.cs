@@ -30,5 +30,33 @@ namespace Connection
         return data is 1 ? true : false;
       }
     }
+
+    public static CustomerPurchase GetEntity (int id) {
+      List<CustomerPurchase> customerPurchases = new List<CustomerPurchase>();
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"SELECT * FROM CUSTOMER_PURCHASE WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleDataAdapter adapter = new OracleDataAdapter(
+          query, 
+          oracleConnection
+        );
+        DataTable dt = new DataTable();
+        adapter.Fill(dt);
+        foreach (DataRow dr in dt.Rows)
+        {
+          CustomerPurchase customerPurchase = new CustomerPurchase();
+          customerPurchase.Id = int.Parse(dr["ID"].ToString());
+          customerPurchase.ProductQuantity = int.Parse(dr["PRODUCT_QUANTITY"].ToString());
+          customerPurchase.TotalPurchase = int.Parse(dr["TOTAL_PURCHASE"].ToString());
+          customerPurchase.PaymentMethodId = int.Parse(dr["PAYMENT_METHOD_ID"].ToString());
+          customerPurchase.DeliveryTypeId = int.Parse(dr["DELIVERY_TYPE_ID"].ToString());
+          customerPurchase.CustomerId = int.Parse(dr["CUSTOMER_ID"].ToString());
+          customerPurchase.ProductId = int.Parse(dr["PRODUCT_ID"].ToString());
+          customerPurchases.Add(customerPurchase);
+        }
+        return customerPurchases[0];
+      }
+    }
   }
 }

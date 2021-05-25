@@ -30,13 +30,47 @@ namespace Services.Controllers
     }
 
 
+    // // INVOICE -> Factura
+    // // GET: api/file/bill
+    // [EnableCors("Policy")]
+    // [HttpGet("bill")]
+    // // Boleta
+    // public IActionResult GetBill()
+    // {
+    //   var globalSettings = new GlobalSettings {
+    //     ColorMode = ColorMode.Color,
+    //     Orientation = Orientation.Portrait,
+    //     PaperSize = PaperKind.A4,
+    //     Margins = new MarginSettings { Top = 10 },
+    //     DocumentTitle = "PDF Bill",
+    //   };
+
+    //   var objectSettings = new ObjectSettings {
+    //     PagesCount = true,
+    //     HtmlContent = utils.templates.Bill.GetHTMLString(),
+    //     WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+    //     HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+    //     FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+    //   };
+
+    //   var document = new HtmlToPdfDocument() {
+    //     GlobalSettings = globalSettings,
+    //     Objects = { objectSettings }
+    //   };
+
+    //   var file = _converter.Convert(document);
+    //   return File(file, "application/pdf");
+    // }
+
     // INVOICE -> Factura
     // GET: api/file/bill
     [EnableCors("Policy")]
-    [HttpGet("bill")]
+    [HttpGet("bill/{id}")]
     // Boleta
-    public IActionResult GetBill()
+    public IActionResult GetBill(int id)
     {
+      Console.WriteLine(id);
+      Models.CustomerPurchase customerPurchase = new Models.CustomerPurchase();
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
@@ -47,7 +81,7 @@ namespace Services.Controllers
 
       var objectSettings = new ObjectSettings {
         PagesCount = true,
-        HtmlContent = utils.templates.Bill.GetHTMLString(),
+        HtmlContent = utils.templates.Bill.GetHTMLString(customerPurchase),
         WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
         HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
         FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
@@ -61,6 +95,7 @@ namespace Services.Controllers
       var file = _converter.Convert(document);
       return File(file, "application/pdf");
     }
+
   }
 }
 
