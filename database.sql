@@ -178,6 +178,7 @@ CREATE TABLE customer_purchase (
 	delivery_type_id int NOT NULL,
 	customer_id int NOT NULL,
 	product_id int NOT NULL,
+	CONSTRAINT PK_Customer_purchase PRIMARY KEY (ID)
 	FOREIGN KEY (payment_method_id) REFERENCES payment_method(id),
 	FOREIGN KEY (delivery_type_id) REFERENCES delivery_type(id),
 	FOREIGN KEY (customer_id) REFERENCES person(id),
