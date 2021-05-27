@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Oracle.ManagedDataAccess.Client;
 using Models;
 using System.Data;
-
 namespace Connection
 {
   public class CustomerPurchaseConnection
   {
-    static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=database-1.cu6ntgmtazbg.us-east-2.rds.amazonaws.com:1521/DATABASE";
+
+    // var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+    //   Console.WriteLine(environment);
+    //static String connectionString = $"User Id=admin;Password=12345678910; Data Source=${Environment.GetEnvironmentVariable("DATABASE_ENDPOINT")}";
+    static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
 
     public static Boolean AddEntity (CustomerPurchase customerPurchase) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))

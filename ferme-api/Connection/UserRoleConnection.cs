@@ -8,7 +8,7 @@ namespace Connection
 {
   public class UserRoleConnection
   {
-    static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=database-1.cu6ntgmtazbg.us-east-2.rds.amazonaws.com:1521/DATABASE";
+    static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
 
     public static UserRole GetEntityByUserId (int id) {
       List<UserRole> userRoles = new List<UserRole>();
