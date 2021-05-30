@@ -1,11 +1,10 @@
-.add-product {
-  /* margin: 8rem 0 0 0; */
+.login {
   position: absolute;
-  top: 8rem;
+  top: 12rem;
   width: 100%;
 }
 
 .container { 
-  width: 50%;
+  width: 90%;
   margin: 0 auto;
 }

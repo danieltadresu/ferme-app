@@ -3,8 +3,8 @@ import classes from './Header.module.css';
 import windowSize from '../../../utils/hooks/useWindowSize';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../../../store/auth-context';
-import { Badge } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Badge, Menu, Dropdown, Avatar } from 'antd';
+import { DownOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 const Header = () => {
   const authCtx = useContext(AuthContext);
@@ -15,18 +15,44 @@ const Header = () => {
   console.log('authCtx. :>> ', authCtx.roleAccess);
   console.log('authCtx.personId :>> ', authCtx.personId);
 
-
+  const logoutHandler = () => {
+    authCtx.logout();
+  };
 
   useEffect(() => {
     setMobileNavigation(width <= 1070);
   }, [width]);
+
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <span target="_blank" rel="noopener noreferrer">
+          Perfil
+        </span>
+      </Menu.Item>
+      <Menu.Item>
+        <span target="_blank" rel="noopener noreferrer">
+          Cambiar contraseña
+        </span>
+      </Menu.Item>
+      <Menu.Item>
+        <span
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={logoutHandler}
+        >
+          Cerrar sesión
+        </span>
+      </Menu.Item>
+    </Menu>
+  );
 
   
   return <React.Fragment>
     <header className={classes.header}>
       <nav className={classes.navigation}>
         <div className={classes['logo-container']}>
-          <p href="/" className={classes.item} style={{margin: '0', fontSize: '1rem'}}>Ferme Store</p>
+          <a href="/" className={classes.item} style={{margin: '0', fontSize: '1rem'}}>Ferme Store</a>
         </div>
         {!mobileNavigation ? (
           <div className={classes['items-container']}>
@@ -61,7 +87,7 @@ const Header = () => {
                 </li>
                 </>
               )}
-              {isLoggedIn  && (
+              {isLoggedIn && (
                 <>
                   <li className={classes['li-item']}>
                     <NavLink
@@ -100,9 +126,20 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li className={classes['li-item-user']}>
-                    <span className={classes.item}>
-                      {authCtx.roleAccess} {authCtx.userName}
-                    </span>
+                    <Dropdown overlay={menu}>
+                      <span className={classes.item}>
+                        <Avatar
+                          style={{
+                            color: 'white',
+                            backgroundColor: '#1890FF',
+                            marginRight: '5px'
+                          }}
+                        >
+                          {authCtx.roleAccess}
+                        </Avatar>
+                        {authCtx.userName}
+                      </span>
+                    </Dropdown>
                   </li>
                 </>
               )}

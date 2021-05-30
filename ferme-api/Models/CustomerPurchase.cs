@@ -68,6 +68,13 @@ namespace Models
       set { updatedat = value; }
     }
 
+    private int customerPurchaseCartId;
+    public int CustomerPurchaseCartId
+    {
+      get { return customerPurchaseCartId; }
+      set { customerPurchaseCartId = value; }
+    }
+
     public CustomerPurchase () {
       Init();
     }
@@ -82,6 +89,7 @@ namespace Models
       ProductId = 0;
       Createdat = 0;
       Updatedat = 0;
+      CustomerPurchaseCartId = 0;
     }
   };
 };

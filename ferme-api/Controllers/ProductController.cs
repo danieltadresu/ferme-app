@@ -20,20 +20,20 @@ namespace Services.Controllers
   [ApiController]
   public class Product : ControllerBase
   {
-    //POST: api/product/
-    [EnableCors("Policy")]
-    [HttpPost]
-    public JsonResult AddProduct([FromBody]Models.Product product) {
-      Console.WriteLine("Add Product RUNS!");
-      Console.WriteLine(product);
-      Models.Product p = product;
-      Console.WriteLine(p.Id);
-      Console.WriteLine(p.CategoryId);
-      Console.WriteLine(p.ProviderId);
-      Console.WriteLine(Connection.ProductConnection.AddEntity(p));
-      var json = JsonConvert.SerializeObject(Connection.ProductConnection.GetEntity(p.Id));
-      return new JsonResult(Connection.ProductConnection.GetEntity(p.Id));
-    }
+    // //POST: api/product/
+    // [EnableCors("Policy")]
+    // [HttpPost]
+    // public JsonResult AddProduct([FromBody]Models.Product product) {
+    //   Console.WriteLine("Add Product RUNS!");
+    //   Console.WriteLine(product);
+    //   Models.Product p = product;
+    //   Console.WriteLine(p.Id);
+    //   Console.WriteLine(p.CategoryId);
+    //   Console.WriteLine(p.ProviderId);
+    //   Console.WriteLine(Connection.ProductConnection.AddEntity(p));
+    //   var json = JsonConvert.SerializeObject(Connection.ProductConnection.GetEntity(p.Id));
+    //   return new JsonResult(Connection.ProductConnection.GetEntity(p.Id));
+    // }
 
     [EnableCors("Policy")]
     [HttpPost]
@@ -41,6 +41,7 @@ namespace Services.Controllers
       
       // Al ser un Lenguaje tipado, este no acepta el envio de [FromBody]Models.Product product
       // en el parametro ya que si bien el json de JS envia los propiedades correctamente, los tipos de datos no hacen un match
+      Console.WriteLine("New product!");
       Models.Product newProduct = new Models.Product() {
         Id = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Id,
         Name = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Name,
@@ -53,10 +54,10 @@ namespace Services.Controllers
         CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
         ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId
       };
+      
       Console.WriteLine(Connection.ProductConnection.AddEntity(newProduct));
       return new JsonResult(newProduct);
     }
-
 
     // GET: api/product/category/{id}
     [EnableCors("Policy")]

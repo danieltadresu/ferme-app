@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Input, Button, Card, Select } from 'antd';
+import { Form, Row, Col, Input, Button, Card, Select, notification } from 'antd';
 import 'antd/dist/antd.css';
 import classes from './AddProduct.module.css'
 import axios from 'axios';
 const AddProduct = (props) => {
+  const history = useHistory();
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -34,9 +36,18 @@ const AddProduct = (props) => {
     axios.post('https://localhost:5001/api/product', dataProduct)
     .then((response) => {
       console.log('response :>> ', response);
+      notification['success']({
+        message: 'Producto registrado',
+        description: 'Puedes consultar el nuevo producto creado en el catálogo.',
+      });
+      form.resetFields();
     })
     .catch((error) => {
-      console.log(error);
+      notification['error']({
+        message: 'Hubo un error al crear el producto',
+        description: 'Puedes intentarlo más tarde.',
+      });
+      form.resetFields();
     });
   };
 
@@ -211,8 +222,8 @@ const AddProduct = (props) => {
               ]}
             >
               <Select style={{ width: 120 }}>
-                <Select.Option value="1">Martillos</Select.Option>
-                <Select.Option value="2">Clavos</Select.Option>
+                <Select.Option value="2">Martillos</Select.Option>
+                <Select.Option value="3">Clavos</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item

@@ -69,7 +69,6 @@ namespace Services.Controllers
     // Boleta
     public IActionResult GetBill(int id)
     {
-      Console.WriteLine(id);
       Models.CustomerPurchase customerPurchase = CustomerPurchaseConnection.GetEntity(id);
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,

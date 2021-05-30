@@ -6,32 +6,33 @@ using System.Data;
 
 namespace Connection
 {
-  public class UserRoleConnection
+  public class BillConnection
   {
     static String connectionString = "User Id=admin;Password=granvalor1A;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
 
-    public static UserRole GetEntityByUserId (int id) {
-      List<UserRole> userRoles = new List<UserRole>();
+    public static Person GetEntity (int id) {
+      List<Person> persons = new List<Person>();
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"SELECT * FROM USERS_ROLES WHERE USER_ID = {id}";
+        String query = $"SELECT * FROM PERSON WHERE ID = {id}";
         oracleConnection.Open();
         OracleDataAdapter adapter = new OracleDataAdapter(
-          query,
+          query, 
           oracleConnection
         );
         DataTable dt = new DataTable();
         adapter.Fill(dt);
         foreach (DataRow dr in dt.Rows)
         {
-          UserRole userRole = new UserRole();
-          userRole.Id = int.Parse(dr["ID"].ToString());
-          userRole.UserId = int.Parse(dr["USER_ID"].ToString());
-          userRole.RoleId = int.Parse(dr["ROLE_ID"].ToString());
-          userRoles.Add(userRole);
+          Person person = new Person() {
+            Id = int.Parse(dr["ID"].ToString()),
+            FirstName = dr["FIRST_NAME"].ToString(),
+            LastName = dr["LAST_NAME"].ToString()
+          };
+          persons.Add(person);
         }
+        return persons[0];
       }
-      return userRoles[0];
     }
   }
 }

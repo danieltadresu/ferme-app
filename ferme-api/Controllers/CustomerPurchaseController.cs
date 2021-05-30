@@ -25,12 +25,38 @@ namespace Services.Controllers
     [HttpPost("session/{id}")]
     public JsonResult GetCustomerPurchaseToken(int id, [FromBody]Object customerPurchase)
     {
-      Console.WriteLine(id);
+      List<int> customerPurchaseCartsIds = new List<int>();
+      foreach (var item in Connection.CustomerPurchaseCartConnection.GetEntities())
+      {
+        customerPurchaseCartsIds.Add(item.Id);
+      }
+      int lastCustomerPurchaseCartId = 0;
+      if (customerPurchaseCartsIds.Count > 0)
+      {
+        lastCustomerPurchaseCartId = customerPurchaseCartsIds.Max();
+      }
+      Models.CustomerPurchaseCart newCustomerPurchaseCart = new Models.CustomerPurchaseCart() {
+        Id = lastCustomerPurchaseCartId + JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id
+      };
+      Connection.CustomerPurchaseCartConnection.AddEntity(newCustomerPurchaseCart);
+
+
+      List<int> customerPurchasesIds = new List<int>();
+      foreach (var item in Connection.CustomerPurchaseConnection.GetEntities())
+      {
+        customerPurchasesIds.Add(item.Id);
+      }
       int productId = id;
       Models.Product product = ProductConnection.GetEntity(id);
       Console.WriteLine(product);
+
+      int lastCustomerPurchaseRecordId = 0;
+      if (customerPurchasesIds.Count > 0)
+      {
+        lastCustomerPurchaseRecordId = customerPurchasesIds.Max();
+      }
       Models.CustomerPurchase newCustomerPurchase = new Models.CustomerPurchase() {
-        Id = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id,
+        Id = lastCustomerPurchaseRecordId + JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id,
         ProductQuantity = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).ProductQuantity,
         TotalPurchase = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).TotalPurchase,
         PaymentMethodId = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).PaymentMethodId,
@@ -38,17 +64,19 @@ namespace Services.Controllers
         CustomerId = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).CustomerId,
         ProductId = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).ProductId,
         Createdat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Createdat,
-        Updatedat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Updatedat
+        Updatedat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Updatedat,
+        CustomerPurchaseCartId = newCustomerPurchaseCart.Id,
       };
-      // Console.WriteLine(newCustomerPurchase.Id);
-      // Console.WriteLine(newCustomerPurchase.ProductQuantity);
-      // Console.WriteLine(newCustomerPurchase.TotalPurchase);
-      // Console.WriteLine(newCustomerPurchase.PaymentMethodId);
-      // Console.WriteLine(newCustomerPurchase.DeliveryTypeId);
-      // Console.WriteLine(newCustomerPurchase.CustomerId);
-      // Console.WriteLine(newCustomerPurchase.ProductId);
-      // Console.WriteLine(newCustomerPurchase.Createdat);
-      // Console.WriteLine(newCustomerPurchase.Updatedat);
+      Console.WriteLine(newCustomerPurchase.Id);
+      Console.WriteLine(newCustomerPurchase.ProductQuantity);
+      Console.WriteLine(newCustomerPurchase.TotalPurchase);
+      Console.WriteLine(newCustomerPurchase.PaymentMethodId);
+      Console.WriteLine(newCustomerPurchase.DeliveryTypeId);
+      Console.WriteLine(newCustomerPurchase.CustomerId);
+      Console.WriteLine(newCustomerPurchase.ProductId);
+      Console.WriteLine(newCustomerPurchase.Createdat);
+      Console.WriteLine(newCustomerPurchase.Updatedat);
+      Console.WriteLine(newCustomerPurchase.CustomerPurchaseCartId);
       Boolean addCustomerPurchase = Connection
         .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
       if (addCustomerPurchase)
