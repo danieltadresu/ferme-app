@@ -25,20 +25,20 @@ namespace Services.Controllers
     [HttpPost("session/{id}")]
     public JsonResult GetCustomerPurchaseToken(int id, [FromBody]Object customerPurchase)
     {
-      List<int> customerPurchaseCartsIds = new List<int>();
-      foreach (var item in Connection.CustomerPurchaseCartConnection.GetEntities())
-      {
-        customerPurchaseCartsIds.Add(item.Id);
-      }
-      int lastCustomerPurchaseCartId = 0;
-      if (customerPurchaseCartsIds.Count > 0)
-      {
-        lastCustomerPurchaseCartId = customerPurchaseCartsIds.Max();
-      }
-      Models.CustomerPurchaseCart newCustomerPurchaseCart = new Models.CustomerPurchaseCart() {
-        Id = lastCustomerPurchaseCartId + JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id
-      };
-      Connection.CustomerPurchaseCartConnection.AddEntity(newCustomerPurchaseCart);
+      // List<int> customerPurchaseCartsIds = new List<int>();
+      // foreach (var item in Connection.CustomerPurchaseCartConnection.GetEntities())
+      // {
+      //   customerPurchaseCartsIds.Add(item.Id);
+      // }
+      // int lastCustomerPurchaseCartId = 0;
+      // if (customerPurchaseCartsIds.Count > 0)
+      // {
+      //   lastCustomerPurchaseCartId = customerPurchaseCartsIds.Max();
+      // }
+      // Models.CustomerPurchaseCart newCustomerPurchaseCart = new Models.CustomerPurchaseCart() {
+      //   Id = lastCustomerPurchaseCartId + JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id
+      // };
+      // Connection.CustomerPurchaseCartConnection.AddEntity(newCustomerPurchaseCart);
 
 
       List<int> customerPurchasesIds = new List<int>();
@@ -65,7 +65,6 @@ namespace Services.Controllers
         ProductId = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).ProductId,
         Createdat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Createdat,
         Updatedat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Updatedat,
-        CustomerPurchaseCartId = newCustomerPurchaseCart.Id,
       };
       Console.WriteLine(newCustomerPurchase.Id);
       Console.WriteLine(newCustomerPurchase.ProductQuantity);
@@ -76,7 +75,6 @@ namespace Services.Controllers
       Console.WriteLine(newCustomerPurchase.ProductId);
       Console.WriteLine(newCustomerPurchase.Createdat);
       Console.WriteLine(newCustomerPurchase.Updatedat);
-      Console.WriteLine(newCustomerPurchase.CustomerPurchaseCartId);
       Boolean addCustomerPurchase = Connection
         .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
       if (addCustomerPurchase)

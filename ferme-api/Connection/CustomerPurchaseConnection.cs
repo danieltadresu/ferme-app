@@ -16,7 +16,7 @@ namespace Connection
     public static Boolean AddEntity (CustomerPurchase customerPurchase) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"INSERT INTO CUSTOMER_PURCHASE (ID, PRODUCT_QUANTITY, TOTAL_PURCHASE, PAYMENT_METHOD_ID, DELIVERY_TYPE_ID, CUSTOMER_ID, PRODUCT_ID, CUSTOMER_PURCHASE_CART_ID) VALUES (:pId, :pProductQuantity, :pTotalPurchase, :pPaymentMethodId, :pDeliveryTypeId, :pCustomerId, :pProductId, :pCustomerPurchaseCartId)";
+        String query = $"INSERT INTO CUSTOMER_PURCHASE (ID, PRODUCT_QUANTITY, TOTAL_PURCHASE, PAYMENT_METHOD_ID, DELIVERY_TYPE_ID, CUSTOMER_ID, PRODUCT_ID) VALUES (:pId, :pProductQuantity, :pTotalPurchase, :pPaymentMethodId, :pDeliveryTypeId, :pCustomerId, :pProductId)";
         oracleConnection.Open();
         OracleCommand command = oracleConnection.CreateCommand();
         command.Parameters.Add("pId", customerPurchase.Id);
@@ -26,7 +26,6 @@ namespace Connection
         command.Parameters.Add("pDeliveryTypeId", customerPurchase.DeliveryTypeId);
         command.Parameters.Add("pCustomerId", customerPurchase.CustomerId);
         command.Parameters.Add("pProductId", customerPurchase.ProductId);
-        command.Parameters.Add("pCustomerPurchaseCartId", customerPurchase.CustomerPurchaseCartId);
         // command.Parameters.Add("pCreatedat", customerPurchase.Createdat);
         // command.Parameters.Add("pUpdatedat", customerPurchase.Updatedat);
         command.CommandText = query;
