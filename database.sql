@@ -21,6 +21,8 @@
  * CREATE TABLE
  */
 
+SELECT * FROM PERSON p ;
+
 
 CREATE TABLE commune (
 	id int NOT NULL,
@@ -42,7 +44,6 @@ CREATE TABLE Person (
 );
 
 ALTER TABLE Person ADD commune_id int NOT NULL CONSTRAINT FK_commune REFERENCES COMMUNE(id);
-
 ALTER TABLE Person ADD rut varchar(255) NULL;
 
 
@@ -183,6 +184,8 @@ CREATE TABLE delivery_type (
 
 INSERT INTO delivery_type (id, description) VALUES (1, 'HOME DELIVERY');
 
+INSERT INTO delivery_type (id, description) VALUES (2, 'STORE DELIVERY');
+
 CREATE TABLE customer_purchase (
 	id int NOT NULL,
 	product_quantity int NOT NULL,
@@ -209,7 +212,7 @@ SELECT * FROM customer_purchase_cart;
 
 /* NO DEBERIA EXISTIR ASOCIACION ENTRE DELIVERY TYPE Y PAYMENT METHOD*/
 
-CREATE TABLE customer_purchase (
+CREATE TABLE customer_purchase (3
 	id int NOT NULL,
 	product_quantity int NOT NULL,
 	total_purchase int NOT NULL,
@@ -299,26 +302,11 @@ CREATE TABLE purchase_return (
 );
 
 
-SELECT * FROM purchase_return_status;
-
-SELECT * FROM purchase_return;
-
-
-
-SELECT * FROM CUSTOMER_PURCHASE cp ;
-
-SELECT * FROM CUSTOMER_PURCHASE_cart;
-
-DROP TABLE CUSTOMER_PURCHASE_cart;
 
 
 
 
-
-SELECT * FROM ROLES r2 ;
-
-
-SELECT * FROM PERSON p2 ;
 
 SELECT * FROM USERS u ;
 
+SELECT * FROM PERSON p ;
