@@ -33,15 +33,19 @@ namespace Services.Controllers
     [HttpGet("roles/all")]
     public JsonResult GetUsersRoles()
     {
-      List<User> users = Connection.UserConnection.GetEntities();
-      foreach (var item in Connection.UserConnection.GetEntities())
+      List<User> allUsers = Connection.UserConnection.GetEntities();
+      foreach (var item in allUsers)
       {
-        
+        Models.UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(item.Id);
+        Models.Role role = Connection.RoleConnection.GetEntity(userRole.RoleId);
+        Models.Person person = Connection.PersonConnection.GetEntity(item.PersonId);
+        item.UserRole = role.Name;
+        item.UserFullName = $"{person.FirstName} {person.LastName}";
       }
 
-      var json = JsonConvert.SerializeObject(users);
+      var json = JsonConvert.SerializeObject(allUsers);
       Console.WriteLine(json);
-      return new JsonResult(users);
+      return new JsonResult(allUsers);
     }
 
     // GET: api/user/

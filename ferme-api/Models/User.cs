@@ -34,12 +34,7 @@ namespace Models
     #endregion
 
     #region Properties to use in api/user/roles/all response
-    private String userEmail;
-    public String UserEmail
-    {
-      get { return userEmail; }
-      set { userEmail = value; }
-    }
+
 
     private String userRole;
     public String UserRole
@@ -65,7 +60,6 @@ namespace Models
       Email = "example@example.com";
       Password = "randompassword";
 
-      UserEmail = null;
       UserRole = null;
       UserFullName = null;
     }
