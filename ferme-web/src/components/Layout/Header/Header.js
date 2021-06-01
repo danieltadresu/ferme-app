@@ -135,7 +135,7 @@ const Header = () => {
                             marginRight: '5px'
                           }}
                         >
-                          {authCtx.roleAccess}
+                          {authCtx.roleAccess?.charAt(0)}
                         </Avatar>
                         {authCtx.userName}
                       </span>

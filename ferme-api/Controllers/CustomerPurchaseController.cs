@@ -66,15 +66,15 @@ namespace Services.Controllers
         Createdat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Createdat,
         Updatedat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Updatedat,
       };
-      Console.WriteLine(newCustomerPurchase.Id);
-      Console.WriteLine(newCustomerPurchase.ProductQuantity);
-      Console.WriteLine(newCustomerPurchase.TotalPurchase);
-      Console.WriteLine(newCustomerPurchase.PaymentMethodId);
-      Console.WriteLine(newCustomerPurchase.DeliveryTypeId);
-      Console.WriteLine(newCustomerPurchase.CustomerId);
-      Console.WriteLine(newCustomerPurchase.ProductId);
-      Console.WriteLine(newCustomerPurchase.Createdat);
-      Console.WriteLine(newCustomerPurchase.Updatedat);
+      // Console.WriteLine(newCustomerPurchase.Id);
+      // Console.WriteLine(newCustomerPurchase.ProductQuantity);
+      // Console.WriteLine(newCustomerPurchase.TotalPurchase);
+      // Console.WriteLine(newCustomerPurchase.PaymentMethodId);
+      // Console.WriteLine(newCustomerPurchase.DeliveryTypeId);
+      // Console.WriteLine(newCustomerPurchase.CustomerId);
+      // Console.WriteLine(newCustomerPurchase.ProductId);
+      // Console.WriteLine(newCustomerPurchase.Createdat);
+      // Console.WriteLine(newCustomerPurchase.Updatedat);
       Boolean addCustomerPurchase = Connection
         .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
       if (addCustomerPurchase)
@@ -116,6 +116,52 @@ namespace Services.Controllers
         return new JsonResult(response);
       }
     }
+
+    // GET: https://localhost:5001/api/customerpurchase/all
+    [EnableCors("Policy")]
+    [HttpGet("all")]
+    public JsonResult GetCustomerPurchases()
+    {
+      List<Models.CustomerPurchase> customerPurchases = Connection
+        .CustomerPurchaseConnection
+        .GetEntities();
+      return new JsonResult(customerPurchases);
+    }
+
+
+    // GET: https://localhost:5001/api/customerpurchase/bills
+    [EnableCors("Policy")]
+    [HttpGet("bills")]
+    public JsonResult GetCustomerPurchasesBills()
+    {
+      List<Models.CustomerPurchase> customerPurchases = Connection
+        .CustomerPurchaseConnection
+        .GetEntities();
+      foreach (var customerPurchase in customerPurchases)
+      {
+        Models.User userData = Connection.UserConnection
+          .GetEntityByPersonId(customerPurchase.CustomerId);
+        Models.UserRole userRoleData = Connection.UserRoleConnection
+          .GetEntityByUserId(userData.Id);
+        Models.Role roleData = Connection.RoleConnection
+          .GetEntity(userRoleData.RoleId);
+        Models.Person customerData = Connection.PersonConnection
+          .GetEntity(customerPurchase.CustomerId);
+        Models.DeliveryType deliveryTypeData = Connection.DeliveryTypeConnection
+          .GetEntity(customerPurchase.DeliveryTypeId);
+        Models.Product productData = Connection.ProductConnection
+          .GetEntity(customerPurchase.ProductId);
+
+        customerPurchase.CustomerEmail = userData.Email.ToUpper();
+        customerPurchase.CustomerName = $"{customerData.FirstName} {customerData.LastName}";
+        customerPurchase.DeliveryTypeName = deliveryTypeData.Description.ToUpper();
+        customerPurchase.ProductName = productData.Name.ToUpper();
+        customerPurchase.IsInvoice = roleData.Name is "COMPANY" ? true : false;
+      }
+      return new JsonResult(customerPurchases);
+    }
+
+
 
     // //POST: api/customerpurchase
     // [EnableCors("Policy")]

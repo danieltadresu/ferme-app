@@ -28,6 +28,22 @@ namespace Services.Controllers
       return new JsonResult(users);
     }
 
+    // GET: api/user/roles/all
+    [EnableCors("Policy")]
+    [HttpGet("roles/all")]
+    public JsonResult GetUsersRoles()
+    {
+      List<User> users = Connection.UserConnection.GetEntities();
+      foreach (var item in Connection.UserConnection.GetEntities())
+      {
+        
+      }
+
+      var json = JsonConvert.SerializeObject(users);
+      Console.WriteLine(json);
+      return new JsonResult(users);
+    }
+
     // GET: api/user/
     [EnableCors("Policy")]
     [HttpGet("{id}")]

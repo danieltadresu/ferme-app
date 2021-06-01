@@ -6,6 +6,7 @@ import TextLoop from 'react-text-loop';
 const OperationsMenu = (props) => {
 
   const selectedItemHandler = (val) => {
+    console.log('val :>> ', val);
     props.selectedItem(val);
   };
 
@@ -17,51 +18,100 @@ const OperationsMenu = (props) => {
             <Collapse accordion>
               <Collapse.Panel header="Administración de Productos" key="1">
                 <Collapse defaultActiveKey="1">
-                <Collapse.Panel header="Crear Producto" key="1">
-                  <Alert
-                    message="Información"
-                    showIcon
-                    description="Acá podrás crear los nuevos productos de la Ferretería. Estos se verán en el catálogo."
-                    type="info"
-                    action={
-                      <Button
-                        size="small"
-                        type="primary"
-                        onClick={() => selectedItemHandler(1)}
-                      >
-                        IR AL FORMULARIO
-                      </Button>
-                    }
-                  />
-                </Collapse.Panel>
-                <Collapse.Panel header="Consultar información de Producto" key="2">
-                  <Alert
-                    message="Información"
-                    showIcon
-                    description={
-                      <TextLoop mask>
-                        <span>Acá podrás consultar información de Productos</span>
-                        <span>Actualizar sus datos</span>
-                        <span>Actualizar su stock</span>
-                        <span>Eliminar el Producto</span>
-                      </TextLoop>
-                    }
-                    type="warning"
-                    action={
-                      <Button
-                        size="small"
-                        type="primary"
-                        onClick={() => selectedItemHandler(2)}
-                      >
-                        IR AL FORMULARIO
-                      </Button>
-                    }
-                  />
-                </Collapse.Panel>
-              </Collapse>
-            </Collapse.Panel>
+                  <Collapse.Panel header="Crear Producto" key="1">
+                    <Alert
+                      message="Información"
+                      showIcon
+                      description="Acá podrás crear los nuevos productos de la Ferretería. Estos se verán en el catálogo."
+                      type="info"
+                      action={
+                        <Button
+                          size="small"
+                          type="primary"
+                          onClick={() => selectedItemHandler(1)}
+                        >
+                          IR AL FORMULARIO
+                        </Button>
+                      }
+                    />
+                  </Collapse.Panel>
+                  <Collapse.Panel header="Consultar información de Producto" key="2">
+                    <Alert
+                      message="Información"
+                      showIcon
+                      description={
+                        <TextLoop mask>
+                          <span>Acá podrás consultar información de Productos</span>
+                          <span>Actualizar sus datos</span>
+                          <span>Actualizar su stock</span>
+                          <span>Eliminar el Producto</span>
+                        </TextLoop>
+                      }
+                      type="warning"
+                      action={
+                        <Button
+                          size="small"
+                          type="primary"
+                          onClick={() => selectedItemHandler(2)}
+                        >
+                          IR AL FORMULARIO
+                        </Button>
+                      }
+                    />
+                  </Collapse.Panel>
+                </Collapse>
+              </Collapse.Panel>
               <Collapse.Panel header="Administración de Boletas y Facturas" key="2">
-                <p>Hey</p>
+                <Collapse defaultActiveKey="1">
+                    <Collapse.Panel header="Ingresar nueva Boleta o Factura" key="1">
+                      <Alert
+                        message="Información"
+                        showIcon
+                        description="Acá podrás ingresar las nuevas boletas o facturas cuando las ventas se realizan de manera presencial en el local."
+                        type="info"
+                        action={
+                          <Button
+                            size="small"
+                            type="primary"
+                            onClick={() => selectedItemHandler(3)}
+                          >
+                            IR AL FORMULARIO
+                          </Button>
+                        }
+                      />
+                    </Collapse.Panel>
+                    <Collapse.Panel header="Consultar información de Boletas y Facutas" key="2">
+                      <Alert
+                        message="Información"
+                        showIcon
+                        description={
+                          <TextLoop mask>
+                            <span>
+                              Acá podrás consultar información de 
+                              <br />todas las Boletas y Facturas
+                              <br />que han sido ingresadas al sistema
+                            </span>
+                            <span>
+                              Actualizar sus datos
+                            </span>
+                            <span>
+                              Descargar de Boletas y Facturas
+                            </span>
+                          </TextLoop>
+                        }
+                        type="warning"
+                        action={
+                          <Button
+                            size="small"
+                            type="primary"
+                            onClick={() => selectedItemHandler(4)}
+                          >
+                            VER
+                          </Button>
+                        }
+                      />
+                    </Collapse.Panel>
+                  </Collapse>
               </Collapse.Panel>
               <Collapse.Panel header="Administración de Órdenes de Compra" key="3">
               <Collapse defaultActiveKey="1">
@@ -75,7 +125,7 @@ const OperationsMenu = (props) => {
                         <Button
                           size="small"
                           type="primary"
-                          onClick={() => selectedItemHandler(1)}
+                          onClick={() => selectedItemHandler(5)}
                         >
                           IR AL FORMULARIO
                         </Button>
@@ -98,7 +148,7 @@ const OperationsMenu = (props) => {
                         <Button
                           size="small"
                           type="primary"
-                          onClick={() => selectedItemHandler(2)}
+                          onClick={() => selectedItemHandler(6)}
                         >
                           IR AL FORMULARIO
                         </Button>
@@ -119,7 +169,7 @@ const OperationsMenu = (props) => {
                         <Button
                           size="small"
                           type="primary"
-                          onClick={() => selectedItemHandler(1)}
+                          onClick={() => selectedItemHandler(7)}
                         >
                           IR AL FORMULARIO
                         </Button>
@@ -143,9 +193,9 @@ const OperationsMenu = (props) => {
                         <Button
                           size="small"
                           type="primary"
-                          onClick={() => selectedItemHandler(2)}
+                          onClick={() => selectedItemHandler(8)}
                         >
-                          IR AL FORMULARIO
+                          VER
                         </Button>
                       }
                     />

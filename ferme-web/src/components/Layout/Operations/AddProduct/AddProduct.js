@@ -195,7 +195,7 @@ const AddProduct = (props) => {
                 }
               ]}
             >
-              <Input placeholder="800000" />
+              <Input placeholder="800000" type="number" />
             </Form.Item>
             <Form.Item
               {...formItemLayout}
@@ -208,7 +208,7 @@ const AddProduct = (props) => {
                 }
               ]}
             >
-              <Input placeholder="10" />
+              <Input placeholder="10" type="number" />
             </Form.Item>
             <Form.Item
               {...formItemLayout} 
@@ -224,6 +224,7 @@ const AddProduct = (props) => {
               <Select style={{ width: 120 }}>
                 <Select.Option value="2">Martillos</Select.Option>
                 <Select.Option value="3">Clavos</Select.Option>
+                <Select.Option value="5">Taladro</Select.Option>
               </Select>
             </Form.Item>
             <Form.Item

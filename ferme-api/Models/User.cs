@@ -4,6 +4,7 @@ namespace Models
 {
   public class User
   {
+    #region Database Properties
     private int id;
     public int Id
     {
@@ -30,6 +31,30 @@ namespace Models
       get { return password; }
       set { password = value; }
     }
+    #endregion
+
+    #region Properties to use in api/user/roles/all response
+    private String userEmail;
+    public String UserEmail
+    {
+      get { return userEmail; }
+      set { userEmail = value; }
+    }
+
+    private String userRole;
+    public String UserRole
+    {
+      get { return userRole; }
+      set { userRole = value; }
+    }
+
+    private String userFullName;
+    public String UserFullName
+    {
+      get { return userFullName; }
+      set { userFullName = value; }
+    }
+    #endregion
     public User () {
       Init();
     }
@@ -39,6 +64,10 @@ namespace Models
       PersonId = 0;
       Email = "example@example.com";
       Password = "randompassword";
+
+      UserEmail = null;
+      UserRole = null;
+      UserFullName = null;
     }
   };
 };

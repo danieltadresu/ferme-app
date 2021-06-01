@@ -51,26 +51,40 @@ const PurchaseForm = () => {
             >
               <Radio.Group onChange={onChange} value={value}>
                 <Radio value={1}>Despacho a Domicilio</Radio>
-                <Radio value={2}>Despacho a Domicilio</Radio>
+                <Radio value={2}>Retiro en Tienda</Radio>
               </Radio.Group>
-              {/* <Input placeholder="A domicilio" /> */}
             </Form.Item>
             {isDelivery && (
-              <Form.Item
-                {...formItemLayout}
-                name="commune"
-                label="Comuna"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Ingrese la comuna',
-                  }
-                ]}
-              >
-                <Select>
-                  <Select.Option value="1">Santiago</Select.Option>
-                </Select>
-              </Form.Item>
+              <React.Fragment>
+                <Form.Item
+                  {...formItemLayout}
+                  name="commune"
+                  label="Comuna"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ingrese la comuna',
+                    }
+                  ]}
+                >
+                  <Select>
+                    <Select.Option value="1">Santiago</Select.Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  {...formItemLayout}
+                  name="address"
+                  label="Dirección"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ingrese dirección'
+                    }
+                  ]}
+                >
+                  <Input placeholder="Av. Matta 1879" />
+                </Form.Item>
+              </React.Fragment>
             )}
             <Row>
               <Col
@@ -88,6 +102,14 @@ const PurchaseForm = () => {
                   }}
                 >
                   Clear
+                </Button>
+                <Button
+                  style={{
+                    margin: '0 8px',
+                  }}
+                  htmlType="submit"
+                >
+                  Guardar Datos
                 </Button>
               </Col>
             </Row>

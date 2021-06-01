@@ -4,6 +4,7 @@ namespace Models
 {
   public class CustomerPurchase
   {
+    #region Database Propierties 
     private int id;
     public int Id
     {
@@ -68,12 +69,62 @@ namespace Models
       set { updatedat = value; }
     }
 
+    // TO DO:
+    // En caso de manejar más de un producto por compra,
+    // generar la tabla customerPurchaseCart (comentado en el script sql)
+    // de forma tal que se establezca la siguiente relacion:
+    // N customerPurchase pertenecen a 1 customerPurchaseCart
     // private int customerPurchaseCartId;
     // public int CustomerPurchaseCartId
     // {
     //   get { return customerPurchaseCartId; }
     //   set { customerPurchaseCartId = value; }
     // }
+    #endregion
+
+    #region Properties to use in Bill List response. ENDPOINT GET METHOD: /api/customerpurchase/bills
+    private String customerEmail;
+    public String CustomerEmail
+    {
+      get { return customerEmail; }
+      set { customerEmail = value; }
+    }
+
+    private String customerName;
+    public String CustomerName
+    {
+      get { return customerName; }
+      set { customerName = value; }
+    }
+
+    private String deliveryTypeName; 
+    public String DeliveryTypeName
+    {
+      get { return deliveryTypeName; }
+      set { deliveryTypeName = value; }
+    }
+
+    private String deliveryAddress; 
+    public String DeliveryAddress
+    {
+      get { return deliveryAddress; }
+      set { deliveryAddress = value; }
+    }
+
+    private String productName;
+    public String ProductName
+    {
+      get { return productName; }
+      set { productName = value; }
+    }
+
+    private Boolean isInvoice;
+    public Boolean IsInvoice
+    {
+      get { return isInvoice; }
+      set { isInvoice = value; }
+    }
+    #endregion
 
     public CustomerPurchase () {
       Init();
@@ -90,6 +141,13 @@ namespace Models
       Createdat = 0;
       Updatedat = 0;
       // CustomerPurchaseCartId = 0;
+      
+      CustomerEmail = null;
+      CustomerName = null;
+      DeliveryTypeName = null;
+      DeliveryAddress = null;
+      ProductName = null;
+      IsInvoice = false;
     }
   };
 };

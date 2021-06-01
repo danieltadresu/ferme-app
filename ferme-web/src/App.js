@@ -37,8 +37,8 @@ const App = () => {
 
         {/* OPERATIONS */}
         <Route path="/operations">
-          {authCtx.isLoggedIn && <Operations />}
-          {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
+          {(authCtx.isLoggedIn && (['ADMIN', 'PROVIDER'].includes(authCtx.roleAccess))) && <Operations />}
+          {(!authCtx.isLoggedIn || (['COMPANY', 'CUSTOMER'].includes(authCtx.roleAccess)) ) && <Redirect to="/acceso" />}
         </Route>
 
         {/* ORDERS */}
