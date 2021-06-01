@@ -67,7 +67,7 @@ namespace Connection
         OracleCommand command = oracleConnection.CreateCommand();
         command.Parameters.Add("pId", person.Id);
         command.Parameters.Add("pLastName", person.LastName);
-        command.Parameters.Add("pFirstName", person.LastName);
+        command.Parameters.Add("pFirstName", person.FirstName);
         command.Parameters.Add("pCommuneId", person.CommuneId);
         command.Parameters.Add("pRut", person.Rut);
         command.Parameters.Add("pAddress", person.Address);

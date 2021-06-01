@@ -25,6 +25,7 @@ namespace Services.Controllers
     [HttpPost("login")]
     public JsonResult SignIn([FromBody]Object user)
     {
+      Console.WriteLine("Sign In");
       String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
       String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
       Boolean foundUser = false;
@@ -46,9 +47,14 @@ namespace Services.Controllers
       }
       if (foundUser)
       {
+        Console.WriteLine(foundUser);
+        Console.WriteLine(selectedUser.Id);
         UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(selectedUser.Id);
-        Role role = Connection.RoleConnection.GetEntity(userRole.Id);
+        Console.WriteLine(userRole.Id);
+        Role role = Connection.RoleConnection.GetEntity(userRole.RoleId);
+        Console.WriteLine(role.Id);
         Person person = Connection.PersonConnection.GetEntity(selectedUser.PersonId);
+        Console.WriteLine(person.Id);
         Authenticate authenticate = new Authenticate() {
           Status = 202,
           Message = "Found",

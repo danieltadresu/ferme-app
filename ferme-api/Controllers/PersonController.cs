@@ -22,9 +22,6 @@ namespace Services.Controllers
     [HttpPost]
     public JsonResult AddPerson([FromBody]Object person)
     {
-      // SELECT * FROM PERSON p ;
-      // SELECT * FROM USERS u ;
-      // SELECT * FROM USERS_ROLES ur ;
       Models.Person newPerson = new Models.Person() {
         Id = JsonConvert.DeserializeObject<Models.Person>(person.ToString()).Id,
         FirstName = JsonConvert.DeserializeObject<Models.Person>(person.ToString()).FirstName,
@@ -38,33 +35,42 @@ namespace Services.Controllers
         Password = JsonConvert.DeserializeObject<Models.Person>(person.ToString()).Password,
       };
       if(Connection.PersonConnection.AddEntity(newPerson)) {
-        List<int> allPersons = new List<int>();
-        foreach (var item in Connection.PersonConnection.GetEntities())
-        {
-          allPersons.Add(item.Id);
+        List<int> allUsers = new List<int>();
+        foreach (var item in Connection.UserConnection.GetEntities()) {
+          allUsers.Add(item.Id);
         }
-        int lastId = 0;
-        if (allPersons.Count > 0)
+        int lastUserId = 0;
+        if (allUsers.Count > 0)
         {
-          lastId = allPersons.Max();
+          lastUserId = allUsers.Max();
         }
-        Console.WriteLine(lastId);
-
         Models.User newUser = new Models.User() {
-          Id = lastId + 1,
+          Id = lastUserId + 1,
           Email = newPerson.Email,
           Password = newPerson.Password,
           PersonId = newPerson.Id
         };
+        if (Connection.UserConnection.AddEntity(newUser)) {
+          List<int> allUserRoles = new List<int>();
+          foreach (var item in Connection.UserRoleConnection.GetEntities()) {
+            allUserRoles.Add(item.Id);
+          }
+          int lastUserRoleId = 0;
+          if (allUserRoles.Count > 0) {
+            lastUserRoleId = allUserRoles.Max();
+          }
+          Console.WriteLine(lastUserRoleId);
+          Models.UserRole newUserRole = new Models.UserRole() {
+            Id = lastUserRoleId + 1,
+            UserId = newUser.Id,
+            RoleId = newPerson.PersonRoleId
+          };
+          Console.WriteLine(newUserRole.Id);
+          Console.WriteLine(newUserRole.UserId);
+          Console.WriteLine(newUserRole.RoleId);
+          Connection.UserRoleConnection.AddEntity(newUserRole);
+        }
       };
-      // Models.Person personFetch = Connection.PersonConnection.GetEntity(newPerson.Id);
-
-    
-
-
-      // Connection.UserConnection.AddEntity(user);
-      // return new JsonResult(user);
-      // Connection.PersonConnection.AddEntity(person);
       return new JsonResult(newPerson);
     }
   }
