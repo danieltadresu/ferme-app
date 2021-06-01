@@ -27,6 +27,7 @@ const PurchaseStripeIntegration = (props) => {
       productId: props.cartProducts.id,
       createdat: 0,
       updatedat: 0,
+      customerPurchaseCartId: 1,
     };
     axios.post(
       `https://localhost:5001/api/customerpurchase/session/${props.cartProducts.id}`, 

@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using Oracle.ManagedDataAccess.Client;
 using Models;
 using System.Data;
-
 namespace Connection
 {
-  public class RoleConnection
+  public class DeliveryTypeConnection
   {
     static String connectionString = "User Id=admin;Password=granvalor1A;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
-
-    public static Role GetEntity (int id) {
-      List<Role> roles = new List<Role>();
+    public static DeliveryType GetEntity (int id) {
+      List<DeliveryType> deliveryTypes = new List<DeliveryType>();
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"SELECT * FROM ROLES WHERE ID = {id}";
+        String query = $"SELECT * FROM DELIVERY_TYPE WHERE ID = {id}";
         oracleConnection.Open();
         OracleDataAdapter adapter = new OracleDataAdapter(
           query, 
@@ -24,13 +22,12 @@ namespace Connection
         adapter.Fill(dt);
         foreach (DataRow dr in dt.Rows)
         {
-          Role role = new Role();
-          role.Id = int.Parse(dr["ID"].ToString());
-          role.Name = dr["NAME"].ToString();
-          role.Description = dr["DESCRIPTION"].ToString();
-          roles.Add(role);
+          DeliveryType deliveryType = new DeliveryType();
+          deliveryType.Id = int.Parse(dr["ID"].ToString());
+          deliveryType.Description = dr["DESCRIPTION"].ToString();
+          deliveryTypes.Add(deliveryType);
         }
-        return roles[0];
+        return deliveryTypes[0];
       }
     }
   }

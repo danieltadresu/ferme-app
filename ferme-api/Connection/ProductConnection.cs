@@ -8,7 +8,14 @@ namespace Connection
 {
   public class ProductConnection
   {
-    static String connectionString = "User Id=admin;Password=12345678910;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
+    static String databaseEndpoint = Environment.GetEnvironmentVariable("DATABASE_ENDPOINT");
+    static String databaseUser = Environment.GetEnvironmentVariable("DATABASE_USER");
+    static String databasePassword = Environment.GetEnvironmentVariable("DATABASE_PASSWORD");
+    static String databaseName = Environment.GetEnvironmentVariable("DATABASE_NAME");
+    
+    // static String connectionString = $"User Id={databaseUser};Password={databasePassword};" + $"Data Source={databaseEndpoint}:1521/{databaseName}";
+    static String connectionString = "User Id=admin;Password=granvalor1A;" + "Data Source=ferme-db.caakqx4vsyaf.us-east-1.rds.amazonaws.com:1521/ORCL";
+    
     public static Boolean AddEntity (Product product) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {

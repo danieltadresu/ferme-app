@@ -1,15 +1,17 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Form from '../components/Auth/Form/Form';
+import AuthForm from '../components/Auth/Form/AuthForm';
 import AuthContext from '../store/auth-context';
 
 const Auth = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
 
-  const login = (event, roleAccess, userName, personId) => {
-    event.preventDefault();
-    const expirationTime = new Date(new Date().getTime() + 60000);
+  const login = (roleAccess, userName, personId) => {
+    // event.preventDefault();
+    // 01 MINUTOS -> 60000 MILISEGUNDOS
+    // 10 MINUTOS -> 600000 MILISEGUNDOS
+    const expirationTime = new Date(new Date().getTime() + 600000);
     authCtx.login(
       `token-id-${roleAccess}`,
       expirationTime.toISOString(),
@@ -22,7 +24,7 @@ const Auth = () => {
 
   return (
     <>
-      <Form login={login} />
+      <AuthForm login={login} />
     </>    
   )
 };

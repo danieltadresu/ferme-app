@@ -28,6 +28,26 @@ namespace Services.Controllers
       return new JsonResult(users);
     }
 
+    // GET: api/user/roles/all
+    [EnableCors("Policy")]
+    [HttpGet("roles/all")]
+    public JsonResult GetUsersRoles()
+    {
+      List<User> allUsers = Connection.UserConnection.GetEntities();
+      foreach (var item in allUsers)
+      {
+        Models.UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(item.Id);
+        Models.Role role = Connection.RoleConnection.GetEntity(userRole.RoleId);
+        Models.Person person = Connection.PersonConnection.GetEntity(item.PersonId);
+        item.UserRole = role.Name;
+        item.UserFullName = $"{person.FirstName} {person.LastName}";
+      }
+
+      var json = JsonConvert.SerializeObject(allUsers);
+      Console.WriteLine(json);
+      return new JsonResult(allUsers);
+    }
+
     // GET: api/user/
     [EnableCors("Policy")]
     [HttpGet("{id}")]

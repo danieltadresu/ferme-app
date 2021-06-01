@@ -42,10 +42,10 @@ const Purchase = () => {
       title: 'Datos de Compra',
       content: <PurchaseForm />,
     },
-    {
-      title: 'Detalle de Compra',
-      content: <PurchaseSummary />,
-    },
+    // {
+    //   title: 'Detalle de Compra',
+    //   content: <PurchaseSummary />,
+    // },
     {
       title: 'Ir a pagar',
       content: <PurchaseStripeIntegration cartProducts={fakeCart} />,
