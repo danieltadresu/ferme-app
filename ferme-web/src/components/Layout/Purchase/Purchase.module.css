@@ -1,0 +1,9 @@
+.container {
+  width: 100%;
+  margin-top: 8rem;
+}
+
+.box {
+  width: 90%;
+  margin: 0 auto;
+}
