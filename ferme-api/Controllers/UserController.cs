@@ -65,6 +65,20 @@ namespace Services.Controllers
       Connection.UserConnection.AddEntity(user);
       return new JsonResult(user);
     }
+
+
+    //     [HttpPut("{id}")]
+    // public void UpdateUser(int id, [FromBody]User user)
+    // {
+    //   Connection.UserConnection.UpdateEntity(user);
+    // }
+
+    // // PUT api/user/{id}
+    // [HttpDelete("{id}")]
+    // public void DeleteUser(int id)
+    // {
+    //   Console.WriteLine(Connection.UserConnection.DeleteEntity(id));
+    // }
   }
 }
 

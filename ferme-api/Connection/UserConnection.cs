@@ -101,5 +101,32 @@ namespace Connection
         return data is 1 ? true : false;
       }
     }
+
+  //       public static Boolean UpdateEntity (User user) {
+  //   using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+  //     {
+  //       String query = $"UPDATE USERS SET NAME = (:pName) WHERE USER_ID  = (:pUserId)";
+  //       oracleConnection.Open();
+  //       OracleCommand command = oracleConnection.CreateCommand();  
+  //       command.Parameters.Add("pName", user.Name);
+  //       command.Parameters.Add("pUserId", user.UserId);
+  //       command.CommandText = query;
+  //       int data = command.ExecuteNonQuery();
+  //       return data is 1 ? true : false;
+  //     }
+  //   }
+
+  // public static Boolean DeleteEntity (int userId) {
+  //   using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+  //     {
+  //       String query = $"DELETE FROM USERS WHERE USER_ID  = (:pUserId)";
+  //       oracleConnection.Open();
+  //       OracleCommand command = oracleConnection.CreateCommand();  
+  //       command.Parameters.Add("pUserId", userId);
+  //       command.CommandText = query;
+  //       int data = command.ExecuteNonQuery();
+  //       return data is 1 ? true : false;
+  //     }
+  //   }
   }
 }
