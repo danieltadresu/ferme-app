@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthForm from '../components/Auth/Form/AuthForm';
+import SignInForm from '../components/Auth/SignInForm/SignInForm';
 import AuthContext from '../store/auth-context';
 
 const Auth = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
+  const [takeSignIn, setTakeSignIn] = useState(false);
 
   const login = (roleAccess, userName, personId) => {
     // event.preventDefault();
@@ -22,9 +24,23 @@ const Auth = () => {
     history.replace('/');
   }
 
+  const signin = () => {
+    setTakeSignIn(true);
+  };
+
   return (
     <>
-      <AuthForm login={login} />
+      {!takeSignIn ? (
+        <AuthForm
+          login={login}
+          signin={signin}
+        />
+      ) : (
+        <SignInForm
+          login={login}
+          signin={signin}
+        />
+      )}
     </>    
   )
 };

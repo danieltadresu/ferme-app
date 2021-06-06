@@ -90,7 +90,7 @@ const AuthForm = (props) => {
                 </Form.Item>
                 <Form.Item>
                   <Row justify="space-around">
-                    <a>Crea una cuenta</a>
+                    <a onClick={props.signin}>Crea una cuenta</a>
                     <a>¿Olvidaste tu contraseña?</a>
                   </Row>
                 </Form.Item>
@@ -106,10 +106,12 @@ const AuthForm = (props) => {
 
 AuthForm.propTypes = {
   login: PropTypes.func,
+  signin: PropTypes.func,
 };
 
 AuthForm.defaultProps = {
   login: () => {},
+  signin: () => {},
 };
 
 export default AuthForm;
