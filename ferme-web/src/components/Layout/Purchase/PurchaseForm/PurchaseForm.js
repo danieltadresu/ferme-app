@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Row, Col, Input, Button, Card, Radio, Select } from 'antd';
+import PropTypes from 'prop-types';
+import { Form, Row, Col, Input, Button, Card, Radio, Select, Alert, List, Typography } from 'antd';
 import classes from './PurchaseForm.module.css';
-const PurchaseForm = () => {
+const PurchaseForm = (props) => {
   const [form] = Form.useForm();
   const [value, setValue] = useState(1);
   const [isDelivery, setIsDelivery] = useState();
   const [isAvailableDelivery, setIsAvailableDelivery] = useState();
 
-  const onChange = (e) => {
-    setValue(e.target.value);
-    setIsDelivery(e.target.value === 1);
+  const deliveryTypeHandler = (value) => {
+    setIsDelivery(value === 'DESPACHO A DOMICILIO.');
   };
 
   const onFinish = (values) => {
     console.log('values :>> ', values);
+    props.selectedPurchaseFormValues(values, isDelivery);
   };
 
   useEffect(() => {
@@ -32,28 +33,61 @@ const PurchaseForm = () => {
           type="inner"
           style={{ width: '90%', margin: '2rem auto' }}
         >
+          <List
+            style={{
+              marginTop: '1rem',
+              marginBottom: '1rem'
+            }}
+            header={<div>Tipo de Despacho</div>}
+            bordered
+            dataSource={[
+              'DESPACHO A DOMICILIO.',
+              'RETIRO EN TIENDA.',
+            ]}
+            renderItem={item => (
+              <List.Item>
+                <Typography.Text
+                  mark
+                  style={{cursor: 'pointer'}}
+                  onClick={() => deliveryTypeHandler(item)}
+                >
+                  {item}
+                </Typography.Text>
+              </List.Item>
+            )}
+          />
+          {isDelivery ? (
+            <Alert
+              style={{margin: '2rem 0'}}
+              message="Información de Despacho"
+              description="Los despachos solo se realizan en la Comuna de Santiago."
+              type="warning"
+              showIcon
+            />
+          ) : (
+            <React.Fragment>
+              <Alert
+                style={{margin: '2rem 0'}}
+                message="Información de Ubicación"
+                description="Nuestra local se encuentra ubicado en Av. Manuel Antonio Matta 1872."
+                type="success"
+                showIcon
+              />
+              <Alert
+                style={{margin: '2rem 0'}}
+                message="Nuestros Horarios"
+                description="17:42."
+                type="success"
+                showIcon
+              />
+            </React.Fragment>
+          )}
           <Form
             form={form}
             name="advanced_search"
             className="ant-advanced-search-form"
             onFinish={onFinish}
           >
-            <Form.Item
-              {...formItemLayout}
-              name="deliveryType"
-              label="Tipo de despacho"
-              rules={[
-                {
-                  required: true,
-                  message: 'Ingrese el tipo de despacho',
-                }
-              ]}
-            >
-              <Radio.Group onChange={onChange} value={value}>
-                <Radio value={1}>Despacho a Domicilio</Radio>
-                <Radio value={2}>Retiro en Tienda</Radio>
-              </Radio.Group>
-            </Form.Item>
             {isDelivery && (
               <React.Fragment>
                 <Form.Item
@@ -83,6 +117,19 @@ const PurchaseForm = () => {
                   ]}
                 >
                   <Input placeholder="Av. Matta 1879" />
+                </Form.Item>
+                <Form.Item
+                  {...formItemLayout}
+                  name="reference"
+                  label="Referencia"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ingrese una referencia'
+                    }
+                  ]}
+                >
+                  <Input.TextArea placeholder="Ubicación cercaca a Metro Irarrazaval. Calle 1234 Poste verde" allowClear />
                 </Form.Item>
               </React.Fragment>
             )}
@@ -118,6 +165,14 @@ const PurchaseForm = () => {
       </section>
     </div>
   )
+};
+
+PurchaseForm.propTypes = {
+  selectedPurchaseFormValues: PropTypes.func,
+};
+
+PurchaseForm.defaultProps = {
+  selectedPurchaseFormValues: () => {},
 };
 
 export default PurchaseForm;

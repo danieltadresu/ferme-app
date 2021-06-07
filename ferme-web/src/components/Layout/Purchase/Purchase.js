@@ -15,13 +15,31 @@ const Purchase = () => {
   const { id } = useParams();
   const [ productId, setProductId ] = useState(id);
   const [ fakeCart, setFakeCart ] = useState();
-
+  const [ deliveryData, setDeliveryData ] = useState();
+  
   const fetchProduct = async (value) => {
     axios
     .get(`https://localhost:5001/api/product/${value}`)
     .then((response) => {
       setFakeCart(response.data);
     })
+  };
+
+  const purchaseFormHandler = (values, isDelivery) => {
+    const delivery = {
+      isHomeDelivery: isDelivery,
+      commune: values.commune,
+      address: values.address,
+      reference: values.reference
+    }
+    setDeliveryData(delivery);
+  };
+
+  const finalPricePurchaseHandler = (purchasePrice, productQuantity) => {
+    const cart = fakeCart;
+    cart.price = purchasePrice;
+    cart.productQuantity = productQuantity;
+    setFakeCart(cart);
   };
 
   /**
@@ -33,26 +51,33 @@ const Purchase = () => {
     fetchProduct(productId);
   }, [productId]);
 
+  useEffect(() => {
+    console.log('fakeCart :>> ', fakeCart);
+  }, [fakeCart]);
+
   const steps = [
     {
-      title: 'Resumen de Productos',
-      content: <PurchaseProducts  />,
+      title: 'Bolsa de compras',
+      content: <PurchaseProducts selectedPurchaseProductValues={finalPricePurchaseHandler} />,
     },
     {
-      title: 'Datos de Compra',
-      content: <PurchaseForm />,
+      title: 'Despacho',
+      content: <PurchaseForm selectedPurchaseFormValues={purchaseFormHandler} />,
     },
     // {
     //   title: 'Detalle de Compra',
     //   content: <PurchaseSummary />,
     // },
     {
-      title: 'Ir a pagar',
-      content: <PurchaseStripeIntegration cartProducts={fakeCart} />,
+      title: 'Pago',
+      content: <PurchaseStripeIntegration cartProducts={fakeCart} delivery={deliveryData} />,
     },
   ];
 
   const next = () => {
+    if (current === 1 && !deliveryData) {
+      return;
+    }
     setCurrent(current + 1);
   };
 

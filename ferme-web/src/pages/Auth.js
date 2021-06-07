@@ -1,7 +1,8 @@
-import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import AuthForm from '../components/Auth/Form/AuthForm';
-import AuthContext from '../store/auth-context';
+import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import AuthForm from "../components/Auth/Form/AuthForm";
+import SignInForm from "../components/Auth/SignInForm/SignInForm";
+import AuthContext from "../store/auth-context";
 
 const Auth = () => {
   const history = useHistory();
@@ -19,14 +20,14 @@ const Auth = () => {
       personId,
       userName
     );
-    history.replace('/');
-  }
+    history.replace("/");
+  };
 
   return (
     <>
       <AuthForm login={login} />
-    </>    
-  )
+    </>
+  );
 };
 
 export default Auth;
