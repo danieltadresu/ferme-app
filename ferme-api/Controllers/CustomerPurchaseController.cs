@@ -25,22 +25,6 @@ namespace Services.Controllers
     [HttpPost("session/{id}")]
     public JsonResult GetCustomerPurchaseToken(int id, [FromBody]Object customerPurchase)
     {
-      // List<int> customerPurchaseCartsIds = new List<int>();
-      // foreach (var item in Connection.CustomerPurchaseCartConnection.GetEntities())
-      // {
-      //   customerPurchaseCartsIds.Add(item.Id);
-      // }
-      // int lastCustomerPurchaseCartId = 0;
-      // if (customerPurchaseCartsIds.Count > 0)
-      // {
-      //   lastCustomerPurchaseCartId = customerPurchaseCartsIds.Max();
-      // }
-      // Models.CustomerPurchaseCart newCustomerPurchaseCart = new Models.CustomerPurchaseCart() {
-      //   Id = lastCustomerPurchaseCartId + JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Id
-      // };
-      // Connection.CustomerPurchaseCartConnection.AddEntity(newCustomerPurchaseCart);
-
-
       List<int> customerPurchasesIds = new List<int>();
       foreach (var item in Connection.CustomerPurchaseConnection.GetEntities())
       {
@@ -77,8 +61,13 @@ namespace Services.Controllers
       // Console.WriteLine(newCustomerPurchase.Updatedat);
       Boolean addCustomerPurchase = Connection
         .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
+
+      
       if (addCustomerPurchase)
       {
+        int newStock = product.Stock - newCustomerPurchase.ProductQuantity;
+        Connection.ProductConnection.UpdateProductStock(productId, newStock);
+
         var domain = "http://localhost:3000";
         var options = new SessionCreateOptions
         {
@@ -92,14 +81,14 @@ namespace Services.Controllers
             {
               PriceData = new SessionLineItemPriceDataOptions
               {
-                UnitAmount = newCustomerPurchase.TotalPurchase,
+                UnitAmount = product.Price,
                 Currency = "usd",
                 ProductData = new SessionLineItemPriceDataProductDataOptions
                 {
                   Name = product.Name
                 },
               },
-              Quantity = 1,
+              Quantity = newCustomerPurchase.ProductQuantity,
             }
           },
           Mode = "payment",

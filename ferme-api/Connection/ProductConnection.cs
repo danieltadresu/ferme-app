@@ -99,6 +99,17 @@ namespace Connection
         return products[0];
       }
     }
-    
+
+    public static Boolean UpdateProductStock (int id, int newStock) {
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"UPDATE PRODUCT SET STOCK = {newStock} WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
   }
 }
