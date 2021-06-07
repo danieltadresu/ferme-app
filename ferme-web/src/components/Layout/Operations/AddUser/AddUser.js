@@ -21,41 +21,6 @@ const AddUser = (props) => {
     .then((response) => {
       console.log('repsonse :>> ', response);
     });
-
-
-
-
-
-
-    // dataProduct = {
-    //   id: 6,
-    //   name: "HAMMER RED AND BIG",
-    //   description: "A BIG AND RED HAMMER",
-    //   createdat: 1621642759,
-    //   updatedat: 1621642759,
-    //   price: 10000,
-    //   stock: 2,
-    //   imageUrl: "https://m.media-amazon.com/images/I/51Z-pyj1qjL._AC_SX522_.jpg",
-    //   categoryId: 2,
-    //   providerI: 1
-    // }
-    // console.log('dataProduct :>> ', dataProduct);
-    // axios.post('https://localhost:5001/api/product', dataProduct)
-    // .then((response) => {
-    //   console.log('response :>> ', response);
-    //   notification['success']({
-    //     message: 'Producto registrado',
-    //     description: 'Puedes consultar el nuevo producto creado en el catálogo.',
-    //   });
-    //   form.resetFields();
-    // })
-    // .catch((error) => {
-    //   notification['error']({
-    //     message: 'Hubo un error al crear el producto',
-    //     description: 'Puedes intentarlo más tarde.',
-    //   });
-    //   form.resetFields();
-    // });
   };
 
   const selectedItemHandler = (val) => {

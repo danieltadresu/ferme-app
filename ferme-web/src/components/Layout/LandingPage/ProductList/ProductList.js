@@ -37,6 +37,7 @@ const ProductList = (props) => {
     axios
     .post(`https://localhost:5001/api/product/all/${filterValue}`, filterData)
     .then((response) => {
+      console.log('response :>> ', response);
       setIsLoading(false);
       for (const product of response.data) {
         products.push(product);
@@ -89,7 +90,11 @@ const ProductList = (props) => {
           renderItem={item => (
             <List.Item>
               <Card
-                title={item.name}
+                title={(
+                  <span style={{ fontSize: '.8rem', color: '#111827' }}>
+                    {item.name.toUpperCase()}
+                  </span>
+                )}
                 cover={
                   <>
                     <Space style={{width: '100%'}}>
@@ -128,13 +133,17 @@ const ProductList = (props) => {
                         <span className="head-example" />
                       </Badge>
                   </Tooltip> */}
-                  <Button
-                    type="primary"
-                    loading={loadingCart}
-                    onClick={() => paymentHandler(item.id)}
-                  >
-                    Agregar al carrito
-                  </Button>
+                  {item.stock > 0 ? (
+                    <Button
+                      type="primary"
+                      loading={loadingCart}
+                      onClick={() => paymentHandler(item.id)}
+                    >
+                      Agregar al carrito
+                    </Button>
+                  ) : (
+                    <Tag color="red">PRODUCTO SIN STOCK DISPONIBLE</Tag>
+                  )}
                 </Row>
               </Card>
             </List.Item>

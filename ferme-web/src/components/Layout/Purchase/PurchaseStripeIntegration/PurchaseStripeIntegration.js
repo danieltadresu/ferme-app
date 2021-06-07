@@ -17,18 +17,20 @@ const PurchaseStripeIntegration = (props) => {
     if (!props.cartProducts) {
       return;
     }
+    console.log('props.delivery :>> ', props.delivery);
     const newCustomerPurchase = {
       id: 1,
-      productQuantity: 1,
+      productQuantity: props.cartProducts.productQuantity ? props.cartProducts.productQuantity : 1,
       totalPurchase: props.cartProducts.price,
       paymentMethodId: 1,
-      deliveryTypeId: 1,
+      deliveryTypeId: props.delivery.isHomeDelivery ? 1 : 2,
       customerId: authCtx.personId,
       productId: props.cartProducts.id,
       createdat: 0,
       updatedat: 0,
-      customerPurchaseCartId: 1,
     };
+    console.log('newCustomerPurchase :>> ', newCustomerPurchase);
+    console.log('newCustomerPurchase :>> ', props.cartProducts);
     axios.post(
       `https://localhost:5001/api/customerpurchase/session/${props.cartProducts.id}`, 
       newCustomerPurchase
@@ -76,6 +78,7 @@ const PurchaseStripeIntegration = (props) => {
 
 PurchaseStripeIntegration.propTypes = {
   cartProducts: PropTypes.object,
+  delivery: PropTypes.object,
 };
 
 export default PurchaseStripeIntegration;
