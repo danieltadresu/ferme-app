@@ -82,7 +82,7 @@ namespace Services.Controllers
               PriceData = new SessionLineItemPriceDataOptions
               {
                 UnitAmount = product.Price,
-                Currency = "usd",
+                Currency = "CLP",
                 ProductData = new SessionLineItemPriceDataProductDataOptions
                 {
                   Name = product.Name
