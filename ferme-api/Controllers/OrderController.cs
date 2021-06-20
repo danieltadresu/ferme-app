@@ -19,7 +19,7 @@ namespace Services.Controllers
   //localhost:5001/api/auth
   [Route("api/[controller]")]
   [ApiController]
-  public class Order : ControllerBase
+  public class OrderController : ControllerBase
   {
     // //POST: api/order
     // [EnableCors("Policy")]
@@ -257,30 +257,37 @@ namespace Services.Controllers
         sessionToken = session.Id;
       }
       return new JsonResult(sessionToken);
-
-      // if(Connection.OrderConnection.AddEntity(order)) {
-      //     List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
-      //     foreach (var item in cartItems)
-      //     {
-      //       // Console.WriteLine("PRODUCTO");
-      //       // Console.WriteLine(item.Id);
-      //       // Console.WriteLine(item.ProductId);
-      //       // Console.WriteLine(item.ProductQuantity);
-      //       Models.CartItem cartItem = new Models.CartItem() {
-      //         Id = item.Id,
-      //         OrderId = lastOrderId,
-      //         ProductId = item.ProductId,
-      //         ProductQuantity = item.ProductQuantity
-      //       };
-
-      //       Connection.CartItemConnection.AddEntity(cartItem);
-      //     }
-      // };
-
-      
-
-
     }
+    
+    [EnableCors("Policy")]
+    [HttpGet("all")]
+    public JsonResult GetAllOrders() {
+
+      List<Models.Order> orders = Connection.OrderConnection.GetEntities();
+      List<Models.Bill> bills = new List<Models.Bill>();
+      foreach (var orderItem in orders)
+      {
+        Models.User userData = Connection.UserConnection
+          .GetEntityByPersonId(orderItem.CustomerId);
+        Models.UserRole userRoleData = Connection.UserRoleConnection
+          .GetEntityByUserId(userData.Id);
+        Models.Role roleData = Connection.RoleConnection
+          .GetEntity(userRoleData.RoleId);
+        Models.DeliveryType deliveryTypeData = Connection.DeliveryTypeConnection
+          .GetEntity(orderItem.DeliveryTypeId);
+
+        // Mapeo de objeto Bill
+        Models.Bill bill = new Models.Bill() {
+          Id = orderItem.Id,
+          TotalPurchase = orderItem.TotalPurchase,
+          IsInvoice = roleData.Name is "COMPANY" ? true : false,
+          DeliveryTypeName = deliveryTypeData.Description.ToUpper(),
+        };
+        bills.Add(bill);
+      }
+      return new JsonResult(bills);
+    }
+
   }
 }
 
