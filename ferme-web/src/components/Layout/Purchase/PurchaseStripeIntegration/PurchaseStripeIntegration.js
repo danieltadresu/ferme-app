@@ -40,7 +40,10 @@ const PurchaseStripeIntegration = (props) => {
       }
     })
     const totalPurchase = authCtx.userCart.map((item) => item.itemPrice).reduce((a, b) => a + b, 0);
-    axios.post(`https://localhost:5001/api/order/${authCtx.personId}/${props.delivery.isHomeDelivery ? 1 : 2}/${totalPurchase}`, data);
+    axios.post(`https://localhost:5001/api/order/${authCtx.personId}/${props.delivery.isHomeDelivery ? 1 : 2}/${totalPurchase}`, data).then((response) => {
+      console.log('response :>> ', response);
+      setStripeToken(response.data);
+    });
     // const test = async () => {
     //   axios.post("https://localhost:5001/api/order", data);
     // };
