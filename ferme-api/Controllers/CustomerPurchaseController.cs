@@ -147,6 +147,7 @@ namespace Services.Controllers
         customerPurchase.ProductName = productData.Name.ToUpper();
         customerPurchase.IsInvoice = roleData.Name is "COMPANY" ? true : false;
       }
+      Console.WriteLine("All customer Purchases");
       return new JsonResult(customerPurchases);
     }
 

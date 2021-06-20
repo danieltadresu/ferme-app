@@ -40,7 +40,8 @@ const AuthForm = (props) => {
           props.login(
             response.data.roleName,
             response.data.personName,
-            response.data.personId
+            response.data.personId,
+            [],
           );
         } else {
           notification["error"]({
