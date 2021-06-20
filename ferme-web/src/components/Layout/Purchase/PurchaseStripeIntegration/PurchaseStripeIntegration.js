@@ -14,30 +14,56 @@ const PurchaseStripeIntegration = (props) => {
   const authCtx = useContext(AuthContext);
 
   const purchaseHandler = async () => {
-    if (!props.cartProducts) {
-      return;
-    }
+    console.log('authCtx.userCart :>> ', authCtx.userCart);
+    // if (!props.cartProducts) {
+    //   return;
+    // }
     console.log('props.delivery :>> ', props.delivery);
-    const newCustomerPurchase = {
-      id: 1,
-      productQuantity: props.cartProducts.productQuantity ? props.cartProducts.productQuantity : 1,
-      totalPurchase: props.cartProducts.price,
-      paymentMethodId: 1,
-      deliveryTypeId: props.delivery.isHomeDelivery ? 1 : 2,
-      customerId: authCtx.personId,
-      productId: props.cartProducts.id,
-      createdat: 0,
-      updatedat: 0,
-    };
-    console.log('newCustomerPurchase :>> ', newCustomerPurchase);
-    console.log('newCustomerPurchase :>> ', props.cartProducts);
-    axios.post(
-      `https://localhost:5001/api/customerpurchase/session/${props.cartProducts.id}`, 
-      newCustomerPurchase
-    )
-    .then((response) => {
-      setStripeToken(response.data);
+    // const data = [
+    //   {
+    //     "Id": 2,
+    //     "ProductId": 1,
+    //     "ProductQuantity": 12
+    //   },
+    //   {
+    //     "Id": 1,
+    //     "ProductId": 1,
+    //     "'ProductQuantity": 1    
+    //   }
+    // ]
+    console.log('authCtx.userCart :>> ', authCtx.userCart);
+    const data = authCtx.userCart.map((cart) => {
+      return {
+        "Id": cart.id,
+        "ProductId": cart.id,
+        "ProductQuantity": cart.quantity,
+      }
     })
+    const totalPurchase = authCtx.userCart.map((item) => item.itemPrice).reduce((a, b) => a + b, 0);
+    axios.post(`https://localhost:5001/api/order/${authCtx.personId}/${props.delivery.isHomeDelivery ? 1 : 2}/${totalPurchase}`, data);
+    // const test = async () => {
+    //   axios.post("https://localhost:5001/api/order", data);
+    // };
+    // const newCustomerPurchase = {
+    //   id: 1,
+    //   productQuantity: props.cartProducts.productQuantity ? props.cartProducts.productQuantity : 1,
+    //   totalPurchase: props.cartProducts.price,
+    //   paymentMethodId: 1,
+    //   deliveryTypeId: props.delivery.isHomeDelivery ? 1 : 2,
+    //   customerId: authCtx.personId,
+    //   productId: props.cartProducts.id,
+    //   createdat: 0,
+    //   updatedat: 0,
+    // };
+    // console.log('newCustomerPurchase :>> ', newCustomerPurchase);
+    // console.log('newCustomerPurchase :>> ', props.cartProducts);
+    // axios.post(
+    //   `https://localhost:5001/api/customerpurchase/session/${props.cartProducts.id}`, 
+    //   newCustomerPurchase
+    // )
+    // .then((response) => {
+    //   setStripeToken(response.data);
+    // })
   };
 
   const purchaseStripeHandler = async () => {
@@ -52,10 +78,6 @@ const PurchaseStripeIntegration = (props) => {
       purchaseStripeHandler(); 
     }
   }, [stripeToken]);
-
-  useEffect(() => {
-    console.log('props.cartProducts :>> ', props.cartProducts);
-  }, [props.cartProducts]);
 
   return (
     <div className={classes.container}>

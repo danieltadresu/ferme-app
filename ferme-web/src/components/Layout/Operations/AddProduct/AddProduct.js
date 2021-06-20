@@ -10,15 +10,7 @@ const AddProduct = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
     let dataProduct = values;
-    console.log('product :>> ', dataProduct);
-
-    console.log('dataProduct.id :>> ', dataProduct.id);
-    console.log('dataProduct.id :>> ', dataProduct.name);
-    console.log('dataProduct.id :>> ', dataProduct.description);
-    console.log('dataProduct.id :>> ', dataProduct.categoryId);
-    console.log('dataProduct.id :>> ', dataProduct.providerId);
 
     // dataProduct = {
     //   id: 6,

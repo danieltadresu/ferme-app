@@ -54,7 +54,7 @@ const App = () => {
           Pagina la cual muestre un determinado mensaje
         */}
         
-        <Route path="/checkout/:id">
+        <Route path="/checkout">
           {authCtx.isLoggedIn && <Checkout />}
           {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
         </Route>

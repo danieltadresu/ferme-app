@@ -12,8 +12,8 @@ import PurchaseStripeIntegration from './PurchaseStripeIntegration/PurchaseStrip
 const Purchase = () => {
   const [current, setCurrent] = React.useState(0);
 
-  const { id } = useParams();
-  const [ productId, setProductId ] = useState(id);
+  // const { id } = useParams();
+  // const [ productId, setProductId ] = useState(id);
   const [ fakeCart, setFakeCart ] = useState();
   const [ deliveryData, setDeliveryData ] = useState();
   
@@ -47,13 +47,13 @@ const Purchase = () => {
    * Eliminar este useEffect, manejar data de carrito en localStorage
    * También elimina la logica en PurchaseProducts.js
    */
-  useEffect(() => {
-    fetchProduct(productId);
-  }, [productId]);
+  // useEffect(() => {
+  //   fetchProduct(productId);
+  // }, [productId]);
 
-  useEffect(() => {
-    console.log('fakeCart :>> ', fakeCart);
-  }, [fakeCart]);
+  // useEffect(() => {
+  //   console.log('fakeCart :>> ', fakeCart);
+  // }, [fakeCart]);
 
   const steps = [
     {
@@ -67,10 +67,10 @@ const Purchase = () => {
     // {
     //   title: 'Detalle de Compra',
     //   content: <PurchaseSummary />,
-    // },
+    // // },
     {
       title: 'Pago',
-      content: <PurchaseStripeIntegration cartProducts={fakeCart} delivery={deliveryData} />,
+      content: <PurchaseStripeIntegration delivery={deliveryData} />,
     },
   ];
 
