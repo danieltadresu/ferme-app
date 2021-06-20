@@ -186,6 +186,19 @@ INSERT INTO delivery_type (id, description) VALUES (1, 'HOME DELIVERY');
 
 INSERT INTO delivery_type (id, description) VALUES (2, 'STORE DELIVERY');
 
+
+
+
+/* */
+
+
+SELECT * FROM CUSTOMER_PURCHASE cp ;
+
+SELECT * FROM customer_purchase_cart;
+
+SELECT * FROM BILL b ;
+
+
 CREATE TABLE customer_purchase (
 	id int NOT NULL,
 	product_quantity int NOT NULL,
@@ -209,10 +222,14 @@ SELECT * FROM CUSTOMER_PURCHASE cp ;
 
 SELECT * FROM customer_purchase_cart;
 
+SELECT * FROM purchase_return_status;
+
+SELECT * FROM purchase_return;
+
 
 /* NO DEBERIA EXISTIR ASOCIACION ENTRE DELIVERY TYPE Y PAYMENT METHOD*/
 
-CREATE TABLE customer_purchase (3
+CREATE TABLE customer_purchase (
 	id int NOT NULL,
 	product_quantity int NOT NULL,
 	total_purchase int NOT NULL,
@@ -228,85 +245,41 @@ CREATE TABLE customer_purchase (3
 );
 
 
+/* CartItem, Product, and Order*/
 
-ALTER TABLE customer_purchase 
-	ADD customer_purchase_cart_id int NULL CONSTRAINT FK_cart_customer_purchase 
-	REFERENCES customer_purchase_cart(id);
-
-
-
-
-CREATE TABLE customer_purchase_cart (
+CREATE TABLE cart_item (
 	id int NOT NULL,
-	total_purchase_cart int NOT NULL,
-	CONSTRAINT FK_customer_purchase_cart PRIMARY KEY (id)
+	order_id int NOT NULL,
+	product_id int NOT NULL,
+	quantity int NOT NULL,
+	CONSTRAINT PK_cart_item PRIMARY KEY (ID),
+	FOREIGN KEY (order_id) REFERENCES orders(id),
+	FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
 
-ALTER TABLE customer_purchase_cart DROP COLUMN total_purchase_cart;
-
-
-INSERT INTO customer_purchase_cart (id) VALUES (1);
-
-SELECT * FROM customer_purchase_cart;
-
-
-/* BOLETA */
-
-DROP TABLE bill;
-
-CREATE TABLE bill (
+CREATE TABLE orders (
 	id int NOT NULL,
-	createdat int NULL,
-    updatedat int NULL,
-    is_invoice int NOT NULL,
-    customer_purchase_id int NOT NULL,
-    total_bill int NOT NULL,
-    payment_method_id int NOT NULL,
+	total_purchase int NOT NULL,
+	payment_method_id int NOT NULL,
 	delivery_type_id int NOT NULL,
 	customer_id int NOT NULL,
-	delivery_address varchar(255) NULL,
-	CONSTRAINT PK_bill PRIMARY KEY (ID),
-	FOREIGN KEY (customer_purchase_id) REFERENCES customer_purchase(id),
+	CONSTRAINT PK_orders PRIMARY KEY (ID),
 	FOREIGN KEY (payment_method_id) REFERENCES payment_method(id),
 	FOREIGN KEY (delivery_type_id) REFERENCES delivery_type(id),
 	FOREIGN KEY (customer_id) REFERENCES person(id)
 );
 
-
-/***********************************************************************/
-/* 						DEVOLUCION DE COMPRA 						   */
-/***********************************************************************/
-
-DROP TABLE purchase_return_status;
-DROP TABLE purchase_return;
+SELECT * FROM orders;
 
 
-CREATE TABLE purchase_return_status (
-	id int NOT NULL,
-	description varchar(255) NOT NULL,
-	CONSTRAINT PK_Purchase_return_status PRIMARY KEY (id)
-);
-
-
-CREATE TABLE purchase_return (
-	id int NOT NULL,
-	createdat int NULL,
-    updatedat int NULL,
-    user_id int NOT NULL,
-    bill_id int NOT NULL,
-    status_id int NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (bill_id) REFERENCES bill(id),
-    FOREIGN KEY (status_id) REFERENCES purchase_return_status(id)
-);
-
-
-
-
-
-
-
-SELECT * FROM USERS u ;
-
-SELECT * FROM PERSON p ;
+SELECT * FROM cart_item;
+s
+/*
+ * Order
+ * ID 1
+ * 
+ * CartItem
+ * ID 1        Order ID 1   Product ID 1    Quantity 2
+ * ID 2        Order ID 1   Product ID 2    Quantity 1
+ */
