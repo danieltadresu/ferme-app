@@ -105,16 +105,105 @@ namespace Services.Controllers
     }
 
     [EnableCors("Policy")]
-    // [HttpPost("testarreglo")]
-    public void AddOrder ([FromBody]Object data)
+    [HttpPost("{customerId}/{deliveryTypeId}/{totalPurchase}")]
+    public void AddOrder (int customerId, int deliveryTypeId, int totalPurchase, [FromBody]Object data)
     {
       string json = data.ToString();
-      Console.WriteLine(json);
-      List<Models.OrderItem> items = JsonConvert.DeserializeObject<List<Models.OrderItem>>(json);
-      Console.WriteLine(items.Count);
-      Models.OrderItem order = items[0];
-      Console.WriteLine(order.Id);
-      Console.WriteLine(order.ProductQuantity);
+      // Console.WriteLine(json);
+      // List<Models.OrderItem> items = JsonConvert.DeserializeObject<List<Models.OrderItem>>(json);
+      // Console.WriteLine(items.Count);
+      // Models.OrderItem order = items[0];
+      // Console.WriteLine(order.Id);
+      // Console.WriteLine(order.ProductQuantity);
+      // foreach (var item in items)
+      // {
+      //   Console.WriteLine(item.Id);
+      //   Console.WriteLine(item.ProductId);
+      //   Console.WriteLine(item.ProductQuantity);
+      // }
+      // List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
+      // foreach (var item in cartItems)
+      // {
+      //   Console.WriteLine("PRODUCTO");
+      //   Console.WriteLine(item.Id);
+      //   Console.WriteLine(item.ProductId);
+      //   Console.WriteLine(item.ProductQuantity);
+      // }
+
+      // Obtener el ultimo ID registrado de Orden
+      List<int> allOrders = new List<int>();
+      foreach (var item in Connection.OrderConnection.GetEntities())
+      {
+        allOrders.Add(item.Id);
+      }
+      int lastOrderId = 0;
+      if (allOrders.Count > 0)
+      {
+        lastOrderId = allOrders.Max();
+      }
+
+      // Guardar Orden de Compra
+      Models.Order order = new Models.Order() {
+        Id = lastOrderId + 1,
+        TotalPurchase = totalPurchase,
+        PaymentMethodId = 1,
+        DeliveryTypeId = deliveryTypeId,
+        CustomerId = customerId,
+      };
+
+      if (Connection.OrderConnection.AddEntity(order))
+      {
+        Console.WriteLine("Saved");
+
+
+        // Guardar Datos de Cart Items
+        List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
+        foreach (var item in cartItems)
+        {
+
+          // Obtener el ultimo registro de CartItem
+          List<int> allCartItems = new List<int>();
+          foreach (var i in Connection.CartItemConnection.GetEntities())
+          {
+            allCartItems.Add(i.Id);
+          }
+          int lastCartItemId = 0;
+          if (allCartItems.Count > 0)
+          {
+            lastCartItemId = allCartItems.Max();
+          }
+          Console.WriteLine(lastCartItemId);
+          Models.CartItem cartItem = new Models.CartItem() {
+            Id = lastCartItemId + 1,
+            OrderId = order.Id,
+            ProductId = item.ProductId,
+            ProductQuantity = item.ProductQuantity
+          };
+          Connection.CartItemConnection.AddEntity(cartItem);
+        }
+      }
+
+      // if(Connection.OrderConnection.AddEntity(order)) {
+      //     List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
+      //     foreach (var item in cartItems)
+      //     {
+      //       // Console.WriteLine("PRODUCTO");
+      //       // Console.WriteLine(item.Id);
+      //       // Console.WriteLine(item.ProductId);
+      //       // Console.WriteLine(item.ProductQuantity);
+      //       Models.CartItem cartItem = new Models.CartItem() {
+      //         Id = item.Id,
+      //         OrderId = lastOrderId,
+      //         ProductId = item.ProductId,
+      //         ProductQuantity = item.ProductQuantity
+      //       };
+
+      //       Connection.CartItemConnection.AddEntity(cartItem);
+      //     }
+      // };
+
+      
+
 
     }
   }
