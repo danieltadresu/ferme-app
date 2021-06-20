@@ -106,7 +106,7 @@ namespace Services.Controllers
 
     [EnableCors("Policy")]
     [HttpPost("{customerId}/{deliveryTypeId}/{totalPurchase}")]
-    public void AddOrder (int customerId, int deliveryTypeId, int totalPurchase, [FromBody]Object data)
+    public JsonResult AddOrder (int customerId, int deliveryTypeId, int totalPurchase, [FromBody]Object data)
     {
       string json = data.ToString();
       // Console.WriteLine(json);
@@ -151,13 +151,12 @@ namespace Services.Controllers
         CustomerId = customerId,
       };
 
+      String sessionToken = null;
+      List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
       if (Connection.OrderConnection.AddEntity(order))
       {
         Console.WriteLine("Saved");
-
-
         // Guardar Datos de Cart Items
-        List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
         foreach (var item in cartItems)
         {
 
@@ -179,9 +178,85 @@ namespace Services.Controllers
             ProductId = item.ProductId,
             ProductQuantity = item.ProductQuantity
           };
-          Connection.CartItemConnection.AddEntity(cartItem);
+          
+          // Actualizar stock de Producto
+          if(Connection.CartItemConnection.AddEntity(cartItem)) {
+            Models.Product product = ProductConnection.GetEntity(cartItem.ProductId);
+            int newStock = product.Stock - cartItem.ProductQuantity;
+            Connection.ProductConnection.UpdateProductStock(product.Id, newStock);
+          };
         }
+
+        // List<SessionLineItemOptions> lineItems = new List<SessionLineItemOptions>
+        // {
+        //     new SessionLineItemOptions
+        //     {
+        //         Price = "{{PRICE_ID_1}}",
+        //         Quantity = 1,
+        //     },
+        //     new SessionLineItemOptions
+        //     {
+        //         Price = "{{PRICE_ID_2}}",
+        //         Quantity = 1,
+        //     },
+        // },
+        List<SessionLineItemOptions> lineItems = new List<SessionLineItemOptions>();
+        foreach (var item in cartItems)
+        {
+          lineItems.Add(new SessionLineItemOptions
+            {
+              Name = "Dummy Product",
+              Currency = "CLP",
+              Amount = 101,
+              Quantity = 101,
+            });
+        };
+
+        var options = new SessionCreateOptions
+          {
+            PaymentMethodTypes = new List<String>
+            {
+              "card",
+            },
+            LineItems = lineItems,
+            // LineItems = new List<SessionLineItemOptions>
+            // {
+            //   new SessionLineItemOptions
+            //   {
+            //     PriceData = new SessionLineItemPriceDataOptions
+            //     {
+            //       UnitAmount = order.TotalPurchase,
+            //       Currency = "CLP",
+            //       ProductData = new SessionLineItemPriceDataProductDataOptions
+            //       {
+            //         Name = "Product 1"
+            //       },
+            //     },
+            //     Quantity = 1,
+            //   },
+            //   new SessionLineItemOptions
+            //   {
+            //     PriceData = new SessionLineItemPriceDataOptions
+            //     {
+            //       UnitAmount = order.TotalPurchase,
+            //       Currency = "CLP",
+            //       ProductData = new SessionLineItemPriceDataProductDataOptions
+            //       {
+            //         Name = "Producto 2"
+            //       },
+            //     },
+            //     Quantity = 1,
+            //   }
+            // },
+            Mode = "payment",
+            SuccessUrl = "http://localhost:3000/success-purchase",
+            CancelUrl = "http://localhost:3000/rejected-purchase"
+          };
+        var service = new SessionService();
+        Session session = service.Create(options);
+        sessionToken = session.Id;
       }
+      return new JsonResult(sessionToken);
 
       // if(Connection.OrderConnection.AddEntity(order)) {
       //     List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
