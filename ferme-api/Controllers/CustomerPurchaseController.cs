@@ -82,7 +82,7 @@ namespace Services.Controllers
               PriceData = new SessionLineItemPriceDataOptions
               {
                 UnitAmount = product.Price,
-                Currency = "usd",
+                Currency = "CLP",
                 ProductData = new SessionLineItemPriceDataProductDataOptions
                 {
                   Name = product.Name
@@ -147,6 +147,7 @@ namespace Services.Controllers
         customerPurchase.ProductName = productData.Name.ToUpper();
         customerPurchase.IsInvoice = roleData.Name is "COMPANY" ? true : false;
       }
+      Console.WriteLine("All customer Purchases");
       return new JsonResult(customerPurchases);
     }
 

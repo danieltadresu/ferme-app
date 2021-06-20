@@ -69,7 +69,7 @@ namespace Services.Controllers
     // Boleta
     public IActionResult GetBill(int id)
     {
-      Models.CustomerPurchase customerPurchase = CustomerPurchaseConnection.GetEntity(id);
+      Models.Order order = null;
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
@@ -80,10 +80,10 @@ namespace Services.Controllers
 
       var objectSettings = new ObjectSettings {
         PagesCount = true,
-        HtmlContent = utils.templates.Bill.GetHTMLString(customerPurchase),
+        HtmlContent = utils.templates.Bill.GetHTMLString(order),
         WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
-        FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
+        // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
       };
 
       var document = new HtmlToPdfDocument() {

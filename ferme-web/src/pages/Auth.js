@@ -7,7 +7,7 @@ const Auth = () => {
   const history = useHistory();
   const authCtx = useContext(AuthContext);
 
-  const login = (roleAccess, userName, personId) => {
+  const login = (roleAccess, userName, personId, userCart) => {
     // event.preventDefault();
     // 01 MINUTOS -> 60000 MILISEGUNDOS
     // 10 MINUTOS -> 600000 MILISEGUNDOS
@@ -17,7 +17,8 @@ const Auth = () => {
       expirationTime.toISOString(),
       roleAccess,
       personId,
-      userName
+      userName,
+      userCart,
     );
     history.replace("/");
   };

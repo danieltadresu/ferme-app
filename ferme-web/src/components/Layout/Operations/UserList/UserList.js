@@ -5,8 +5,6 @@ import { Row, Col, Button, Card, Table, Tag, Space, Skeleton, Select } from 'ant
 import 'antd/dist/antd.css';
 import classes from './UserList.module.css'
 import {
-  CheckCircleOutlined,
-  ExclamationCircleOutlined,
   FileSearchOutlined,
 } from '@ant-design/icons';
 const UserList = (props) => {

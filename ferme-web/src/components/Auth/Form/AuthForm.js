@@ -40,7 +40,8 @@ const AuthForm = (props) => {
           props.login(
             response.data.roleName,
             response.data.personName,
-            response.data.personId
+            response.data.personId,
+            [],
           );
         } else {
           notification["error"]({
@@ -52,6 +53,22 @@ const AuthForm = (props) => {
       .catch((error) => {
         console.log("error :>> ", error);
       });
+  };
+
+  const data = [
+    {
+      "Id": 2,
+      "ProductId": 1,
+      "ProductQuantity": 12
+    },
+    {
+      "Id": 1,
+      "ProductId": 1,
+      "'ProductQuantity": 1    
+    }
+  ]  
+  const test = async () => {
+    axios.post("https://localhost:5001/api/order", data);
   };
 
   const signinHandler = () => {
@@ -139,7 +156,7 @@ const AuthForm = (props) => {
                 <Form.Item>
                   <Row justify="space-around">
                     <a onClick={signinHandler}>Crea tu cuenta</a>
-                    <a>¿Olvidaste tu contraseña?</a>
+                    <a onClick={test}>¿Olvidaste tu contraseña?</a>
                     <Modal
                       title="Registra tu cuenta"
                       centered

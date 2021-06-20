@@ -8,69 +8,70 @@ import { Table, Tag, Space, Skeleton, Descriptions, Badge, Button, notification 
 import { PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
 
 const PurchaseProducts = (props) => {
-  const { id } = useParams();
-  const [productId, setProductId] = useState(id);
+  // const { id } = useParams();
+  // const [productId, setProductId] = useState(id);
   const [productData, setProductData] = useState();
   const [productQuantity, setProductQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchProduct = async (value) => {
-    axios
-      .get(`https://localhost:5001/api/product/${value}`)
-      .then((response) => {
-        console.log("response :>> ", response);
-        setProductData(response.data);
-        setIsLoading(false);
-      });
-  };
+  // const fetchProduct = async (value) => {
+  //   axios
+  //     .get(`https://localhost:5001/api/product/${value}`)
+  //     .then((response) => {
+  //       console.log("response :>> ", response);
+  //       setProductData(response.data);
+  //       setIsLoading(false);
+  //     });
+  // };
 
-  useEffect(() => {
-    fetchProduct(productId);
-  }, [productId]);
+  // useEffect(() => {
+  //   fetchProduct(productId);
+  // }, [productId]);
 
-  useEffect(() => {
-    console.log("productData :>> ", productData);
-  }, [productData]);
+  // useEffect(() => {
+  //   console.log("productData :>> ", productData);
+  // }, [productData]);
 
-  const increaseProductQuantityHandler = (val) => {
-    const quantity = productQuantity;
-    const newQuantity = quantity + val;
-    console.log('productData :>> ', productData);
-    console.log('newQuantity :>> ', newQuantity);
-    console.log('productData.quantity :>> ', productData.quantity);
-    if (newQuantity > productData.stock) {
-      notification['warning']({
-        message: 'No es posible aumentar el Producto',
-        description: `El Producto ${productData.name.toUpperCase()} seleccionado tiene un Stock de ${productData.stock}`,
-      });
-    } else {
-      setProductQuantity(newQuantity)
-    }
-  };
+  // const increaseProductQuantityHandler = (val) => {
+  //   const quantity = productQuantity;
+  //   const newQuantity = quantity + val;
+  //   console.log('productData :>> ', productData);
+  //   console.log('newQuantity :>> ', newQuantity);
+  //   console.log('productData.quantity :>> ', productData.quantity);
+  //   if (newQuantity > productData.stock) {
+  //     notification['warning']({
+  //       message: 'No es posible aumentar el Producto',
+  //       description: `El Producto ${productData.name.toUpperCase()} seleccionado tiene un Stock de ${productData.stock}`,
+  //     });
+  //   } else {
+  //     setProductQuantity(newQuantity)
+  //   }
+  // };
 
-  const decreaseProductQuantityHandler = (val) => {
-    const quantity = productQuantity;
-    const newQuantity = quantity - val;
-    setProductQuantity(newQuantity)
-    props.selectedPurchaseProductValues(
-      productData?.price * productQuantity,
-      productQuantity
-    );
-  };
+  // const decreaseProductQuantityHandler = (val) => {
+  //   const quantity = productQuantity;
+  //   const newQuantity = quantity - val;
+  //   setProductQuantity(newQuantity)
+  //   props.selectedPurchaseProductValues(
+  //     productData?.price * productQuantity,
+  //     productQuantity
+  //   );
+  // };
 
-  useEffect(() => {
-    console.log('productQuantitty :>> ', productQuantity);
-    if (productQuantity > 1) {
-      props.selectedPurchaseProductValues(
-        productData?.price * productQuantity,
-        productQuantity
-      ); 
-    }
-  }, [productQuantity]);
+  // useEffect(() => {
+  //   console.log('productQuantitty :>> ', productQuantity);
+  //   if (productQuantity > 1) {
+  //     props.selectedPurchaseProductValues(
+  //       productData?.price * productQuantity,
+  //       productQuantity
+  //     ); 
+  //   }
+  // }, [productQuantity]);
 
   return (
     <div className={classes.container}>
-      <Skeleton loading={isLoading}>
+      <h1>Test</h1>
+      {/* <Skeleton loading={isLoading}>
         <Descriptions title="" bordered>
           <Descriptions.Item label="Producto">
             {productData?.name.toUpperCase()}
@@ -124,7 +125,7 @@ const PurchaseProducts = (props) => {
             <MinusCircleOutlined />
           </Button>
         </div>
-      </Skeleton>
+      </Skeleton> */}
     </div>
   );
 };
