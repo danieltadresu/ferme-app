@@ -1,10 +1,16 @@
-
 import { Button, Result } from "antd";
-import classes from './PurchaseSuccessNotification.module.css'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import classes from "./PurchaseSuccessNotification.module.css";
 
 const PurchaseSuccessNotification = () => {
+  const { id } = useParams();
+  const [orderId, setOrderId] = useState(id);
+  const billDocument = `https://localhost:5001/api/file/bill/${orderId}`;
 
-  const billDocument = `https://localhost:5001/api/file/bill/1`;
+  useEffect(() => {
+    console.log('id :>> ', orderId);
+  }, [orderId]);
 
   return (
     <div className={classes.container}>
@@ -14,21 +20,21 @@ const PurchaseSuccessNotification = () => {
             status="success"
             title="Compra generada con éxito"
             extra={[
-                <Button
-                  type="primary"
-                  key="console"
-                  style={{marginTop: '1rem'}}
-                >
-                  Ver Detalle de Compra
-                </Button>,
-                <Button
-                  type="primary"
-                  key="console"
-                  style={{marginTop: '1rem'}}
-                  href={billDocument}
-                >
-                  Descargar Boleta
-                </Button>,
+              <Button
+                type="primary"
+                key="console"
+                style={{ marginTop: "1rem" }}
+              >
+                Ver Detalle de Compra
+              </Button>,
+              <Button
+                type="primary"
+                key="console"
+                style={{ marginTop: "1rem" }}
+                href={billDocument}
+              >
+                Descargar Boleta
+              </Button>,
             ]}
           />
         </div>
