@@ -11,7 +11,7 @@ const Operations = () => {
   const [selectedItem, setSelectedItem] = useState(0);
 
   const itemChangeHandler = (value) => {
-    console.log('value Operations:>> ', value);
+    console.log('value Operations!:>> ', value);
     setSelectedItem(value);
   };
 
