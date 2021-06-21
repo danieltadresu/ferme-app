@@ -212,6 +212,7 @@ namespace Services.Controllers
             });
         };
 
+        int orderId = order.Id;
         var options = new SessionCreateOptions
           {
             PaymentMethodTypes = new List<String>
@@ -249,7 +250,7 @@ namespace Services.Controllers
             //   }
             // },
             Mode = "payment",
-            SuccessUrl = "http://localhost:3000/success-purchase",
+            SuccessUrl = $"http://localhost:3000/success-purchase/{orderId}",
             CancelUrl = "http://localhost:3000/rejected-purchase"
           };
         var service = new SessionService();
