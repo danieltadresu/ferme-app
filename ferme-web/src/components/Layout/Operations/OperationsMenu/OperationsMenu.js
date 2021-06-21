@@ -21,13 +21,16 @@ const OperationsMenu = (props) => {
           <Col xs={24} sm={24} md={24} lg={16} xl={12}>
             <Collapse accordion>
               <Collapse.Panel
-                header="Administración de Órdenes de Compra"
+                header="Órdenes de Compra de Productos"
                 key="3"
               >
-                <Collapse defaultActiveKey="1">
+                <Collapse defaultActiveKey="2">
                   <Collapse.Panel
                     header="Generar orden de Compra de Productos"
                     key="1"
+                    collapsible={
+                      authCtx.roleAccess !== "ADMIN" ? "disabled" : "header"
+                    }
                   >
                     <Alert
                       message="Información"
@@ -40,7 +43,7 @@ const OperationsMenu = (props) => {
                           type="primary"
                           onClick={() => selectedItemHandler(5)}
                         >
-                          IR AL FORMULARIO
+                          VER
                         </Button>
                       }
                     />
