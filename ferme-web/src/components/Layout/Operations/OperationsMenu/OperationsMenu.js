@@ -256,6 +256,8 @@ const OperationsMenu = (props) => {
                               cursor: "pointer",
                               fontSize: ".8rem",
                             }}
+                            target="_blank"
+                            href={'https://localhost:5001/api/file/stock-report'}
                           >
                             <FileSearchOutlined /> Ver Informe
                           </a>
@@ -309,11 +311,11 @@ const OperationsMenu = (props) => {
                     />
                   </Collapse.Panel>
                   <Collapse.Panel
-                    header="Datos y Estadísticas Generales"
+                    header="Informe de Ventas"
                     key="4"
                   >
                     <Alert
-                      message="Datos y Estadísticas"
+                      message="Ventas Totales"
                       showIcon
                       description=""
                       type="info"
