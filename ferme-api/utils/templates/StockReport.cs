@@ -8,7 +8,6 @@ namespace utils.templates
     public static string GetHTMLString(
       Product product
     ) {
-
       // Models.Product customerPurchaseProduct = Connection.ProductConnection
       //   .GetEntity(customerPurchase.ProductId);
 
