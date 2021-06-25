@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Row, Col, Tag, Card, Steps, Button, Modal, List } from "antd";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
@@ -85,6 +85,47 @@ const LandingPage = (props) => {
     setCurrent(current - 1);
   };
 
+  const onAddProduct = (value) => {
+    if (!authCtx.isLoggedIn) {
+      history.replace("/acceso");
+    }
+    const currentCart = authCtx.userCart ? authCtx.userCart : [];
+    console.log("value :>> ", value);
+    console.log("currentCart :>> ", currentCart);
+
+    const productExists = currentCart
+      .map((c) => c.id)
+      .find((cart) => cart === value.id);
+
+    // console.log('productExists :>> ', productExists);
+
+    if (productExists) {
+      console.log("currentCart :>> ", currentCart);
+      const cartItemIndex = currentCart
+        .map((c) => c.id)
+        .findIndex((cart) => cart === value.id);
+      console.log(
+        "currentCart[cartItemIndex] :>> ",
+        currentCart[cartItemIndex]
+      );
+      currentCart[cartItemIndex].quantity =
+        currentCart[cartItemIndex].quantity + 1;
+      currentCart[cartItemIndex].itemPrice =
+        currentCart[cartItemIndex].unitPrice *
+        currentCart[cartItemIndex].quantity;
+      console.log("currentCart :>> ", currentCart);
+      authCtx.userCart = currentCart;
+      setCartData(currentCart);
+      props.setCartQuantity(
+        authCtx.userCart && authCtx.userCart.length > 0
+          ? authCtx.userCart
+              .map((item) => item.quantity)
+              .reduce((a, b) => a + b, 0)
+          : 0
+      );
+    }
+  };
+
   return (
     <div className={classes.container}>
       <section className={classes.box}>
@@ -128,7 +169,7 @@ const LandingPage = (props) => {
           title="Carro"
           centered
           visible={visible}
-          onOk={() => history.replace('/checkout')}
+          onOk={() => history.replace("/checkout")}
           onCancel={modalCartHandler}
           width={1000}
         >
@@ -141,7 +182,10 @@ const LandingPage = (props) => {
                 <List.Item
                   key={item.id}
                   actions={[
-                    <a key="list-loadmore-edit">
+                    <a
+                      key="list-loadmore-edit"
+                      onClick={() => onAddProduct(item)}
+                    >
                       <PlusCircleOutlined />
                     </a>,
                     <a key="list-loadmore-more">
@@ -180,11 +224,13 @@ const LandingPage = (props) => {
 
 LandingPage.propTypes = {
   setModalVisible: PropTypes.func,
+  setCartQuantity: PropTypes.func,
   modalCartIsVisible: PropTypes.bool.isRequired,
 };
 
 LandingPage.defaultProps = {
   setModalVisible: () => {},
+  setCartQuantity: () => {},
 };
 
 export default LandingPage;
