@@ -66,7 +66,7 @@ namespace Services.Controllers
     [HttpGet("stock-report")]
     public IActionResult GetStockReport ()
     {
-      Models.Product product = null;
+      List<Models.Product> products = Connection.ProductConnection.GetEntities();
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
@@ -77,8 +77,8 @@ namespace Services.Controllers
 
       var objectSettings = new ObjectSettings {
         PagesCount = true,
-        HtmlContent = utils.templates.StockReport.GetHTMLString(product),
-        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+        HtmlContent = utils.templates.StockReport.GetHTMLString(products),
+        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "stock-report.css") },
         HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
         // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
       };

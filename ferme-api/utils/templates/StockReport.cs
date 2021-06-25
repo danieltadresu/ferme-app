@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Models;
 namespace utils.templates
@@ -6,78 +7,51 @@ namespace utils.templates
   public static class StockReport
   {
     public static string GetHTMLString(
-      Product product
+      // Product product
+      List<Models.Product> products
     ) {
-      // Models.Product customerPurchaseProduct = Connection.ProductConnection
-      //   .GetEntity(customerPurchase.ProductId);
-
-      // Models.Person customerPurchasePerson = Connection.PersonConnection
-      //   .GetEntity(customerPurchase.CustomerId);
-
-      // Models.User customerPurchaseUser = Connection.UserConnection
-      //   .GetEntityByPersonId(customerPurchasePerson.Id);
-
-      // Models.UserRole customerPurchaseUserRole = Connection.UserRoleConnection
-      //   .GetEntityByUserId(customerPurchaseUser.Id);
-
-      // String isInvoice = null;
-      // Console.WriteLine(customerPurchaseUserRole.RoleId);
-      // if (customerPurchaseUserRole.RoleId == 4)
-      // {
-      //   isInvoice = "FACTURA";
-      // } else {
-      //   isInvoice = "BOLETA";
-      // };
-
       var sb = new StringBuilder();
       sb.Append(@"
         <html>
           <head>
           </head>
-          <body>
-            <div class='header'>
-              <h1 class='header-title'>Ferme Store</h1>
-              <h1 class='header-title'>INFORME DE STOCK DE PRODUCTOS</h1>
-              <hr/>");
-      // sb.Append(@"
-      //         <h5 class='header-bill-nro'>");
-      // sb.Append(isInvoice);
-      // sb.Append(@" Electrónica Nro ");
-      // sb.Append(customerPurchase.Id);
-      // sb.Append(@"</h5> </div>");
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Total Purchase:");
-      // sb.Append(customerPurchase.TotalPurchase);
-      // sb.Append(@"</h1> </div>");
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Products:");
-      // sb.Append(customerPurchaseProduct.Name);
-      // sb.Append(@"</h1> </div>");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Image:");
-      // sb.Append(@"</h1> </div>");
-      // sb.Append(@"<img src=");
-      // sb.Append(customerPurchaseProduct.ImageUrl);
-      // sb.Append(@">");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Customer:");
-      // sb.Append($"{customerPurchasePerson.FirstName} {customerPurchasePerson.LastName}");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>User email:");
-      // sb.Append($"{customerPurchaseUser.Email}");
-
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>DOCUMENTO:");
-      // sb.Append($"{isInvoice}");
-      // sb.Append(customerPurchase.CustomerId);
-      // sb.Append(customerPurchase.ProductQuantity);
-      // sb.Append(customerPurchase.ProductId);
-      // sb.Append(customerPurchase.TotalPurchase);
-
+              <body>
+                <div class='header'>
+                  <h1 class='header-title'>Ferme Store</h1>
+                  <h2 class='header-giro'>RUT 20.158.799-9</h2>
+                  <h2 class='header-giro'>GIRO(S): ACTIVIDADES DE VENTA DE PRODUCTOS DE FERRETERÍA</h2>
+                  <hr />
+                </div>
+                <div class='sub-header'>
+                  <h1 class='header-title-sub-header'>Informe de Stock de Productos</h1>
+                </div>"
+        );
+      sb.Append(@"
+        <div class='main'>
+          <table class='styled-table'>
+            <thead>
+              <tr>
+                <th>Código de Producto</th>
+                <th>Nombre del Producto</th>
+                <th>STOCK</th>
+              </tr>
+            </thead>
+            <tbody>");
+      sb.Append(@"<tr>");
+      foreach (var item in products)
+      {
+        sb.Append(@"<tr>");
+        sb.Append(@"<td>");
+        sb.Append(item.Id);
+        sb.Append(@"</td>");
+        sb.Append(@"<td>");
+        sb.Append(item.Name.ToUpper());
+        sb.Append(@"</td>");
+        sb.Append(@"<td>");
+        sb.Append(item.Stock);
+        sb.Append(@"</td>");
+        sb.Append(@"</tr>");
+      }
       sb.Append(@"
           </body>
         </html>");
