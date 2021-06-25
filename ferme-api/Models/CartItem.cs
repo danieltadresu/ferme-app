@@ -31,6 +31,20 @@ namespace Models
       set { productQuantity = value; }
     }
 
+    private int productUnitPrice;
+    public int ProductUnitPrice
+    {
+      get { return productUnitPrice; }
+      set { productUnitPrice = value; }
+    }
+
+    private String productName;
+    public String ProductName
+    {
+      get { return productName; }
+      set { productName = value; }
+    }
+
     public CartItem () {
       Init();
     }
@@ -40,6 +54,8 @@ namespace Models
       OrderId = 0;
       ProductId = 0;
       ProductQuantity = 0;
+      ProductUnitPrice = 0;
+      ProductName = null;
     }
   };
 };
