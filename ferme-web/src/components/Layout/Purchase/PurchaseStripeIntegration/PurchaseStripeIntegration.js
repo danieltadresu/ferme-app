@@ -37,6 +37,8 @@ const PurchaseStripeIntegration = (props) => {
         "Id": cart.id,
         "ProductId": cart.id,
         "ProductQuantity": cart.quantity,
+        "ProductName": cart.name,
+        "ProductUnitPrice": cart.unitPrice,
       }
     })
     const totalPurchase = authCtx.userCart.map((item) => item.itemPrice).reduce((a, b) => a + b, 0);
