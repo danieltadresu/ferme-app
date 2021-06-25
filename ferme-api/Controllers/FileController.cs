@@ -36,7 +36,7 @@ namespace Services.Controllers
     // Boleta
     public IActionResult GetBill(int id)
     {
-      Models.Order order = null;
+      Models.Order order = OrderConnection.GetEntity(id);
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,

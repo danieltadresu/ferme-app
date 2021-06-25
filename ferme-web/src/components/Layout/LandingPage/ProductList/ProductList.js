@@ -69,9 +69,7 @@ const ProductList = (props) => {
     if (!authCtx.isLoggedIn) {
       history.replace("/acceso");
     }
-    console.log('value :>> ', value);
     const currentCart = authCtx.userCart ? authCtx.userCart : [];
-    // console.log(currentCart.map((c) => c.id).find((cart) => cart === value.id));
 
     const productExists = currentCart
       .map((c) => c.id)
