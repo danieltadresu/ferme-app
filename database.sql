@@ -152,6 +152,7 @@ CREATE TABLE Product (
     FOREIGN KEY (category_id) REFERENCES Product_Category(id),
     FOREIGN KEY (provider_id) REFERENCES Provider(id)
 );
+
 INSERT INTO PRODUCT
 (ID, NAME, DESCRIPTION, CREATEDAT, UPDATEDAT, PRICE, STOCK, IMAGE_URL, CATEGORY_ID, PROVIDER_ID)
 VALUES(1, 'HAMMER', 'THE BEST HAMMER', 1621639796, 1621639796, 10000, 10, 'https://m.media-amazon.com/images/I/51Z-pyj1qjL._AC_SX522_.jpg', 2, 1);
@@ -174,6 +175,7 @@ CREATE TABLE payment_method (
 	description varchar(255) NOT NULL,
 	CONSTRAINT PK_Payment_method PRIMARY KEY (ID)
 );
+
 INSERT INTO PAYMENT_METHOD (id, description) VALUES (1, 'CREDIT CARD');
 
 CREATE TABLE delivery_type (
@@ -189,16 +191,10 @@ INSERT INTO delivery_type (id, description) VALUES (2, 'STORE DELIVERY');
 
 
 
-/* */
-
-
+/* DELETED */
 SELECT * FROM CUSTOMER_PURCHASE cp ;
-
 SELECT * FROM customer_purchase_cart;
-
 SELECT * FROM BILL b ;
-
-
 CREATE TABLE customer_purchase (
 	id int NOT NULL,
 	product_quantity int NOT NULL,
@@ -213,6 +209,7 @@ CREATE TABLE customer_purchase (
 	FOREIGN KEY (customer_id) REFERENCES person(id),
 	FOREIGN KEY (product_id) REFERENCES product(id)
 );
+/* END DELETED */
 
 
 
@@ -274,7 +271,8 @@ SELECT * FROM orders;
 
 
 SELECT * FROM cart_item;
-s
+
+
 /*
  * Order
  * ID 1
@@ -283,3 +281,60 @@ s
  * ID 1        Order ID 1   Product ID 1    Quantity 2
  * ID 2        Order ID 1   Product ID 2    Quantity 1
  */
+
+
+/**
+ * Como admin registro una instancia de product_purchase_order
+ * Le agrego productos a esta orden
+ * Le agrego un proveedor
+ * 
+ * Se registra, se visualiza en la tabla con un estado Inicial
+ * 
+ * Como proveedor accedo al sistema, visualizo la orden le cambio el estado (Recibida, aprobada, despachada)
+ * Si la orden se encuentra en estado despachada, se visuliza el detalle de la orden con un pdf de costos
+ * Como admin puedo aceptar esta solicitud, si la acepto se visualiza la data en el Catalogo, si no, queda en ese estado.
+ */
+
+
+CREATE TABLE provider_order_status (
+	id int NOT NULL,
+	description varchar(255) NOT NULL,
+	CONSTRAINT PK_provider_order_status PRIMARY KEY (ID)
+);
+INSERT INTO provider_order_status (id, description) VALUES (1, 'RECEIVED');	  /* RECIBIDA */
+INSERT INTO provider_order_status (id, description) VALUES (2, 'DISPATCHED'); /* DESPACHADA */
+INSERT INTO provider_order_status (id, description) VALUES (3, 'ACCEPTED');	  /* ACEPTADA */
+INSERT INTO provider_order_status (id, description) VALUES (4, 'REJECTED');	  /* RECHAZADA */
+
+
+/* Admins y trabajadores ingresar provider_orders, proveedores visualizan registros y aceptan o rechazan */
+CREATE TABLE provider_order (
+	id int NOT NULL,
+	createdat int NULL,
+    updatedat int NULL,
+    total_purchase int NULL, /* SI ESTA EN 0, SIGNIFICA QUE SU ESTADO NO SE ENCUENTRA DESPACHADA */
+    provider_id int NOT NULL,
+    order_status_id int NOT NULL,
+    user_id int NOT NULL,
+    CONSTRAINT PK_provider_order PRIMARY KEY (ID),
+    FOREIGN KEY (provider_id) REFERENCES Provider(id),
+    FOREIGN KEY (order_status_id) REFERENCES provider_order_status(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+CREATE TABLE provider_order_products (
+	id int NOT NULL,
+	provider_order_id int NOT NULL,
+	product_id int NOT NULL,
+	product_quantity int NOT NULL,
+	CONSTRAINT PK_provider_order_products PRIMARY KEY (id),
+	FOREIGN KEY (provider_order_id) REFERENCES provider_order(id),
+	FOREIGN KEY (product_id) REFERENCES product(id)
+);
+
+SELECT * FROM PROVIDER_ORDER_STATUS pos ;
+SELECT * FROM provider_order;
+SELECT * FROM provider_order_products;
+
+
