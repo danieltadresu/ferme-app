@@ -303,7 +303,7 @@ const OperationsMenu = (props) => {
                             }}
                             target="_blank"
                             href={
-                              "https://localhost:5001/api/file/stock-report"
+                              "https://localhost:5001/api/file/product-report"
                             }
                           >
                             <FileSearchOutlined /> Ver Informe
@@ -326,6 +326,10 @@ const OperationsMenu = (props) => {
                               cursor: "pointer",
                               fontSize: ".8rem",
                             }}
+                            target="_blank"
+                            href={
+                              "https://localhost:5001/api/file/provider-report"
+                            }
                           >
                             <FileSearchOutlined /> Ver Informe
                           </a>
