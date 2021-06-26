@@ -52,5 +52,38 @@ namespace Connection
       }
       return orders;
     }
+
+    public static Order GetEntity (int id) {
+      List<Order> orders = new List<Order>();
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"SELECT * FROM ORDERS WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleDataAdapter adapter = new OracleDataAdapter(
+          query, 
+          oracleConnection
+        );
+        DataTable dt = new DataTable();
+        adapter.Fill(dt);
+        foreach (DataRow dr in dt.Rows)
+        {
+          Order order = new Order();
+          order.Id = int.Parse(dr["ID"].ToString());
+          order.TotalPurchase = int.Parse(dr["TOTAL_PURCHASE"].ToString());
+          order.PaymentMethodId = int.Parse(dr["PAYMENT_METHOD_ID"].ToString());
+          order.DeliveryTypeId = int.Parse(dr["DELIVERY_TYPE_ID"].ToString());
+          order.CustomerId = int.Parse(dr["CUSTOMER_ID"].ToString());
+          // customerPurchase.Id = int.Parse(dr["ID"].ToString());
+          // customerPurchase.ProductQuantity = int.Parse(dr["PRODUCT_QUANTITY"].ToString());
+          // customerPurchase.TotalPurchase = int.Parse(dr["TOTAL_PURCHASE"].ToString());
+          // customerPurchase.PaymentMethodId = int.Parse(dr["PAYMENT_METHOD_ID"].ToString());
+          // customerPurchase.DeliveryTypeId = int.Parse(dr["DELIVERY_TYPE_ID"].ToString());
+          // customerPurchase.CustomerId = int.Parse(dr["CUSTOMER_ID"].ToString());
+          // customerPurchase.ProductId = int.Parse(dr["PRODUCT_ID"].ToString());
+          orders.Add(order);
+        }
+        return orders[0];
+      }
+    }
   }
 }

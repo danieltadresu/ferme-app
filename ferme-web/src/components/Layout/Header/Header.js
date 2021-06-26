@@ -14,6 +14,8 @@ const Header = (props) => {
   const [mobileNavigation, setMobileNavigation] = useState(false);
   const [visible, setVisible] = useState(false);
 
+  const [quantity, setQuantity] = useState(0);
+
   // console.log('authCtx. :>> ', authCtx.roleAccess);
   // console.log('authCtx.personId :>> ', authCtx.personId);
   // console.log('authCtx.userCart :>> ', authCtx.userCart);
@@ -27,7 +29,15 @@ const Header = (props) => {
   }, [width]);
 
   useEffect(() => {
-    console.log("authCtx FROM HEADER IN A USE EFFECT :>> ", authCtx.userCart);
+    // props.cartQuantity = 0;
+    console.log('props. :>> ', props.cartQuantity);
+    setQuantity(
+      authCtx.userCart && authCtx.userCart.length > 0
+        ? authCtx.userCart
+            .map((item) => item.quantity)
+            .reduce((a, b) => a + b, 0)
+        : 0
+    );
   }, [props]);
 
   const cartHandler = () => {
@@ -143,13 +153,7 @@ const Header = (props) => {
                       }}
                     >
                       <Badge
-                        count={
-                          authCtx.userCart && authCtx.userCart.length > 0
-                            ? authCtx.userCart
-                                .map((item) => item.quantity)
-                                .reduce((a, b) => a + b, 0)
-                            : 0
-                        }
+                        count={quantity ? quantity : 0}
                         size="large"
                         offset={[15, 9]}
                       >
@@ -191,6 +195,7 @@ const Header = (props) => {
 
 Header.propTypes = {
   setModalVisible: PropTypes.func,
+  cartQuantity: PropTypes.number.isRequired,
 };
 
 Header.defaultProps = {

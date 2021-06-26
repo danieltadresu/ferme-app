@@ -66,7 +66,6 @@ namespace Services.Controllers
     [HttpPost("test")]
     public void Test ([FromBody]Object data)
     {
-      // string json = @""{"""key1"":""value1"",""key2"":""value2""}";
 
       string json = data.ToString();
       Console.WriteLine(json);
@@ -109,27 +108,6 @@ namespace Services.Controllers
     public JsonResult AddOrder (int customerId, int deliveryTypeId, int totalPurchase, [FromBody]Object data)
     {
       string json = data.ToString();
-      // Console.WriteLine(json);
-      // List<Models.OrderItem> items = JsonConvert.DeserializeObject<List<Models.OrderItem>>(json);
-      // Console.WriteLine(items.Count);
-      // Models.OrderItem order = items[0];
-      // Console.WriteLine(order.Id);
-      // Console.WriteLine(order.ProductQuantity);
-      // foreach (var item in items)
-      // {
-      //   Console.WriteLine(item.Id);
-      //   Console.WriteLine(item.ProductId);
-      //   Console.WriteLine(item.ProductQuantity);
-      // }
-      // List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
-      // foreach (var item in cartItems)
-      // {
-      //   Console.WriteLine("PRODUCTO");
-      //   Console.WriteLine(item.Id);
-      //   Console.WriteLine(item.ProductId);
-      //   Console.WriteLine(item.ProductQuantity);
-      // }
-
       // Obtener el ultimo ID registrado de Orden
       List<int> allOrders = new List<int>();
       foreach (var item in Connection.OrderConnection.GetEntities())
@@ -155,7 +133,6 @@ namespace Services.Controllers
       List<Models.CartItem> cartItems = JsonConvert.DeserializeObject<List<Models.CartItem>>(json);
       if (Connection.OrderConnection.AddEntity(order))
       {
-        Console.WriteLine("Saved");
         // Guardar Datos de Cart Items
         foreach (var item in cartItems)
         {
@@ -205,13 +182,14 @@ namespace Services.Controllers
         {
           lineItems.Add(new SessionLineItemOptions
             {
-              Name = "Dummy Product",
+              Name = item.ProductName,
               Currency = "CLP",
-              Amount = 101,
-              Quantity = 101,
+              Amount = item.ProductUnitPrice,
+              Quantity = item.ProductQuantity,
             });
         };
 
+        int orderId = order.Id;
         var options = new SessionCreateOptions
           {
             PaymentMethodTypes = new List<String>
@@ -249,7 +227,7 @@ namespace Services.Controllers
             //   }
             // },
             Mode = "payment",
-            SuccessUrl = "http://localhost:3000/success-purchase",
+            SuccessUrl = $"http://localhost:3000/success-purchase/{orderId}",
             CancelUrl = "http://localhost:3000/rejected-purchase"
           };
         var service = new SessionService();

@@ -70,7 +70,7 @@ const App = () => {
           hacia la nueva url.
         */}
 
-        <Route path="/success-purchase">
+        <Route path="/success-purchase/:id">
           {authCtx.isLoggedIn && <SuccessPurchase />}
           {!authCtx.isLoggedIn && <Redirect to="/" />}
         </Route>
