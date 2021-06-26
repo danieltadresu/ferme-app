@@ -34,6 +34,13 @@ namespace Models
       set { createdat = value; }
     }
 
+    private DateTime createdAtFromUnixTime;
+    public DateTime CreatedAtFromUnixTime
+    {
+      get { return createdAtFromUnixTime; }
+      set { createdAtFromUnixTime = value; }
+    }
+
     private int updatedat;
     
     public int Updatedat
@@ -82,6 +89,14 @@ namespace Models
       set { providerId = value; }
     }
 
+    private String providerName;
+    
+    public String ProviderName
+    {
+      get { return providerName; }
+      set { providerName = value; }
+    }
+
     private Boolean filterType;
     public Boolean FilterType
     {
@@ -98,12 +113,14 @@ namespace Models
       Name = null;
       Description = null;
       Createdat = 0;
+      CreatedAtFromUnixTime = DateTime.Now;
       Updatedat = 0;
       Price = 0;
       Stock = 0;
       ImageUrl = null;
       CategoryId = 0;
       ProviderId = 0;
+      ProviderName = null;
       FilterType = false;
     }
 

@@ -42,7 +42,7 @@ namespace Services.Controllers
         Orientation = Orientation.Portrait,
         PaperSize = PaperKind.A4,
         Margins = new MarginSettings { Top = 10 },
-        DocumentTitle = "PDF Bill",
+        DocumentTitle = "Orden de Compra",
       };
 
       var objectSettings = new ObjectSettings {
@@ -62,23 +62,23 @@ namespace Services.Controllers
       return File(file, "application/pdf");
     }
 
-      [EnableCors("Policy")]
+    [EnableCors("Policy")]
     [HttpGet("stock-report")]
     public IActionResult GetStockReport ()
     {
-      Models.Product product = null;
+      List<Models.Product> products = Connection.ProductConnection.GetEntities();
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
         PaperSize = PaperKind.A4,
         Margins = new MarginSettings { Top = 10 },
-        DocumentTitle = "PDF Bill",
+        DocumentTitle = "Informe de Stock de Productos",
       };
 
       var objectSettings = new ObjectSettings {
         PagesCount = true,
-        HtmlContent = utils.templates.StockReport.GetHTMLString(product),
-        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+        HtmlContent = utils.templates.StockReport.GetHTMLString(products),
+        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "stock-report.css") },
         HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
         // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
       };
@@ -88,6 +88,93 @@ namespace Services.Controllers
         Objects = { objectSettings }
       };
 
+      var file = _converter.Convert(document);
+      return File(file, "application/pdf");
+    }
+
+    [EnableCors("Policy")]
+    [HttpGet("product-report")]
+    public IActionResult GetProductReport ()
+    {
+      List<Models.Product> products = Connection.ProductConnection.GetEntities();
+      var globalSettings = new GlobalSettings {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Portrait,
+        PaperSize = PaperKind.A4,
+        Margins = new MarginSettings { Top = 10 },
+        DocumentTitle = "Informe de Productos",
+      };
+
+      var objectSettings = new ObjectSettings {
+        PagesCount = true,
+        HtmlContent = utils.templates.ProductReport.GetHTMLString(products),
+        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "stock-report.css") },
+        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
+        // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
+      };
+
+      var document = new HtmlToPdfDocument() {
+        GlobalSettings = globalSettings,
+        Objects = { objectSettings }
+      };
+      var file = _converter.Convert(document);
+      return File(file, "application/pdf");
+    }
+
+    [EnableCors("Policy")]
+    [HttpGet("provider-report")]
+    public IActionResult GetProviderReport ()
+    {
+      List<Models.Provider> providers = Connection.ProviderConnection.GetEntities();
+      var globalSettings = new GlobalSettings {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Portrait,
+        PaperSize = PaperKind.A4,
+        Margins = new MarginSettings { Top = 10 },
+        DocumentTitle = "Informe de Proveedores",
+      };
+
+      var objectSettings = new ObjectSettings {
+        PagesCount = true,
+        HtmlContent = utils.templates.ProviderReport.GetHTMLString(providers),
+        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "stock-report.css") },
+        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
+        // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
+      };
+
+      var document = new HtmlToPdfDocument() {
+        GlobalSettings = globalSettings,
+        Objects = { objectSettings }
+      };
+      var file = _converter.Convert(document);
+      return File(file, "application/pdf");
+    }
+
+    [EnableCors("Policy")]
+    [HttpGet("order-report")]
+    public IActionResult GetOrderReport ()
+    {
+      List<Models.Order> orders = Connection.OrderConnection.GetEntities();
+      var globalSettings = new GlobalSettings {
+        ColorMode = ColorMode.Color,
+        Orientation = Orientation.Portrait,
+        PaperSize = PaperKind.A4,
+        Margins = new MarginSettings { Top = 10 },
+        DocumentTitle = "Informe de Ventas",
+      };
+
+      var objectSettings = new ObjectSettings {
+        PagesCount = true,
+        HtmlContent = utils.templates.OrderReport.GetHTMLString(orders),
+        WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "stock-report.css") },
+        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
+        // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
+      };
+
+      var document = new HtmlToPdfDocument() {
+        GlobalSettings = globalSettings,
+        Objects = { objectSettings }
+      };
       var file = _converter.Convert(document);
       return File(file, "application/pdf");
     }

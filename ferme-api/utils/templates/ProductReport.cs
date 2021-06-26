@@ -4,12 +4,18 @@ using System.Text;
 using Models;
 namespace utils.templates
 {
-  public static class StockReport
+  public static class ProductReport
   {
     public static string GetHTMLString(
-      // Product product
       List<Models.Product> products
     ) {
+
+      foreach (var item in products)
+      {
+        Provider provider = Connection.ProviderConnection.GetEntity(item.ProviderId);
+        item.ProviderName = provider.Name;
+        item.CreatedAtFromUnixTime = DateTimeOffset.FromUnixTimeSeconds(item.Createdat).DateTime;
+      }
       var sb = new StringBuilder();
       sb.Append(@"
         <html>
@@ -23,7 +29,7 @@ namespace utils.templates
                   <hr />
                 </div>
                 <div class='sub-header'>
-                  <h1 class='header-title-sub-header'>Informe de Stock de Productos</h1>
+                  <h1 class='header-title-sub-header'>Informe de Productos</h1>
                 </div>"
         );
       sb.Append(@"
@@ -33,7 +39,9 @@ namespace utils.templates
               <tr>
                 <th>Código de Producto</th>
                 <th>Nombre del Producto</th>
-                <th>STOCK</th>
+                <th>Precio Unitario</th>
+                <th>Proveedor</th>
+                <th>Fecha de Registro</th>
               </tr>
             </thead>
             <tbody>");
@@ -48,7 +56,13 @@ namespace utils.templates
         sb.Append(item.Name.ToUpper());
         sb.Append(@"</td>");
         sb.Append(@"<td>");
-        sb.Append(item.Stock);
+        sb.Append(item.Price);
+        sb.Append(@"</td>");
+        sb.Append(@"<td>");
+        sb.Append(item.ProviderName);
+        sb.Append(@"</td>");
+        sb.Append(@"<td>");
+        sb.Append(item.CreatedAtFromUnixTime);
         sb.Append(@"</td>");
         sb.Append(@"</tr>");
       }

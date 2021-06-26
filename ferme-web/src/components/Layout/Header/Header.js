@@ -153,7 +153,7 @@ const Header = (props) => {
                       }}
                     >
                       <Badge
-                        count={quantity}
+                        count={quantity ? quantity : 0}
                         size="large"
                         offset={[15, 9]}
                       >

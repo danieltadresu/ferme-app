@@ -301,6 +301,10 @@ const OperationsMenu = (props) => {
                               cursor: "pointer",
                               fontSize: ".8rem",
                             }}
+                            target="_blank"
+                            href={
+                              "https://localhost:5001/api/file/product-report"
+                            }
                           >
                             <FileSearchOutlined /> Ver Informe
                           </a>
@@ -322,6 +326,10 @@ const OperationsMenu = (props) => {
                               cursor: "pointer",
                               fontSize: ".8rem",
                             }}
+                            target="_blank"
+                            href={
+                              "https://localhost:5001/api/file/provider-report"
+                            }
                           >
                             <FileSearchOutlined /> Ver Informe
                           </a>
@@ -343,6 +351,10 @@ const OperationsMenu = (props) => {
                               cursor: "pointer",
                               fontSize: ".8rem",
                             }}
+                            target="_blank"
+                            href={
+                              "https://localhost:5001/api/file/order-report"
+                            }
                           >
                             <FileSearchOutlined /> Ver Informe
                           </a>

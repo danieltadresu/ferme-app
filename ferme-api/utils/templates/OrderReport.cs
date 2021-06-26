@@ -4,11 +4,11 @@ using System.Text;
 using Models;
 namespace utils.templates
 {
-  public static class StockReport
+  public static class OrderReport
   {
     public static string GetHTMLString(
       // Product product
-      List<Models.Product> products
+      List<Models.Order> orders
     ) {
       var sb = new StringBuilder();
       sb.Append(@"
@@ -23,7 +23,7 @@ namespace utils.templates
                   <hr />
                 </div>
                 <div class='sub-header'>
-                  <h1 class='header-title-sub-header'>Informe de Stock de Productos</h1>
+                  <h1 class='header-title-sub-header'>Informe de Ventas</h1>
                 </div>"
         );
       sb.Append(@"
@@ -31,24 +31,16 @@ namespace utils.templates
           <table class='styled-table'>
             <thead>
               <tr>
-                <th>Código de Producto</th>
-                <th>Nombre del Producto</th>
-                <th>STOCK</th>
+                <th>Código de la Order de compra</th>
               </tr>
             </thead>
             <tbody>");
       sb.Append(@"<tr>");
-      foreach (var item in products)
+      foreach (var item in orders)
       {
         sb.Append(@"<tr>");
         sb.Append(@"<td>");
         sb.Append(item.Id);
-        sb.Append(@"</td>");
-        sb.Append(@"<td>");
-        sb.Append(item.Name.ToUpper());
-        sb.Append(@"</td>");
-        sb.Append(@"<td>");
-        sb.Append(item.Stock);
         sb.Append(@"</td>");
         sb.Append(@"</tr>");
       }
