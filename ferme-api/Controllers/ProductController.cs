@@ -36,12 +36,22 @@ namespace Services.Controllers
     // }
 
     [EnableCors("Policy")]
-    [HttpPost]
-    public JsonResult AddProduct([FromBody]Object product) {
-      
+    [HttpPost("{personId}")]
+    public JsonResult AddProduct(int personId, [FromBody]Object product) {
+      // Console.WriteLine(personId);
+
+      Models.User loggedUser = Connection.UserConnection.GetEntityByPersonId(personId);
+      Models.UserRole loggedUserRole = Connection.UserRoleConnection.GetEntityByUserId(loggedUser.Id);
+
+      int isActiveValue = 1; // True
+      int providerRoleId = 2;
+      if (loggedUserRole.RoleId == providerRoleId)
+      {
+        isActiveValue = 0; // False
+      }
+
       // Al ser un Lenguaje tipado, este no acepta el envio de [FromBody]Models.Product product
       // en el parametro ya que si bien el json de JS envia los propiedades correctamente, los tipos de datos no hacen un match
-      Console.WriteLine("New product!");
       Models.Product newProduct = new Models.Product() {
         Id = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Id,
         Name = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Name,
@@ -53,10 +63,11 @@ namespace Services.Controllers
         ImageUrl = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ImageUrl,
         CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
         ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId,
-        IsActive = 1
+        IsActive = isActiveValue
       };
-      Console.WriteLine(newProduct.IsActive);
-      Console.WriteLine(Connection.ProductConnection.AddEntity(newProduct));
+      // Console.WriteLine(newProduct.IsActive);
+      // Console.WriteLine(Connection.ProductConnection.AddEntity(newProduct));
+      Connection.ProductConnection.AddEntity(newProduct);
       return new JsonResult(newProduct);
     }
 

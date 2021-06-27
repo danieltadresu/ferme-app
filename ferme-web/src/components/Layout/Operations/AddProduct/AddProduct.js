@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Button, Card, Select, notification } from 'antd';
 import 'antd/dist/antd.css';
 import classes from './AddProduct.module.css'
 import axios from 'axios';
+import AuthContext from "../../../../store/auth-context";
 const AddProduct = (props) => {
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
   const [form] = Form.useForm();
 
@@ -25,7 +27,7 @@ const AddProduct = (props) => {
     //   providerI: 1
     // }
     console.log('dataProduct :>> ', dataProduct);
-    axios.post('https://localhost:5001/api/product', dataProduct)
+    axios.post(`https://localhost:5001/api/product/${authCtx.personId}`, dataProduct)
     .then((response) => {
       console.log('response :>> ', response);
       notification['success']({

@@ -114,5 +114,17 @@ namespace Connection
         return data is 1 ? true : false;
       }
     }
+
+    public static Boolean UpdateProductActive (int id, int isActiveValue, int newStock) {
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"UPDATE PRODUCT SET IS_ACTIVE = {isActiveValue}, STOCK = {newStock} WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
   }
 }
