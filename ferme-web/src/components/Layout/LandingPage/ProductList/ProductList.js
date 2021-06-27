@@ -42,6 +42,7 @@ const ProductList = (props) => {
     axios
       .post(`https://localhost:5001/api/product/all/${filterValue}`, filterData)
       .then((response) => {
+        console.log('response :>> ', response);
         setIsLoading(false);
         for (const product of response.data) {
           products.push(product);

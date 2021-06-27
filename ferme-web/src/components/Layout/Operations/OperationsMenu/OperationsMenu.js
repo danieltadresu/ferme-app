@@ -43,7 +43,7 @@ const OperationsMenu = (props) => {
                           type="primary"
                           onClick={() => selectedItemHandler(5)}
                         >
-                          VER
+                          IR AL FORMULARIO
                         </Button>
                       }
                     />
@@ -72,7 +72,7 @@ const OperationsMenu = (props) => {
                           type="primary"
                           onClick={() => selectedItemHandler(6)}
                         >
-                          IR AL FORMULARIO
+                          VER
                         </Button>
                       }
                     />

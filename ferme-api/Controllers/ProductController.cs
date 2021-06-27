@@ -52,9 +52,10 @@ namespace Services.Controllers
         Stock = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Stock,
         ImageUrl = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ImageUrl,
         CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
-        ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId
+        ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId,
+        IsActive = 1
       };
-      
+      Console.WriteLine(newProduct.IsActive);
       Console.WriteLine(Connection.ProductConnection.AddEntity(newProduct));
       return new JsonResult(newProduct);
     }
@@ -70,6 +71,19 @@ namespace Services.Controllers
         .ToList();
       return new JsonResult(filteredProducts);
     }
+
+    // GET: api/product/provider/{id}
+    [EnableCors("Policy")]
+    [HttpGet("provider/{id}")]
+    public JsonResult GetProductsByProvider(int id)
+    {
+      List<Models.Product> filteredProducts = Connection.ProductConnection
+        .GetEntities()
+        .Where(c => c.ProviderId.Equals(id))
+        .ToList();
+      return new JsonResult(filteredProducts);
+    }
+
 
     // POST: api/product/all/{id}
     [EnableCors("Policy")]
@@ -87,7 +101,7 @@ namespace Services.Controllers
       {
         filteredProducts = Connection.ProductConnection
           .GetEntities()
-          .Where(c => c.CategoryId.Equals(id))
+          .Where(c => c.CategoryId.Equals(id) && c.IsActive == 1)
           .ToList();        
       }
       else if (!productFilterType.FilterType && (id.Equals(filterCheapestProducts))) 
@@ -95,6 +109,7 @@ namespace Services.Controllers
         List<Models.Product> allProducts = Connection.ProductConnection.GetEntities();
         filteredProducts = (
           from product in allProducts
+          where product.IsActive == 1
           orderby product.Price
           ascending
           select product
@@ -105,6 +120,7 @@ namespace Services.Controllers
         List<Models.Product> allProducts = Connection.ProductConnection.GetEntities();
         filteredProducts = (
           from product in allProducts
+          where product.IsActive == 1
           orderby product.Stock
           ascending
           select product

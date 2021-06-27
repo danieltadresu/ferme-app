@@ -66,7 +66,10 @@ namespace Services.Controllers
     [HttpGet("stock-report")]
     public IActionResult GetStockReport ()
     {
-      List<Models.Product> products = Connection.ProductConnection.GetEntities();
+      List<Models.Product> products = Connection.ProductConnection
+        .GetEntities()
+        .Where(c => c.IsActive == 1)
+        .ToList();
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
@@ -96,7 +99,10 @@ namespace Services.Controllers
     [HttpGet("product-report")]
     public IActionResult GetProductReport ()
     {
-      List<Models.Product> products = Connection.ProductConnection.GetEntities();
+      List<Models.Product> products = Connection.ProductConnection
+        .GetEntities()
+        .Where(c => c.IsActive == 1)
+        .ToList();
       var globalSettings = new GlobalSettings {
         ColorMode = ColorMode.Color,
         Orientation = Orientation.Portrait,
