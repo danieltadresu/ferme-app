@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -17,7 +17,7 @@ import {
   notification,
   Alert,
 } from "antd";
-
+import AuthContext from "../../../../store/auth-context";
 import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import classes from "./AddOrder.module.css";
@@ -25,7 +25,7 @@ import axios from "axios";
 const AddOrder = (props) => {
   const history = useHistory();
   const [form] = Form.useForm();
-
+  const authCtx = useContext(AuthContext);
   const [providers, setProviders] = useState([]);
   const [providerData, setProviderData] = useState();
   const [selectedProvider, setSelectedProvider] = useState();
@@ -187,11 +187,37 @@ const AddOrder = (props) => {
     }
   };
 
-  const onSubmit = () => {
-    console.log('selectedProvider :>> ', selectedProvider);
-    console.log('providerData :>> ', providerData);
-    console.log('products :>> ', products);
-    console.log('filtered products :>> ', products.filter((p) => p.quantity > 0));
+  const onSubmit = async () => {
+    // console.log('selectedProvider :>> ', selectedProvider);
+    // console.log('providerData :>> ', providerData);
+    // console.log('products :>> ', products);
+    // console.log('filtered products :>> ', products.filter((p) => p.quantity > 0));
+    const data = products
+      .filter((p) => p.quantity > 0)
+      .map((order) => {
+        return {
+          productQuantity: order.quantity,
+          productId: order.id,
+        };
+      });
+    console.log("data :>> ", data);
+    const totalPurchase = products
+      .map((p) => p.price * p.quantity)
+      .reduce((a, b) => a + b, 0);
+    const providerId = selectedProvider;
+    const personId = authCtx.personId;
+    console.log("totalPurchase :>> ", totalPurchase);
+    console.log("providerId :>> ", providerId);
+    console.log("authCtx.userId :>> ", authCtx.userId);
+    console.log("authCtx :>> ", authCtx);
+    axios
+      .post(
+        `https://localhost:5001/api/providerorder/${totalPurchase}/${providerId}/${personId}`,
+        data
+      )
+      .then((response) => {
+        console.log("response :>> ", response);
+      });
   };
 
   return (

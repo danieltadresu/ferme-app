@@ -163,20 +163,6 @@ namespace Services.Controllers
             Connection.ProductConnection.UpdateProductStock(product.Id, newStock);
           };
         }
-
-        // List<SessionLineItemOptions> lineItems = new List<SessionLineItemOptions>
-        // {
-        //     new SessionLineItemOptions
-        //     {
-        //         Price = "{{PRICE_ID_1}}",
-        //         Quantity = 1,
-        //     },
-        //     new SessionLineItemOptions
-        //     {
-        //         Price = "{{PRICE_ID_2}}",
-        //         Quantity = 1,
-        //     },
-        // },
         List<SessionLineItemOptions> lineItems = new List<SessionLineItemOptions>();
         foreach (var item in cartItems)
         {
@@ -197,35 +183,6 @@ namespace Services.Controllers
               "card",
             },
             LineItems = lineItems,
-            // LineItems = new List<SessionLineItemOptions>
-            // {
-            //   new SessionLineItemOptions
-            //   {
-            //     PriceData = new SessionLineItemPriceDataOptions
-            //     {
-            //       UnitAmount = order.TotalPurchase,
-            //       Currency = "CLP",
-            //       ProductData = new SessionLineItemPriceDataProductDataOptions
-            //       {
-            //         Name = "Product 1"
-            //       },
-            //     },
-            //     Quantity = 1,
-            //   },
-            //   new SessionLineItemOptions
-            //   {
-            //     PriceData = new SessionLineItemPriceDataOptions
-            //     {
-            //       UnitAmount = order.TotalPurchase,
-            //       Currency = "CLP",
-            //       ProductData = new SessionLineItemPriceDataProductDataOptions
-            //       {
-            //         Name = "Producto 2"
-            //       },
-            //     },
-            //     Quantity = 1,
-            //   }
-            // },
             Mode = "payment",
             SuccessUrl = $"http://localhost:3000/success-purchase/{orderId}",
             CancelUrl = "http://localhost:3000/rejected-purchase"

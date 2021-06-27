@@ -1,5 +1,6 @@
 using System;
-
+using Models;
+using System.Collections.Generic;
 namespace Models
 {
   public class ProviderOrder
@@ -59,6 +60,36 @@ namespace Models
       set { userId = value; }
     }
 
+    private String orderStatusName;
+    
+    public String OrderStatusName
+    {
+      get { return orderStatusName; }
+      set { orderStatusName = value; }
+    }
+
+    private int productsQuantity;
+    public int ProductsQuantity
+    {
+      get { return productsQuantity; }
+      set { productsQuantity = value; }
+    }
+
+    private String providerName;
+    
+    public String ProviderName
+    {
+      get { return providerName; }
+      set { providerName = value; }
+    }
+
+    private List<Models.ProviderOrderProducts> providerProducts;
+    public List<Models.ProviderOrderProducts> ProviderProducts
+    {
+      get { return providerProducts; }
+      set { providerProducts = value; }
+    }
+
     public ProviderOrder () {
       Init();
     }
@@ -70,7 +101,11 @@ namespace Models
       TotalPurchase = 0;
       ProviderId = 0;
       OrderStatusId = 0;
+      OrderStatusName = null;
       UserId = 0;
+      ProductsQuantity = 0;
+      ProviderName = null;
+      ProviderProducts = new List<ProviderOrderProducts>();
     }
 
   }
