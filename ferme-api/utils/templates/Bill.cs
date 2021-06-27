@@ -19,10 +19,10 @@ namespace utils.templates
         .GetEntity(order.CustomerId);
 
       Models.User customerPurchaseUser = Connection.UserConnection
-        .GetEntityByPersonId(order.Id);
+        .GetEntityByPersonId(customerPurchasePerson.Id);
 
       Models.UserRole customerPurchaseUserRole = Connection.UserRoleConnection
-        .GetEntityByUserId(order.Id);
+        .GetEntityByUserId(customerPurchaseUser.Id);
 
       String documentType = null;
       // Console.WriteLine(customerPurchaseUserRole.RoleId);

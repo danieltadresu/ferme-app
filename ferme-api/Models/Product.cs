@@ -81,6 +81,14 @@ namespace Models
       set { categoryId = value; }
     }
 
+    private int isActive;
+    
+    public int IsActive
+    {
+      get { return isActive; }
+      set { isActive = value; }
+    }
+
     private int providerId;
     
     public int ProviderId
@@ -119,6 +127,7 @@ namespace Models
       Stock = 0;
       ImageUrl = null;
       CategoryId = 0;
+      IsActive = 0; // 0 FALSO, 1 TRUE
       ProviderId = 0;
       ProviderName = null;
       FilterType = false;
