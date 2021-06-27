@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import {
+  Select,
   Button,
   Card,
   Table,
@@ -15,6 +16,7 @@ import {
   Row,
   Col,
   Divider,
+  notification,
 } from "antd";
 import "antd/dist/antd.css";
 import classes from "./OrderList.module.css";
@@ -195,6 +197,76 @@ const OrderList = (props) => {
     },
   ];
 
+  const onSubmit = async (value) => {
+    const orderData = value;
+    const dispatchedStatusId = 2;
+    const sentStatusId = 5;
+    const receivedStatusId = 1;
+    const acceptedStatusId = 3;
+    const rejectedStatusId = 4;
+    console.log('orderData :>> ', orderData);
+    if (orderData.orderStatusId === dispatchedStatusId) {
+      if (authCtx.roleAccess === "ADMIN") {
+        axios
+          .get(
+            `https://localhost:5001/api/providerorder/accept/${orderData.id}`
+          )
+          .then((response) => {
+            console.log("response :>> ", response);
+            notification["success"]({
+              message: "Operación realizada con éxito",
+              description:
+                "Solicitud de orden de Compra fué Aceptada y los productos han sido agregados correctamente al catálogo.",
+            });
+          });
+      } else {
+        // alerta notificando que debe ser admin para aceptarla
+        notification["error"]({
+          message: "No es posible realizar la operación",
+          description:
+            "Problemas de autenticación. Para aceptar la solicitud debe ser Administrador del Sistema.",
+        });
+      }
+    } else if (
+      [sentStatusId, receivedStatusId].includes(orderData.orderStatusId)
+    ) {
+      console.log('orderData.orderStatusId :>> ', orderData.orderStatusId);
+      if (authCtx.roleAccess === "PROVIDER") {
+        axios
+          .get(
+            `https://localhost:5001/api/providerorder/update-provider-status/${orderData.id}`
+          )
+          .then((response) => {
+            console.log("response :>> ", response);
+            notification["success"]({
+              message: "Operación realizada con éxito",
+              description:
+                "Solicitud ha sido actualizada por el Proveedor..",
+            });
+          });
+      } else {
+        // alerta notificando que debe ser admin para aceptarla
+        notification["error"]({
+          message: "No es posible realizar la operación",
+          description:
+            "Problemas de autenticación. Para aceptar la solicitud debe ser Proveedor del Sistema.",
+        });
+      }
+    } else if (orderData.orderStatusId === acceptedStatusId) {
+      notification["info"]({
+        message: "No es posible realizar la operación",
+        description:
+          "Solicitud de orden de Compra ya se encuentra Aceptada y los productos han sido agregados correctamente al catálogo.",
+      });
+    } else if (orderData.orderStatusId === rejectedStatusId) {
+      notification["error"]({
+        message: "No es posible realizar la operación",
+        description:
+          "La orden se encuentra en estado de Rechazada. Te sugerimos volver a Ingresar una nueva Orden de Compra.",
+      });
+    }
+  };
+
   return (
     <div className={classes["order-list"]}>
       <div className={classes.container}>
@@ -218,7 +290,7 @@ const OrderList = (props) => {
           title="Detalle de Orden de Compra de Productos"
           visible={isModalVisible}
           centered
-          onOk={() => setIsModalVisible(false)}
+          onOk={() => onSubmit(orderProductsById)}
           onCancel={() => setIsModalVisible(false)}
         >
           <Row gutter={16} style={{ margin: "0 0 2rem 0" }}>
@@ -259,7 +331,6 @@ const OrderList = (props) => {
               />
             </Col>
           </Row>
-
           {orderProductsById.providerProducts &&
             orderProductsById.providerProducts.length > 0 &&
             orderProductsById.providerProducts.map((product) => {
