@@ -30,10 +30,15 @@ namespace Services.Controllers
     // GET: api/provider/
     [EnableCors("Policy")]
     [HttpPost]
-    public JsonResult AddProviderOrder([FromBody]ProviderOrder providerOrder)
+    public JsonResult AddProviderOrder()
     {
-      Console.WriteLine(Connection.ProviderOrderConnection.AddEntity(providerOrder));
-      return new JsonResult(providerOrder);
+      ProviderOrder providerOrderData = new ProviderOrder();
+      // IMPORTANT: GET CURRENT UNITX TIME IN C# AND FORMAT IT IN CURRENT TIME IN FORMAT DD/MM/YYYY
+      // Console.WriteLine(DateTimeOffset.Now.ToUnixTimeSeconds());
+      // Console.WriteLine(DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.Now.ToUnixTimeSeconds()).DateTime);
+      // Console.WriteLine(DateTimeOffset.FromUnixTimeSeconds(DateTime.Now).DateTime);
+      // Console.WriteLine(Connection.ProviderOrderConnection.AddEntity(providerOrder));
+      return new JsonResult(DateTimeOffset.Now.ToUnixTimeSeconds());
     }
   }
 }
