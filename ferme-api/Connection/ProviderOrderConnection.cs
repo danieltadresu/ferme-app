@@ -84,5 +84,17 @@ namespace Connection
         return data is 1 ? true : false;
       }
     }
+
+    public static Boolean UpdateProviderOrderStatus (int id, int orderStatusId) {
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"UPDATE PROVIDER_ORDER SET ORDER_STATUS_ID = {orderStatusId} WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleCommand command = oracleConnection.CreateCommand();
+        command.CommandText = query;
+        int data = command.ExecuteNonQuery();
+        return data is 1 ? true : false;
+      }
+    }
   }
 }

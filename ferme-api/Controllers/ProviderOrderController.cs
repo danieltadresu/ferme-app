@@ -131,6 +131,56 @@ namespace Services.Controllers
       // Console.WriteLine(Connection.ProviderOrderConnection.AddEntity(providerOrder));
       return new JsonResult(providerOrder);
     }
+  
+    // GET: api/providerorder/accept/id
+    [EnableCors("Policy")]
+    [HttpGet("accept/{id}")]
+    public JsonResult AcceptProviderOrder(int id) {
+      // Obtener providerOrder (Orden)
+      ProviderOrder providerOrder = Connection.ProviderOrderConnection
+        .GetEntity(id);
+      
+      int acceptedStatusId = 3;
+      if (Connection.ProviderOrderConnection.UpdateProviderOrderStatus(id, acceptedStatusId))
+      {
+        // Obtener providerOrderProducts (Productos)
+        List<Models.ProviderOrderProducts> providerOrderProducts = Connection.ProviderOrderProductsConnection.GetEntityByOrderId(id);
+        foreach (var productOrder in providerOrderProducts)
+        {
+          Models.Product product = Connection.ProductConnection.GetEntity(productOrder.ProductId);
+          if (product.IsActive == 0)
+          {
+            product.IsActive = 1;
+            Connection.ProductConnection.UpdateProductActive(product.Id, product.IsActive, productOrder.ProductQuantity);
+          } else if (product.IsActive == 1) {
+            int newStock = product.Stock + productOrder.ProductQuantity;
+            Connection.ProductConnection.UpdateProductStock(product.Id, newStock);
+          }
+        }
+      }
+      return new JsonResult(providerOrder);
+    }
+  
+    // GET: api/providerorder/accept/id
+    [EnableCors("Policy")]
+    [HttpGet("update-provider-status/{id}")]
+    public JsonResult UpdateProviderStatus(int id) {
+      // Obtener providerOrder (Orden)
+      ProviderOrder providerOrder = Connection.ProviderOrderConnection
+        .GetEntity(id);
+      
+      if (providerOrder.OrderStatusId == 5)
+      {
+        int newStatus = 1;
+        providerOrder.OrderStatusId = newStatus;
+        Connection.ProviderOrderConnection.UpdateProviderOrderStatus(id, providerOrder.OrderStatusId);
+      } else if (providerOrder.OrderStatusId == 1) {
+        int newStatus = 2;
+        providerOrder.OrderStatusId = newStatus;
+        Connection.ProviderOrderConnection.UpdateProviderOrderStatus(id, providerOrder.OrderStatusId);
+      }
+      return new JsonResult(providerOrder);
+    }
   }
 }
 
