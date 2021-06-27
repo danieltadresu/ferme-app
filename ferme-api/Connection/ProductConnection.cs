@@ -19,7 +19,7 @@ namespace Connection
     public static Boolean AddEntity (Product product) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"INSERT INTO PRODUCT (ID, NAME, DESCRIPTION, CREATEDAT, UPDATEDAT, PRICE, STOCK, IMAGE_URL, CATEGORY_ID, PROVIDER_ID) VALUES (:pId, :pName, :pDescription, :pCreatedat, :pUpdatedat, :pPrice, :pStock, :pImageUrl, :pCategoryId, :pProviderId)";
+        String query = $"INSERT INTO PRODUCT (ID, NAME, DESCRIPTION, CREATEDAT, UPDATEDAT, PRICE, STOCK, IMAGE_URL, CATEGORY_ID, PROVIDER_ID, IS_ACTIVE) VALUES (:pId, :pName, :pDescription, :pCreatedat, :pUpdatedat, :pPrice, :pStock, :pImageUrl, :pCategoryId, :pProviderId, :pIsActive)";
         oracleConnection.Open();
         OracleCommand command = oracleConnection.CreateCommand();  
         command.Parameters.Add("pId", product.Id);
@@ -32,6 +32,7 @@ namespace Connection
         command.Parameters.Add("pImageUrl", product.ImageUrl);
         command.Parameters.Add("pCategoryId", product.CategoryId);
         command.Parameters.Add("pProviderId", product.ProviderId);
+        command.Parameters.Add("pIsActive", product.IsActive);
         command.CommandText = query;
         int data = command.ExecuteNonQuery();
         return data is 1 ? true : false;
@@ -63,6 +64,7 @@ namespace Connection
           product.ImageUrl = dr["IMAGE_URL"].ToString();
           product.CategoryId = int.Parse(dr["CATEGORY_ID"].ToString());
           product.ProviderId = int.Parse(dr["PROVIDER_ID"].ToString());
+          product.IsActive = int.Parse(dr["IS_ACTIVE"].ToString());
           products.Add(product);
         }
         return products;
@@ -94,6 +96,7 @@ namespace Connection
           product.ImageUrl = dr["IMAGE_URL"].ToString();
           product.CategoryId = int.Parse(dr["CATEGORY_ID"].ToString());
           product.ProviderId = int.Parse(dr["PROVIDER_ID"].ToString());
+          product.IsActive = int.Parse(dr["IS_ACTIVE"].ToString());
           products.Add(product);
         }
         return products[0];

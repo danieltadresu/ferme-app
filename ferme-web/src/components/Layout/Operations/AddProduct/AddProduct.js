@@ -231,7 +231,9 @@ const AddProduct = (props) => {
               ]}
             >
               <Select style={{ width: 120 }}>
-                <Select.Option value="1">Grandioso</Select.Option>
+                <Select.Option value="1">GRANDIOSO</Select.Option>
+                <Select.Option value="2">DISTRIBUIDORA FERRETERA MAIRA S.A</Select.Option>
+                <Select.Option value="3">LOS ÁLAMOS</Select.Option>
               </Select>
             </Form.Item>
             <Row>

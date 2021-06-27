@@ -10,8 +10,8 @@ const Auth = () => {
   const login = (roleAccess, userName, personId, userCart) => {
     // event.preventDefault();
     // 01 MINUTOS -> 60000 MILISEGUNDOS
-    // 10 MINUTOS -> 600000 MILISEGUNDOS
-    const expirationTime = new Date(new Date().getTime() + 600000);
+    // 10 MINUTOS -> 6000000 MILISEGUNDOS
+    const expirationTime = new Date(new Date().getTime() + 6000000);
     authCtx.login(
       `token-id-${roleAccess}`,
       expirationTime.toISOString(),
