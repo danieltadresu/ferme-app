@@ -38,6 +38,34 @@ namespace Connection
       }
     }
 
+    public static ProviderOrder GetEntity (int id) {
+      List<ProviderOrder> providerOrders = new List<ProviderOrder>();
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"SELECT * FROM PROVIDER_ORDER WHERE ID = {id}";
+        oracleConnection.Open();
+        OracleDataAdapter adapter = new OracleDataAdapter(
+          query, 
+          oracleConnection
+        );
+        DataTable dt = new DataTable();
+        adapter.Fill(dt);
+        foreach (DataRow dr in dt.Rows)
+        {
+          ProviderOrder providerOrder = new ProviderOrder();
+          providerOrder.Id = int.Parse(dr["ID"].ToString());
+          providerOrder.Createdat = int.Parse(dr["CREATEDAT"].ToString());
+          providerOrder.Updatedat = int.Parse(dr["UPDATEDAT"].ToString());
+          providerOrder.TotalPurchase = int.Parse(dr["TOTAL_PURCHASE"].ToString());
+          providerOrder.ProviderId = int.Parse(dr["PROVIDER_ID"].ToString());
+          providerOrder.OrderStatusId = int.Parse(dr["ORDER_STATUS_ID"].ToString());
+          providerOrder.UserId = int.Parse(dr["USER_ID"].ToString());
+          providerOrders.Add(providerOrder);
+        }
+        return providerOrders[0];
+      }
+    }
+
     public static Boolean AddEntity (ProviderOrder providerOrder) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {

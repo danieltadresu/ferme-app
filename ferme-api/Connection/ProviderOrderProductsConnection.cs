@@ -35,7 +35,33 @@ namespace Connection
       }
     }
 
-    public static Boolean AddProviderOrderProducts (ProviderOrderProducts providerOrderProduct) {
+    public static List<ProviderOrderProducts> GetEntityByOrderId (int id) {
+      List<ProviderOrderProducts> providerOrderProducts = new List<ProviderOrderProducts>();
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"SELECT * FROM PROVIDER_ORDER_PRODUCTS WHERE PROVIDER_ORDER_ID = {id}";
+        oracleConnection.Open();
+        OracleDataAdapter adapter = new OracleDataAdapter(
+          query, 
+          oracleConnection
+        );
+        DataTable dt = new DataTable();
+        adapter.Fill(dt);
+        foreach (DataRow dr in dt.Rows)
+        {
+          ProviderOrderProducts providerOrderProduct = new ProviderOrderProducts();
+          providerOrderProduct.Id = int.Parse(dr["ID"].ToString());
+          providerOrderProduct.ProviderOrderId = int.Parse(dr["PROVIDER_ORDER_ID"].ToString());
+          providerOrderProduct.ProductId = int.Parse(dr["PRODUCT_ID"].ToString());
+          providerOrderProduct.ProductQuantity = int.Parse(dr["PRODUCT_QUANTITY"].ToString());
+          providerOrderProducts.Add(providerOrderProduct);
+        }
+        Console.WriteLine(providerOrderProducts.Count);
+        return providerOrderProducts;
+      }
+    }
+
+    public static Boolean AddEntity (ProviderOrderProducts providerOrderProduct) {
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
         String query = $"INSERT INTO PROVIDER_ORDER_PRODUCTS (ID, PROVIDER_ORDER_ID, PRODUCT_ID, PRODUCT_QUANTITY) VALUES (:pId, :pProviderOrderId, :pProductId, :pProductQuantity)";
