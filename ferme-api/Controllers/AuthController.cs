@@ -23,9 +23,8 @@ namespace Services.Controllers
     //POST: api/auth/login
     [EnableCors("Policy")]
     [HttpPost("login")]
-    public JsonResult SignIn([FromBody]Object user)
+    public JsonResult Login([FromBody]Object user)
     {
-      Console.WriteLine("Sign In");
       String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
       String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
       Boolean foundUser = false;
@@ -47,14 +46,10 @@ namespace Services.Controllers
       }
       if (foundUser)
       {
-        Console.WriteLine(foundUser);
-        Console.WriteLine(selectedUser.Id);
         UserRole userRole = Connection.UserRoleConnection.GetEntityByUserId(selectedUser.Id);
-        Console.WriteLine(userRole.Id);
         Role role = Connection.RoleConnection.GetEntity(userRole.RoleId);
         Console.WriteLine(role.Id);
         Person person = Connection.PersonConnection.GetEntity(selectedUser.PersonId);
-        Console.WriteLine(person.Id);
         Authenticate authenticate = new Authenticate() {
           Status = 202,
           Message = "Found",
@@ -71,6 +66,76 @@ namespace Services.Controllers
         error.Message = "Not Found";
         return new JsonResult(error);
       }
+    }
+
+    //POST: localhost:5001/api/auth/signin
+    [EnableCors("Policy")]
+    [HttpPost("signin")]
+    public JsonResult Signin([FromBody]Object user)
+    {
+      // Obtener el ultimo ID de persona
+      List<int> allPersons = new List<int>();
+      foreach (var item in Connection.PersonConnection.GetEntities())
+      {
+        allPersons.Add(item.Id);
+      }
+      int lastPersonId = 0;
+      if (allPersons.Count > 0)
+      {
+        lastPersonId = allPersons.Max();
+      }
+
+      Models.Person newPerson = new Models.Person() {
+        Id = lastPersonId + new System.Random().Next(10,50),
+        FirstName = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).FirstName,
+        LastName = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).LastName,
+        Rut = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).Rut,
+        CommuneId = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).CommuneId,
+        Address = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).Address,
+        Phone = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).Phone,
+        PersonRoleId = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).PersonRoleId,
+        Email = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).Email,
+        Password = JsonConvert.DeserializeObject<Models.Person>(user.ToString()).Password,
+      };
+      if (Connection.PersonConnection.AddEntity(newPerson))
+      {
+      String email = JsonConvert.DeserializeObject<User>(user.ToString()).Email;
+      String password = JsonConvert.DeserializeObject<User>(user.ToString()).Password;
+        List<int> allUsers = new List<int>();
+        foreach (var item in Connection.UserConnection.GetEntities()) {
+          allUsers.Add(item.Id);
+        }
+        int lastUserId = 0;
+        if (allUsers.Count > 0)
+        {
+          lastUserId = allUsers.Max();
+        }
+        Models.User newUser = new Models.User() {
+          Id = lastUserId + 1,
+          Email = email,
+          Password = password,
+          PersonId = newPerson.Id
+        };
+        if(Connection.UserConnection.AddEntity(newUser)) {
+          List<int> allUserRoles = new List<int>();
+          foreach (var item in Connection.UserRoleConnection.GetEntities()) {
+            allUserRoles.Add(item.Id);
+          }
+          int lastUserRoleId = 0;
+          if (allUserRoles.Count > 0) {
+            lastUserRoleId = allUserRoles.Max();
+          }
+          Console.WriteLine(lastUserRoleId);
+          Models.UserRole newUserRole = new Models.UserRole() {
+            Id = lastUserRoleId + 1,
+            UserId = newUser.Id,
+            RoleId = newPerson.PersonRoleId
+          };
+
+          Connection.UserRoleConnection.AddEntity(newUserRole);
+        };
+      }
+      return new JsonResult(newPerson);
     }
   }
 }

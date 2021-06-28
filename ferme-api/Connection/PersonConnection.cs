@@ -14,7 +14,7 @@ namespace Connection
       List<Person> persons = new List<Person>();
       using (OracleConnection oracleConnection = new OracleConnection(connectionString))
       {
-        String query = $"SELECT * FROM PERSON WHERE";
+        String query = $"SELECT * FROM PERSON";
         oracleConnection.Open();
         OracleDataAdapter adapter = new OracleDataAdapter(
           query, 
