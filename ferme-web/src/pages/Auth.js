@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import AuthForm from "../components/Auth/Form/AuthForm";
+import AuthForm from "../components/Auth/AuthForm/AuthForm";
 import AuthContext from "../store/auth-context";
 
 const Auth = () => {

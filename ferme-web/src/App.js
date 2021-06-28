@@ -1,22 +1,21 @@
-import React from 'react';
-import { useContext } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import Auth from './pages/Auth';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Operations from './pages/Operations';
-import Orders from './pages/Orders';
-import Checkout from './pages/Checkout';
-import SuccessPurchase from './pages/SuccessPurchase';
-import RejectedPurchase from './pages/RejectedPurchase';
-import AuthContext from './store/auth-context';
+import React from "react";
+import { useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Auth from "./pages/Auth";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Operations from "./pages/Operations";
+import Orders from "./pages/Orders";
+import Checkout from "./pages/Checkout";
+import SuccessPurchase from "./pages/SuccessPurchase";
+import RejectedPurchase from "./pages/RejectedPurchase";
+import AuthContext from "./store/auth-context";
 const App = () => {
   const authCtx = useContext(AuthContext);
 
   return (
     <div className="App">
       <Switch>
-
         {/* HOME */}
         <Route path="/" exact>
           <Home />
@@ -37,8 +36,14 @@ const App = () => {
 
         {/* OPERATIONS */}
         <Route path="/operations">
-          {(authCtx.isLoggedIn && (['ADMIN', 'PROVIDER'].includes(authCtx.roleAccess))) && <Operations />}
-          {(!authCtx.isLoggedIn || (['COMPANY', 'CUSTOMER'].includes(authCtx.roleAccess)) ) && <Redirect to="/acceso" />}
+          {authCtx.isLoggedIn &&
+            ["ADMIN", "PROVIDER"].includes(authCtx.roleAccess) && (
+              <Operations />
+            )}
+          {(!authCtx.isLoggedIn ||
+            ["COMPANY", "CUSTOMER"].includes(authCtx.roleAccess)) && (
+            <Redirect to="/acceso" />
+          )}
         </Route>
 
         {/* ORDERS */}
@@ -53,7 +58,7 @@ const App = () => {
           seleccionados, si no existen, renderizar hacia otra
           Pagina la cual muestre un determinado mensaje
         */}
-        
+
         <Route path="/checkout">
           {authCtx.isLoggedIn && <Checkout />}
           {!authCtx.isLoggedIn && <Redirect to="/acceso" />}
@@ -91,12 +96,12 @@ const App = () => {
         </Route>
 
         {/* NOT FOUND */}
-        <Route path='*'>
+        <Route path="*">
           <Redirect to="/" />
         </Route>
       </Switch>
     </div>
   );
-}
+};
 
 export default App;
