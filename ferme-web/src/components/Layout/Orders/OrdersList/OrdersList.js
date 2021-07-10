@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Card, Table, Tag, Space, Skeleton } from "antd";
-import "antd/dist/antd.css";
-import classes from "./BillList.module.css";
+
 import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   FileSearchOutlined,
 } from "@ant-design/icons";
-const BillList = (props) => {
-  const [bills, setBills] = useState([]);
+import axios from "axios";
+import "antd/dist/antd.css";
+import classes from './OrdersList.module.css';
+import AuthContext from "../../../../store/auth-context";
+
+const OrdersList = () => {
+  const authCtx = useContext(AuthContext);
+  const [purchases, setPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchCustomerPurchases = async () => {
+    console.log('authCtx :>> ', authCtx);
     axios
-      .get("https://localhost:5001/api/order/all")
+      .get(`https://localhost:5001/api/order/customer/${authCtx.personId}`)
       .then((response) => {
-        console.log("response :>> ", response);
-        setBills(response.data);
+        setPurchases(response.data);
         setIsLoading(false);
       });
   };
@@ -26,18 +29,6 @@ const BillList = (props) => {
   useEffect(() => {
     fetchCustomerPurchases();
   }, []);
-
-  useEffect(() => {
-    console.log("bills :>> ", bills);
-  }, [bills]);
-
-  const selectedItemHandler = (val) => {
-    props.selectedItem(val);
-  };
-
-  const dowloadDocumentHandler = (val) => {
-    const billDocument = `https://localhost:5001/api/file/bill/${val}`;
-  };
 
   const columns = [
     {
@@ -117,17 +108,16 @@ const BillList = (props) => {
   ];
 
   return (
-    <div className={classes["bill-list"]}>
+    <div className={classes["orders-list"]}>
       <div className={classes.container}>
         <Card
           style={{ padding: "0px" }}
           type="inner"
-          title="Boletas y Facturas"
-          extra={<Button onClick={() => selectedItemHandler(0)}>Volver</Button>}
+          title="Ordenes de Compra"
           bodyStyle={{ width: "100%", margin: "0 auto", padding: "0" }}
         >
           <Skeleton loading={isLoading}>
-            <Table columns={columns} dataSource={bills} pagination={false} />
+            <Table columns={columns} dataSource={purchases} pagination={false} />
           </Skeleton>
         </Card>
       </div>
@@ -135,12 +125,4 @@ const BillList = (props) => {
   );
 };
 
-BillList.propTypes = {
-  selectedItem: PropTypes.func,
-};
-
-BillList.defaultProps = {
-  selectedItem: () => {},
-};
-
-export default BillList;
+export default OrdersList;

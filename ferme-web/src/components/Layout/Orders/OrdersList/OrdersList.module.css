@@ -1,0 +1,10 @@
+.orders-list {
+  position: absolute;
+  top: 8rem;
+  width: 100%;
+}
+
+.container { 
+  width: 80%;
+  margin: 0 auto;
+}
