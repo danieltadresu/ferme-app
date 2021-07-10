@@ -50,18 +50,6 @@ namespace Services.Controllers
         ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId,
         IsActive = 1
       };
-
-      Console.WriteLine(updatedProduct.Id);
-      Console.WriteLine(updatedProduct.Name);
-      Console.WriteLine(updatedProduct.Description);
-      Console.WriteLine(updatedProduct.Updatedat);
-      Console.WriteLine(updatedProduct.Price);
-      Console.WriteLine(updatedProduct.Stock);
-      Console.WriteLine(updatedProduct.ImageUrl);
-      Console.WriteLine(updatedProduct.CategoryId);
-      Console.WriteLine(updatedProduct.ProviderId);
-      Console.WriteLine(updatedProduct.IsActive);
-
       return new JsonResult(1);
     }
 

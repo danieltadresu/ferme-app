@@ -49,7 +49,7 @@ namespace Services.Controllers
         PagesCount = true,
         HtmlContent = utils.templates.Bill.GetHTMLString(order),
         WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
-        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "[page] de [toPage]", Line = false },
+        HeaderSettings = { FontName = "Arial", FontSize = 9, Right = null, Line = false },
         // FooterSettings = { FontName = "Arial", FontSize = 9, Line = false }
       };
 

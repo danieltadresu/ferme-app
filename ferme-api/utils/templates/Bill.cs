@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 using Models;
+using System.Collections.Generic;
+
 namespace utils.templates
 {
   public static class Bill
@@ -8,12 +10,12 @@ namespace utils.templates
     public static string GetHTMLString(
       Order order
     ) {
-      Console.WriteLine("Bill.cs BOLETA");
-      int totalPurchase = 100;
-      Console.WriteLine(order.TotalPurchase);
-      Console.WriteLine(order.Id);
-      // Models.Product customerPurchaseProduct = Connection.ProductConnection
-      //   .GetEntity(order);
+      List<Models.CartItem> cartItems = Connection.CartItemConnection.GetEntitiesByOrderId(order.Id);
+      foreach(var item in cartItems) {
+        Models.Product product = Connection.ProductConnection.GetEntity(item.ProductId);
+        item.ProductName = product.Name.ToUpper();
+        item.ProductUnitPrice = product.Price;
+      };
 
       Models.Person customerPurchasePerson = Connection.PersonConnection
         .GetEntity(order.CustomerId);
@@ -25,7 +27,6 @@ namespace utils.templates
         .GetEntityByUserId(customerPurchaseUser.Id);
 
       String documentType = null;
-      // Console.WriteLine(customerPurchaseUserRole.RoleId);
       if (order.PaymentMethodId == 1)
       {
         documentType = "TARJETA DE CRÉDITO";
@@ -34,75 +35,72 @@ namespace utils.templates
       };
 
       var sb = new StringBuilder();
+
+      #region HEADER SECTION
       sb.Append(@"
         <html>
           <head>
           </head>
           <body>
             <div class='header'>
-              <h1 class='header-title'>Ferme Store</h1>
-              <h1>Hola Mundo</h1>
-              <hr/>");
+              <p class='header-title'>
+                Ferme Store
+              </p>
+              <p class='header-date'>
+                29 de junio de 2021
+              </p>
+              <hr />
+            </div> ");
+      #endregion
+
+      #region SUB HEADER SECTION
       sb.Append(@"
-              <h5 class='header-bill-nro'>");
-      sb.Append(totalPurchase);
-      sb.Append(@"</h5> </div>");
+        <div class='sub-header'>
+          <p class='sub-header-title'> Gracias por tu compra, ");
+      sb.Append($"{customerPurchasePerson.FirstName} {customerPurchasePerson.LastName}");
+      sb.Append(@"
+          </p> 
+          <p class='sub-header-message'>
+            Este es el recibo de tu compra
+          </p>
+        </div>"
+      );
+      #endregion
 
-            sb.Append(@"
-              <h5 class='header-bill-nro'>");
-      sb.Append(order.TotalPurchase);
-      sb.Append(@"</h5> </div>");
+      #region PAYMENT DETAILS SECTION
+      sb.Append($@"
+        <div class='payment-detail-section'>
+          <p class='payment-detail-title'>Total</p>
+          <p class='payment-detail-total-price'>{order.TotalPurchase} CLP</p>
+          <hr />
+        </div>
+      ");
 
+      sb.Append(@"<div class='payment-detail-section'>");
+      foreach(var item in cartItems) {
+        sb.Append($@"
+          <div>
+            <a class='paymental-detail-name'>
+              {item.ProductName}
+            </a>
+            <a class='paymental-detail-name'>
+              {item.ProductUnitPrice} CLP. Precio Unitario
+            </a>
+            <a class='paymental-detail-price'>
+              {item.ProductQuantity} UDS. Cantidad
+            </a>
+            <a class='payment-detail-item'>
+              {item.ProductUnitPrice * item.ProductQuantity}
+            </a>
+            <hr />
+          </div>"
+        );
+      }
+      sb.Append(@"</div>");
+      #endregion
 
-                  sb.Append(@"
-              <h5 class='header-bill-nro'>");
-      sb.Append(order.PaymentMethodId);
-      sb.Append(@"</h5> </div>");
-
-
-                        sb.Append(@"
-              <h5 class='header-bill-nro'>");
-      sb.Append(documentType);
-      sb.Append(@"</h5> </div>");
-
-
-                              sb.Append(@"
-              <h5 class='header-bill-nro'>");
-      sb.Append(customerPurchasePerson.LastName);
-      sb.Append(@"</h5> </div>");
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Total Purchase:");
-      // sb.Append(customerPurchase.TotalPurchase);
-      // sb.Append(@"</h1> </div>");
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Products:");
-      // sb.Append(customerPurchaseProduct.Name);
-      // sb.Append(@"</h1> </div>");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Image:");
-      // sb.Append(@"</h1> </div>");
-      // sb.Append(@"<img src=");
-      // sb.Append(customerPurchaseProduct.ImageUrl);
-      // sb.Append(@">");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>Customer:");
-      // sb.Append($"{customerPurchasePerson.FirstName} {customerPurchasePerson.LastName}");
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>User email:");
-      // sb.Append($"{customerPurchaseUser.Email}");
-
-
-      // sb.Append(@"<div class='total-purchase'>
-      //   <h1 class='total-purchase-title'>DOCUMENTO:");
-      // sb.Append($"{isInvoice}");
-      // sb.Append(customerPurchase.CustomerId);
-      // sb.Append(customerPurchase.ProductQuantity);
-      // sb.Append(customerPurchase.ProductId);
-      // sb.Append(customerPurchase.TotalPurchase);
-
+      #region PAYMENT METHOD TYPE SECTION
+      #endregion
       sb.Append(@"
           </body>
         </html>");
