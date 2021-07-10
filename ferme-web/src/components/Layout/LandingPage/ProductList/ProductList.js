@@ -167,57 +167,8 @@ const ProductList = (props) => {
                   description={item.description}
                 />
                 <Row className={classes["product-info"]}>
-                  {/* <Tooltip title={`Existen ${item.stock} unidades disponibles`}>
-                    <Badge count={item.stock}>
-                        <span className="head-example" />
-                      </Badge>
-                  </Tooltip> */}
-
-                  {/* <Button
-            onClick={() => increaseProductQuantityHandler(1)}
-          >
-            <PlusCircleOutlined />
-          </Button> */}
                   {item.stock > 0 ? (
                     <>
-                      {/* <p>
-                        {cartData && cartData.filter((cart) => cart.id === item.id)}
-                        {cartData && cartData.map((c) => c.id)}
-                      </p>
-                      <hr />
-                      <p>
-                        {recoveredProducts && recoveredProducts.map((p) => p.id)}
-                      </p>
-                      <p>
-                        {cartData && cartData.filter((cart) => cart.id === item.id)}
-                        {cartData && cartData.map((c) => c.id).find((i) => i === item.id)}
-                      </p> }
-                      {{authCtx.isLoggedIn ? (
-                        <>
-                          {cartData &&
-                            (cartData
-                              .map((c) => c.id)
-                              .find((i) => i === item.id) ? (
-                              <h1>Hey!</h1>
-                            ) : (
-                              <Button
-                                type="primary"
-                                loading={loadingCart}
-                                onClick={() => addCartHandler(item)}
-                              >
-                                Agregar al carrito
-                              </Button>
-                            ))}
-                        </>
-                      ) : (
-                        <Button
-                          type="primary"
-                          loading={loadingCart}
-                          onClick={() => addCartHandler(item)}
-                        >
-                          Agregar al carrito
-                        </Button>
-                      ))} */}
                       <Button
                         type="primary"
                         loading={loadingCart}

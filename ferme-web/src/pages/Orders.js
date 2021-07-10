@@ -1,10 +1,10 @@
 import Header from '../../src/components/Layout/Header/Header';
-
+import OrdersList from '../components/Layout/Orders/OrdersList/OrdersList';
 const Orders = () => {
   return (
     <>
       <Header />
-      <h1 style={{margin: '10rem 0'}}>Orders Page</h1>
+      <OrdersList />
     </>
   );
 };

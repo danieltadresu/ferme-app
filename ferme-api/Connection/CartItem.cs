@@ -50,5 +50,30 @@ namespace Connection
       }
       return cartItems;
     }
+
+    public static List<CartItem> GetEntitiesByOrderId (int orderId) {
+      List<CartItem> cartItems = new List<CartItem>();
+      using (OracleConnection oracleConnection = new OracleConnection(connectionString))
+      {
+        String query = $"SELECT * FROM CART_ITEM WHERE ORDER_ID = {orderId}";
+        oracleConnection.Open();
+        OracleDataAdapter adapter = new OracleDataAdapter(
+          query,
+          oracleConnection
+        );
+        DataTable dt = new DataTable();
+        adapter.Fill(dt);
+        foreach (DataRow dr in dt.Rows)
+        {
+          CartItem cartItem = new CartItem();
+          cartItem.Id = int.Parse(dr["ID"].ToString());
+          cartItem.OrderId = int.Parse(dr["ORDER_ID"].ToString());
+          cartItem.ProductId = int.Parse(dr["PRODUCT_ID"].ToString());
+          cartItem.ProductQuantity = int.Parse(dr["QUANTITY"].ToString());
+          cartItems.Add(cartItem);
+        }
+      }
+      return cartItems;
+    }
   }
 }

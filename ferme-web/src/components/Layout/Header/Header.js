@@ -5,7 +5,7 @@ import windowSize from "../../../utils/hooks/useWindowSize";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
 import { Badge, Menu, Dropdown, Avatar, Modal } from "antd";
-import { DownOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 
 const Header = (props) => {
   const authCtx = useContext(AuthContext);
@@ -16,10 +16,6 @@ const Header = (props) => {
 
   const [quantity, setQuantity] = useState(0);
 
-  // console.log('authCtx. :>> ', authCtx.roleAccess);
-  // console.log('authCtx.personId :>> ', authCtx.personId);
-  // console.log('authCtx.userCart :>> ', authCtx.userCart);
-
   const logoutHandler = () => {
     authCtx.logout();
   };
@@ -29,8 +25,6 @@ const Header = (props) => {
   }, [width]);
 
   useEffect(() => {
-    // props.cartQuantity = 0;
-    console.log('props. :>> ', props.cartQuantity);
     setQuantity(
       authCtx.userCart && authCtx.userCart.length > 0
         ? authCtx.userCart

@@ -20,25 +20,42 @@ namespace Services.Controllers
   [ApiController]
   public class Product : ControllerBase
   {
-    // //POST: api/product/
-    // [EnableCors("Policy")]
-    // [HttpPost]
-    // public JsonResult AddProduct([FromBody]Models.Product product) {
-    //   Console.WriteLine("Add Product RUNS!");
-    //   Console.WriteLine(product);
-    //   Models.Product p = product;
-    //   Console.WriteLine(p.Id);
-    //   Console.WriteLine(p.CategoryId);
-    //   Console.WriteLine(p.ProviderId);
-    //   Console.WriteLine(Connection.ProductConnection.AddEntity(p));
-    //   var json = JsonConvert.SerializeObject(Connection.ProductConnection.GetEntity(p.Id));
-    //   return new JsonResult(Connection.ProductConnection.GetEntity(p.Id));
-    // }
+
+    [EnableCors("Policy")]
+    // [HttpPost("{personId}")]
+    [HttpPut("")]
+    public JsonResult UpdateProduct([FromBody]Object product) {
+      Console.WriteLine(product);
+      Console.WriteLine("End");
+      // Models.User loggedUser = Connection.UserConnection.GetEntityByPersonId(personId);
+      // Models.UserRole loggedUserRole = Connection.UserRoleConnection.GetEntityByUserId(loggedUser.Id);
+
+      // int isActiveValue = 1; // True
+      // int providerRoleId = 2;
+      // if (loggedUserRole.RoleId == providerRoleId)
+      // {
+      //   isActiveValue = 0; // False
+      // }
+
+      Models.Product updatedProduct = new Models.Product() {
+        Id = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Id,
+        Name = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Name,
+        Description = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Description,
+        Createdat = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Createdat,
+        Updatedat = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Updatedat,
+        Price = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Price,
+        Stock = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).Stock,
+        ImageUrl = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ImageUrl,
+        CategoryId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).CategoryId,
+        ProviderId = JsonConvert.DeserializeObject<Models.Product>(product.ToString()).ProviderId,
+        IsActive = 1
+      };
+      return new JsonResult(1);
+    }
 
     [EnableCors("Policy")]
     [HttpPost("{personId}")]
     public JsonResult AddProduct(int personId, [FromBody]Object product) {
-      // Console.WriteLine(personId);
 
       Models.User loggedUser = Connection.UserConnection.GetEntityByPersonId(personId);
       Models.UserRole loggedUserRole = Connection.UserRoleConnection.GetEntityByUserId(loggedUser.Id);
@@ -140,6 +157,17 @@ namespace Services.Controllers
       return new JsonResult(filteredProducts);
     }
 
+    // get: api/available-products
+    [EnableCors("Policy")]
+    [HttpGet("available-products")]
+    public JsonResult GetAvailableProducts () {
+      List<Models.Product> avaibleProducts = Connection.ProductConnection
+        .GetEntities()
+        .Where(c => c.IsActive == 1)
+        .ToList();
+      return new JsonResult(avaibleProducts);
+    }
+    
     // GET: api/product/
     [EnableCors("Policy")]
     [HttpGet("{id}")]
