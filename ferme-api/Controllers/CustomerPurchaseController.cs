@@ -50,15 +50,6 @@ namespace Services.Controllers
         Createdat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Createdat,
         Updatedat = JsonConvert.DeserializeObject<Models.CustomerPurchase>(customerPurchase.ToString()).Updatedat,
       };
-      // Console.WriteLine(newCustomerPurchase.Id);
-      // Console.WriteLine(newCustomerPurchase.ProductQuantity);
-      // Console.WriteLine(newCustomerPurchase.TotalPurchase);
-      // Console.WriteLine(newCustomerPurchase.PaymentMethodId);
-      // Console.WriteLine(newCustomerPurchase.DeliveryTypeId);
-      // Console.WriteLine(newCustomerPurchase.CustomerId);
-      // Console.WriteLine(newCustomerPurchase.ProductId);
-      // Console.WriteLine(newCustomerPurchase.Createdat);
-      // Console.WriteLine(newCustomerPurchase.Updatedat);
       Boolean addCustomerPurchase = Connection
         .CustomerPurchaseConnection.AddEntity(newCustomerPurchase);
 

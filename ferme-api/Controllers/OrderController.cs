@@ -223,6 +223,37 @@ namespace Services.Controllers
       return new JsonResult(bills);
     }
 
+    [EnableCors("Policy")]
+    [HttpGet("customer/{id}")]
+    public JsonResult GetCustomerOrders(int id) {
+      List<Models.Order> orders = Connection.OrderConnection
+        .GetEntities()
+        .Where(order => order.CustomerId.Equals(id))
+        .ToList();
+      List<Models.Bill> bills = new List<Models.Bill>();
+      foreach (var orderItem in orders)
+      {
+        Models.User userData = Connection.UserConnection
+          .GetEntityByPersonId(orderItem.CustomerId);
+        Models.UserRole userRoleData = Connection.UserRoleConnection
+          .GetEntityByUserId(userData.Id);
+        Models.Role roleData = Connection.RoleConnection
+          .GetEntity(userRoleData.RoleId);
+        Models.DeliveryType deliveryTypeData = Connection.DeliveryTypeConnection
+          .GetEntity(orderItem.DeliveryTypeId);
+
+        // Mapeo de objeto Bill
+        Models.Bill bill = new Models.Bill() {
+          Id = orderItem.Id,
+          TotalPurchase = orderItem.TotalPurchase,
+          IsInvoice = roleData.Name is "COMPANY" ? true : false,
+          DeliveryTypeName = deliveryTypeData.Description.ToUpper(),
+        };
+        bills.Add(bill);
+      }
+      return new JsonResult(bills);
+    }
+
   }
 }
 
