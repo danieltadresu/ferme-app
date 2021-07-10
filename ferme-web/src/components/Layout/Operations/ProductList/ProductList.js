@@ -144,7 +144,7 @@ const ProductList = (props) => {
         <Card
           style={{ padding: "0px" }}
           type="inner"
-          title='"Productos"'
+          title='Productos'
           extra={<Button onClick={() => selectedItemHandler(0)}>Volver</Button>}
           bodyStyle={{ width: "100%", margin: "0 auto", padding: "0" }}
         >
