@@ -30,6 +30,7 @@ import {
   DollarOutlined,
 } from "@ant-design/icons";
 import AuthContext from "../../../../store/auth-context";
+import moment from 'moment';
 const OrderList = (props) => {
   const authCtx = useContext(AuthContext);
   const [orderProducts, setOrderProducts] = useState([]);
@@ -311,13 +312,13 @@ const OrderList = (props) => {
             <Col span={12}>
               <Statistic
                 title="Fecha de ingreso"
-                value={orderProductsById.createdat}
+                value={moment(orderProductsById.createdAt).format('DD/MM/YYYY')}
               />
             </Col>
             <Col span={12}>
               <Statistic
                 title="Última fecha de actualización"
-                value={orderProductsById.updatedat}
+                value={moment(orderProductsById.updatedat).format('DD/MM/YYYY')}
               />
             </Col>
           </Row>
