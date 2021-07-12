@@ -19,6 +19,7 @@ import classes from "./ProductList.module.css";
 import {
   FileSearchOutlined,
 } from "@ant-design/icons";
+import moment from 'moment';
 const ProductList = (props) => {
   const [availableProducts, setAvailableProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,12 @@ const ProductList = (props) => {
       .get("https://localhost:5001/api/product/available-products")
       .then((response) => {
         console.log("response :>> ", response);
-        setAvailableProducts(response.data.sort((a, b) => a.id - b.id));
+        setAvailableProducts(response.data.map((p) => {
+          return {
+            ...p,
+            createdAt: moment(p.createdAtFromUnixTime).format('DD/MM/YYYY'),
+          }
+        }).sort((a, b) => a.id - b.id));
         setIsLoading(false);
       });
   };
@@ -90,8 +96,8 @@ const ProductList = (props) => {
     },
     {
       title: <span style={{ fontSize: ".7rem" }}>FECHA DE INGRESO</span>,
-      dataIndex: "createdAtFromUnixTime",
-      key: "createdAtFromUnixTime",
+      dataIndex: "createdAt",
+      key: "createdAt",
     },
     {
       title: <span style={{ fontSize: ".7rem" }}>PRECIO</span>,
