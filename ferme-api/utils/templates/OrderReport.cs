@@ -32,6 +32,7 @@ namespace utils.templates
             <thead>
               <tr>
                 <th>Código de la Order de compra</th>
+                <th>Total de la Compra</th>
               </tr>
             </thead>
             <tbody>");
@@ -41,6 +42,9 @@ namespace utils.templates
         sb.Append(@"<tr>");
         sb.Append(@"<td>");
         sb.Append(item.Id);
+        sb.Append(@"</td>");
+        sb.Append(@"<td>");
+        sb.Append($"${item.TotalPurchase}");
         sb.Append(@"</td>");
         sb.Append(@"</tr>");
       }
